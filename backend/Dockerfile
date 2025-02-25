@@ -1,17 +1,16 @@
 FROM ruby:3.4.2
 
 RUN apt-get update -qq && apt-get install -y nodejs yarn libpq-dev build-essential  
-RUN mkdir /api
 
-WORKDIR /api
+WORKDIR /app
 
-COPY Gemfile /api/Gemfile
+COPY Gemfile /app/Gemfile
 
-COPY Gemfile.lock /api/Gemfile.lock
+COPY Gemfile.lock /app/Gemfile.lock
 
 RUN gem update --system && bundle install
 
-COPY . /api
+COPY . /app
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
