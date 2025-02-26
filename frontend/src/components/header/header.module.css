@@ -1,0 +1,15 @@
+.header {
+    height:20vh;
+}
+.banner {
+    background-color: black;
+    height:10vh;
+}
+
+.title {
+    color :white;
+}
+.sushi {
+    height:7vh;
+    border-bottom: 1px solid;
+}
