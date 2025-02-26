@@ -1,15 +1,23 @@
 .header {
+    width:100%;
     height:20vh;
 }
 .banner {
-    background-color: black;
+    display: flex;
+    background-color: #f5f5dc;
+    
+    justify-content: center;
+    align-items: center;
     height:10vh;
 }
 
 .title {
-    color :white;
-}
+    color:blue;
+    font-size:20px;
+    font-family: 'ファンシー', sans-serif;
+}   
 .sushi {
+    background-color: white;
     height:7vh;
     border-bottom: 1px solid;
 }

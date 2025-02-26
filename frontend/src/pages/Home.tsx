@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { getUsers } from "../services/userService";
 import styles from "./home.module.css"
 import Header from "../components/header/Header";
+import MainTopic from "../components/contents/mainTopic/MainTopic";
+import SubTopic from "../components/contents/subTopic/SubTopic";
 
 const Home = () => {
     const [users, setUsers] = useState<{ id: number; name: string }[]>([]);
@@ -18,13 +20,10 @@ const Home = () => {
     return (
         <div className={styles.body}>
             <Header/>
-            <ul>
-                {users.length > 0 ? (
-                    users.map((user) => <li key={user.id}>{user.name}</li>)
-                ) : (
-                    <p>ユーザーを取得中...</p>
-                )}
-            </ul>
+            <div className={styles.contents}>
+                <MainTopic/>
+                <SubTopic/>
+            </div>
         </div>
     );
 };
