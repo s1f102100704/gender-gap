@@ -1,1 +1,5 @@
-a
+docker compose build
+
+docker compose up
+
+docker docker compose exec backend bin/rails db:migrate

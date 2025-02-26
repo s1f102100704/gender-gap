@@ -1,10 +1,7 @@
-FROM ruby:3.4.2
-
-
 ARG RUBY_VERSION=3.4.1
 FROM ruby:$RUBY_VERSION-slim as base
 
-WORKDIR /app
+WORKDIR /rails
 
 
 # Set development environment

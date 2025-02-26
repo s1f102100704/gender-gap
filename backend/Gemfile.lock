@@ -134,6 +134,7 @@ GEM
       benchmark
       logger
     mini_mime (1.1.5)
+    mini_portile2 (2.8.8)
     minitest (5.25.4)
     msgpack (1.8.0)
     mutex_m (0.3.0)
@@ -147,12 +148,8 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-<<<<<<< HEAD
-    nokogiri (1.18.3-x86_64-linux-gnu)
-=======
     nokogiri (1.16.8)
       mini_portile2 (~> 2.8.2)
->>>>>>> 6302077d8bdd6271cf8935fc680390dc26106c70
       racc (~> 1.4)
     pg (1.5.9)
     pp (0.6.2)
@@ -234,24 +231,15 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder
   jwt
-<<<<<<< HEAD
-  nokogiri (~> 1.18)
-  pg (>= 0.18, < 2.0)
-=======
   nokogiri (~> 1.16.2)
   pg
->>>>>>> 6302077d8bdd6271cf8935fc680390dc26106c70
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.5, >= 7.1.5.1)
   tzinfo-data
 
 RUBY VERSION
-<<<<<<< HEAD
-   ruby 3.4.2p28
-=======
    ruby 3.4.1p0
->>>>>>> 6302077d8bdd6271cf8935fc680390dc26106c70
 
 BUNDLED WITH
    2.3.15

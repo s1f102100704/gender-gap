@@ -5,6 +5,7 @@ services:
   backend:
     build: ./backend
     container_name: rails_api
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
     volumes:
@@ -39,5 +40,5 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-volumes:
+volumes:  
   postgres_data:
