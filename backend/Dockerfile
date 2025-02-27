@@ -27,8 +27,15 @@ RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails /rails db log storage tmp Gemfile.lock
 USER rails:rails
 
+# Copy the docker-entrypoint.sh script into the container and make it executable
+COPY docker-entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/docker-entrypoint.sh
+
 # Expose the application port
 EXPOSE 3000
+
+# Set the entrypoint to use the custom script
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 # Start the Rails server with Puma
 CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-e", "$RAILS_ENV"]
