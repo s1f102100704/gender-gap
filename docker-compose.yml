@@ -9,7 +9,6 @@ services:
     volumes:
       - ./backend:/rails
     environment:
-      - DATABASE_URL=postgresql://postgres:password@postgres_db:5432/gender-gap-db
       - RAILS_ENV=development
     depends_on:
       - db
@@ -27,7 +26,7 @@ services:
 
   db:
     image: postgres:17
-    container_name: postgres_db
+    container_name: gender-gap-db
     restart: always
     environment:
       POSTGRES_DB: gender-gap-db
