@@ -5,6 +5,7 @@ default: &default
   username: postgres
   password: password
   host: postgres_db
+  port: 5432
 
 development:
   <<: *default
@@ -12,6 +13,8 @@ development:
 
 test:
   <<: *default
+  database: gender-gap-db-test
 
 production:
   <<: *default
+  database: gender-gap-db-prod
