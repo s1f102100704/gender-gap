@@ -1,7 +1,9 @@
+
 default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
+
   username: postgres
   password: password
   host: gender-gap-db
@@ -16,5 +18,9 @@ test:
   database: gender-gap-db-test
 
 production:
+<<<<<<< HEAD
+  <<: *default
+=======
   <<: *default
   database: gender-gap-db-prod
+>>>>>>> 2dddf1d10b3a25ec07708561850cd6d46940277b

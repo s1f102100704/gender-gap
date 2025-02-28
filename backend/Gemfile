@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
+
 ruby "3.4.1"
 
 gem "rails", "~> 7.1.5", ">= 7.1.5.1"
@@ -10,6 +11,7 @@ gem "rack-cors"
 gem "active_model_serializers"
 gem "pg"  # PostgreSQL のアダプタ
 gem 'nokogiri', '~> 1.16.2'
+
 
 # JSON API の構築
 gem "jbuilder"
