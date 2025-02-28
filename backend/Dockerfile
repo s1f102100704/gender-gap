@@ -25,11 +25,13 @@ COPY . .
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails /rails db log storage tmp Gemfile.lock
-USER rails:rails
+
 
 # Copy the docker-entrypoint.sh script into the container and make it executable
 COPY docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
+
+USER rails:rails
 
 # Expose the application port
 EXPOSE 3000
