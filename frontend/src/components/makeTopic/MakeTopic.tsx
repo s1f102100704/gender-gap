@@ -3,26 +3,23 @@ import Header from "../Home/header/Header";
 import KaitenSushi from "../Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css"
 import axios from "axios";
-
-const API_URL = "http://localhost:3000/api/v1/discussion_threads";
+import {DISCUSSION_API_URL } from "../../../src/config"
 
 const MakeTopic =()=>{
-    const [title, setTitle] = useState("");
+    const [threadTitle, setThreadTitle] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    console.log(API_URL)
 
-    const handleSubmit = async (event: React.FormEvent) => {
+    const threadFormSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setLoading(true);
         setError(null);
-        console.log(title)
         try {
-          const response = await axios.post(API_URL, { discussion_thread: { title } });
-          console.log("Success:", response.data);
-          setTitle("");
+          const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { threadTitle } });
+          console.log("Success to send thread:", response.data);
+          setThreadTitle("");
         } catch (err) {
-          setError("送信に失敗しました。");
+          setError("Failed to send thread");
         } finally {
           setLoading(false);
         }
@@ -37,7 +34,7 @@ const MakeTopic =()=>{
                         <div className={styles.h1}>トピックを投稿する</div>
                         <div className={styles.formFlow}>img</div>
 
-                        <form className={styles.form} onSubmit={handleSubmit}>
+                        <form className={styles.form} onSubmit={threadFormSubmit}>
                             <div className={styles.inForm}>
                                 {/* イメージ追加 */}
                                 <div className={styles.image}>
@@ -50,8 +47,8 @@ const MakeTopic =()=>{
                                         type="text" 
                                         placeholder="タイトルを書く" 
                                         className={styles.threadTitle} 
-                                        value ={title} 
-                                        onChange={(e) => setTitle(e.target.value)}
+                                        value ={threadTitle} 
+                                        onChange={(e) => setThreadTitle(e.target.value)}
                                         required/>
                                         {error && <p className="text-red-500">{error}</p>}
                                     <div className="textarea">
