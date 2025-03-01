@@ -1,3 +1,5 @@
 class ApplicationController < ActionController::API
-    #wadawdaawawd
+    def render_json_response(data, status: :ok)
+        render json: { data: data, status: status }
+    end
 end
