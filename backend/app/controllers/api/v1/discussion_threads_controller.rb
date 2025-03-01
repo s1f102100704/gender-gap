@@ -2,19 +2,19 @@ module Api
     module V1
       class DiscussionThreadsController < ApplicationController
         def index
-          threads = DiscussionThread.all.order(created_at: :desc)
+          threads = DiscussionThread.fetch_recent
           render json: threads
         end
   
         def show
-          thread = DiscussionThread.find(params[:id])
+          thread = DiscussionThread.find_by_id!(params[:id])
           render json: thread
         rescue ActiveRecord::RecordNotFound
           render json: { error: "Thread not found" }, status: :not_found
         end
   
         def create
-          thread = DiscussionThread.new(thread_params)
+          thread = DiscussionThread.build_new(thread_params)
           if thread.save
             render json: thread, status: :created
           else
