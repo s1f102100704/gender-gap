@@ -3,7 +3,7 @@ module Api
       class DiscussionThreadsController < ApplicationController
         def index
           threads = DiscussionThread.fetch_recent
-          
+          render_json_response(threads)
         end
   
         def show
