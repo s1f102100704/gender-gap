@@ -16,7 +16,7 @@ module Api
         def create
           thread = DiscussionThread.build_new(thread_params)
           if thread.save
-            render_json_response(thread, status: :created)
+            render_json_response({id:thread.id,thread_title:thread.thread_title}, status: :created)
           else
             render_json_response({ errors: thread.errors.full_messages }, status: :unprocessable_entity)
           end
