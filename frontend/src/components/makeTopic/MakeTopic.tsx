@@ -14,9 +14,9 @@ const MakeTopic =()=>{
         event.preventDefault();
         setLoading(true);
         setError(null);
-				const title = threadTitle
+				const thread_title = threadTitle
         try {
-          const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { title } });
+          const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { thread_title } });
 					
           console.log("Success to send thread:", response.data);
           setThreadTitle("");
