@@ -1,32 +1,19 @@
-import { useState } from "react";
+
 import Header from "../Home/header/Header";
 import KaitenSushi from "../Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css"
-import axios from "axios";
-import {DISCUSSION_API_URL } from "../../../src/config"
+import useThreadTitleToDB from "../../hook/useThreadTitleToDB";
+
 
 const MakeTopic =()=>{
-    const [threadTitle, setThreadTitle] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-
-    const threadFormSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-        setLoading(true);
-        setError(null);
-				const thread_title = threadTitle
-        try {
-          const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { thread_title } });
-					
-          console.log("Success to send thread:", response.data);
-          setThreadTitle("");
-        } catch (err) {
-        	console.log(err)
-        	setError("Failed to send thread");
-        } finally {
-          setLoading(false);
-        }
-      };
+    const {
+        threadFormSubmit,
+        loading,
+        error,
+        threadTitle,
+        setThreadTitle,
+    } = useThreadTitleToDB();
+    
     return (
         <div className={styles.body}>
             <Header/>
