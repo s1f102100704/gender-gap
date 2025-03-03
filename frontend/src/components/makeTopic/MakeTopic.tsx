@@ -14,12 +14,15 @@ const MakeTopic =()=>{
         event.preventDefault();
         setLoading(true);
         setError(null);
+				const thread_title = threadTitle
         try {
-          const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { threadTitle } });
+          const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { thread_title } });
+					
           console.log("Success to send thread:", response.data);
           setThreadTitle("");
         } catch (err) {
-          setError("Failed to send thread");
+        	console.log(err)
+        	setError("Failed to send thread");
         } finally {
           setLoading(false);
         }

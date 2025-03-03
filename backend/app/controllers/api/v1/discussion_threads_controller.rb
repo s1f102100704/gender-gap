@@ -25,7 +25,7 @@ module Api
         private
   
         def thread_params
-          params.require(:discussion_thread).permit(:title)
+          params.require(:discussion_thread).permit(:thread_title)
         end
       end
     end
