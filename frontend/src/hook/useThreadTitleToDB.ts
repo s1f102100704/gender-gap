@@ -3,35 +3,40 @@ import { useState } from "react";
 import axios from "axios";
 
 interface useThreadTitleToDBReturn {
-    threadFormSubmit: (event: React.FormEvent) => Promise<void>;
+    threadTitleSubmit: (event: React.FormEvent) => Promise<number | undefined>;
     loading:boolean;
     error:string |null;
     threadTitle:string;
+    discussionThreadId:number | undefined;
     setThreadTitle: (value: string) => void;
 }
 const useThreadTitleToDB =():useThreadTitleToDBReturn=>{
     const [threadTitle, setThreadTitle] = useState("");
+    const [discussionThreadId,setDiscussionThreadId] =useState<number>()
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const threadFormSubmit = async (event: React.FormEvent) => {
+    const threadTitleSubmit = async (event: React.FormEvent):Promise<number | undefined>=> {
         event.preventDefault();
         setLoading(true);
         setError(null);
-		const thread_title = threadTitle
+		    const thread_title = threadTitle
         try {
           const response = await axios.post(DISCUSSION_API_URL, { discussion_thread: { thread_title } });
-          console.log("Success to send thread:", response.data);
+          setDiscussionThreadId(response.data.data.id)
+          console.log("Success to send thread:",response.data.data.id);
           setThreadTitle("");
+          return response.data.data.id;  
         } catch (err) {
         	console.log(err)
         	setError("Failed to send thread");
+          return undefined;
         } finally {
           setLoading(false);
         }
       };
 
-      return {threadFormSubmit,loading, error, threadTitle, setThreadTitle}
+      return {threadTitleSubmit,loading, error, threadTitle, setThreadTitle,discussionThreadId}
 }
 
 export default useThreadTitleToDB

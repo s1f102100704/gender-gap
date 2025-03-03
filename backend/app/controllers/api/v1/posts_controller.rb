@@ -12,8 +12,9 @@ module Api
             end
             def create
                 content = Post.build_new(content_params)
-                if content.save
-                    render_json_response(content, status: :created)
+                gender = Post.build_new(gender)
+                if content.save && gender.save
+                    render_json_response({content:content,gender:gender}, status: :created)
                 else
                     render_json_response({ errors: content.errors.full_messages }, status: :unprocessable_entity)
                 end
@@ -21,7 +22,7 @@ module Api
 
             private
             def content_params
-                params.require(:post).permit(:content, :discussion_thread_id)
+                params.require(:post).permit(:content, :discussion_thread_id, :gender)
             end
         end
     end
