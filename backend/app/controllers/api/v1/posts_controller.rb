@@ -12,9 +12,8 @@ module Api
             end
             def create
                 content = Post.build_new(content_params)
-                gender = Post.build_new(gender)
-                if content.save && gender.save
-                    render_json_response({content:content,gender:gender}, status: :created)
+                if content.save 
+                    render_json_response({content:content}, status: :created)
                 else
                     render_json_response({ errors: content.errors.full_messages }, status: :unprocessable_entity)
                 end

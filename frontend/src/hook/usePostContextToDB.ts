@@ -11,6 +11,7 @@ interface usePostContextToDBReturn {
   gender: number;
   setGender: (value: 1 | 2) => void;
 }
+
 const usePostContextToDB = (): usePostContextToDBReturn => {
   const [threadContext, setThreadContext] = useState("");
   const [gender, setGender] = useState(0);
