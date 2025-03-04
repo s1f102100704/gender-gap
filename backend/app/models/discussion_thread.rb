@@ -2,6 +2,25 @@ class DiscussionThread < ApplicationRecord
   has_many :posts, dependent: :destroy, foreign_key: "discussion_thread_id"
   scope :recent, -> { order(created_at: :desc) }
 
+  def self.create_with_post(thread_params, post_params)
+    ActiveRecord::Base.transaction do
+      thread = create!(thread_params)
+
+      thread.posts.create!(
+        content: post_params[:content],
+        gender: post_params[:gender]
+      )
+
+      return thread
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error "Failed to create DiscussionThread with Post: #{e.message}"
+    return DiscussionThread.new # 空のオブジェクトを返す（エラーをコントローラ側で処理できるように）
+  end
+
+
+
+
   # 最近のスレッドを取得
   def self.fetch_recent
     recent

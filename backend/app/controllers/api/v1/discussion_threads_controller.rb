@@ -14,19 +14,13 @@ module Api
         end
   
         def create
-          ActiveRecord::Base.transaction do
-            thread = DiscussionThread.create!(thread_params)
-
-            Post.create!(
-              discussion_thread_id: thread.id,
-              content: params[:post][:content], # post の中の content を取得
-              gender: params[:post][:gender]
-            )
-  
+          thread = DiscussionThread.create_with_post(thread_params, post_params)
+        
+          if thread.persisted?
             render_json_response({ id: thread.id, thread_title: thread.thread_title }, status: :created)
+          else
+            render_json_response({ errors: thread.errors.full_messages }, status: :unprocessable_entity)
           end
-        rescue ActiveRecord::RecordInvalid => e
-          render_json_response({ errors: e.message }, status: :unprocessable_entity)
         end
   
         private
@@ -34,6 +28,9 @@ module Api
         def thread_params
           params.require(:discussion_thread).permit(:thread_title)
         end
+
+        def post_params
+          params.require(:post).permit(:content, :gender)
       end
     end
 end
