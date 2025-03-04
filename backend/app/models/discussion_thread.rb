@@ -1,4 +1,5 @@
 class DiscussionThread < ApplicationRecord
+  has_many :posts, dependent: :destroy, foreign_key: "discussion_thread_id"
   scope :recent, -> { order(created_at: :desc) }
 
   # 最近のスレッドを取得

@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
-  belongs_to :discussion_thread
-
+  belongs_to :discussion_thread, foreign_key: "discussion_thread_id"
+  validates :gender, presence: true
+  validates :content, presence: true
   scope :recent, -> {order(created_at: :desc)}
   def self.fetch_recent
     recent

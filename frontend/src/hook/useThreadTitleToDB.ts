@@ -3,7 +3,11 @@ import { useState } from "react";
 import axios from "axios";
 
 interface useThreadTitleToDBReturn {
-  threadTitleSubmit: (event: React.FormEvent) => Promise<number | undefined>;
+  threadTitleSubmit: (
+    event: React.FormEvent,
+    threadContext: string,
+    gender: number
+  ) => Promise<void>;
   loading: boolean;
   error: string | null;
   threadTitle: string;
@@ -15,19 +19,26 @@ const useThreadTitleToDB = (): useThreadTitleToDBReturn => {
   const [error, setError] = useState<string | null>(null);
 
   const threadTitleSubmit = async (
-    event: React.FormEvent
-  ): Promise<number | undefined> => {
+    event: React.FormEvent,
+    threadContext: string,
+    gender: number
+  ): Promise<void> => {
     event.preventDefault();
     setLoading(true);
     setError(null);
     const thread_title = threadTitle;
+    const content = threadContext;
+    const payload = {
+      discussion_thread: { thread_title },
+      post: { content: content, gender: gender },
+    };
     try {
-      const response = await axios.post(DISCUSSION_API_URL, {
-        discussion_thread: { thread_title },
+      const response = await axios.post(DISCUSSION_API_URL, payload, {
+        headers: { "Content-Type": "application/json" },
       });
       console.log("Success to send thread:", response.data);
       setThreadTitle("");
-      return response.data.data.id;
+      // return response.data.data.id;
     } catch (err) {
       console.log(err);
       setError("Failed to send thread");

@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import { POSTS_API_URL } from "../config";
 
 interface usePostContextToDBReturn {
-  threadContextSubmit: (
-    event: React.FormEvent,
-    discussion_thread_id: number
-  ) => Promise<void>;
+  threadContext: string;
   setThreadContext: (value: string) => void;
   gender: number;
   setGender: (value: 1 | 2) => void;
@@ -32,7 +29,7 @@ const usePostContextToDB = (): usePostContextToDBReturn => {
     }
   };
   return {
-    threadContextSubmit,
+    threadContext,
     setThreadContext,
     gender,
     setGender,

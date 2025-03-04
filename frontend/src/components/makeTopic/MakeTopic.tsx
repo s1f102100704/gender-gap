@@ -8,17 +8,19 @@ import React from "react";
 const MakeTopic = () => {
   const { threadTitleSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadTitleToDB();
-  const { threadContextSubmit, setThreadContext, gender, setGender } =
+  const { threadContext, setThreadContext, gender, setGender } =
     usePostContextToDB();
 
   const threadFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const thread_id: number | undefined = await threadTitleSubmit(event);
-    if (thread_id !== undefined) {
-      await threadContextSubmit(event, thread_id);
-    } else {
-      console.error("discussionThreadId is undefined!");
-    }
+    await threadTitleSubmit(event, threadContext, gender);
+
+    // const thread_id: number | undefined = await threadTitleSubmit(event);
+    // if (thread_id !== undefined) {
+    //   await threadContextSubmit(event, thread_id);
+    // } else {
+    //   console.error("discussionThreadId is undefined!");
+    // }
   };
   return (
     <div className={styles.body}>

@@ -14,12 +14,19 @@ module Api
         end
   
         def create
-          thread = DiscussionThread.build_new(thread_params)
-          if thread.save
-            render_json_response({id:thread.id,thread_title:thread.thread_title}, status: :created)
-          else
-            render_json_response({ errors: thread.errors.full_messages }, status: :unprocessable_entity)
+          ActiveRecord::Base.transaction do
+            thread = DiscussionThread.create!(thread_params)
+
+            Post.create!(
+              discussion_thread_id: thread.id,
+              content: params[:post][:content], # post の中の content を取得
+              gender: params[:post][:gender]
+            )
+  
+            render_json_response({ id: thread.id, thread_title: thread.thread_title }, status: :created)
           end
+        rescue ActiveRecord::RecordInvalid => e
+          render_json_response({ errors: e.message }, status: :unprocessable_entity)
         end
   
         private
