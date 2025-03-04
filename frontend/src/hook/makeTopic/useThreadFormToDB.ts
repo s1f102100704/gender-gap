@@ -1,10 +1,11 @@
-import { DISCUSSION_API_URL } from "../config";
+import { DISCUSSION_API_URL } from "../../config";
 import { useState } from "react";
 import axios from "axios";
 
 interface useThreadTitleToDBReturn {
   threadFormSubmit: (
     event: React.FormEvent,
+    setThreadContext: (value: string) => void,
     threadContext: string,
     gender: number
   ) => Promise<void>;
@@ -20,6 +21,7 @@ const useThreadFormToDB = (): useThreadTitleToDBReturn => {
 
   const threadFormSubmit = async (
     event: React.FormEvent,
+    setThreadContext: (value: string) => void,
     threadContext: string,
     gender: number
   ): Promise<void> => {
@@ -37,6 +39,7 @@ const useThreadFormToDB = (): useThreadTitleToDBReturn => {
         headers: { "Content-Type": "application/json" },
       });
       console.log("Success to send thread:", response.data);
+      setThreadContext("");
       setThreadTitle("");
       // return response.data.data.id;
     } catch (err) {

@@ -1,19 +1,30 @@
 import Header from "../Home/header/Header";
 import KaitenSushi from "../Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
-import useThreadFormToDB from "../../hook/useThreadFormToDB";
+import useThreadFormToDB from "../../hook/makeTopic/useThreadFormToDB";
 import usePostContextToDB from "../../hook/usePostContextToDB";
 import React from "react";
 
 const MakeTopic = () => {
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
-  const { threadContext, setThreadContext, gender, setGender } =
-    usePostContextToDB();
+  const {
+    mustSelectGender,
+    setMustSelectGender,
+    noSelectGender,
+    threadContext,
+    setThreadContext,
+    gender,
+    setGender,
+  } = usePostContextToDB();
 
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await threadFormSubmit(event, threadContext, gender);
+    if (gender == 0) {
+      noSelectGender();
+    } else {
+      await threadFormSubmit(event, setThreadContext, threadContext, gender);
+    }
   };
   return (
     <div className={styles.body}>
@@ -47,7 +58,9 @@ const MakeTopic = () => {
                     <textarea
                       placeholder="a"
                       className={styles.wrap}
+                      value={threadContext}
                       onChange={(e) => setThreadContext(e.target.value)}
+                      required
                     ></textarea>
                   </div>
                   <div className={styles.selectGender}>
@@ -58,9 +71,10 @@ const MakeTopic = () => {
                         className={styles.customCheckbox}
                         value="1"
                         checked={gender === 1}
-                        onChange={(e) =>
-                          setGender(Number(e.target.value) as 1 | 2)
-                        }
+                        onChange={(e) => {
+                          setGender(Number(e.target.value) as 1 | 2);
+                          setMustSelectGender("");
+                        }}
                       />
                       <span className={styles.checkboxUi}></span>
                       <label>男</label>
@@ -72,14 +86,16 @@ const MakeTopic = () => {
                         className={styles.customCheckbox}
                         value="2"
                         checked={gender === 2}
-                        onChange={(e) =>
-                          setGender(Number(e.target.value) as 1 | 2)
-                        }
+                        onChange={(e) => {
+                          setGender(Number(e.target.value) as 1 | 2);
+                          setMustSelectGender("");
+                        }}
                       />
                       <span className={styles.checkboxUi}></span>
                       <label>女</label>
                     </label>
                   </div>
+                  {mustSelectGender && <p>{mustSelectGender}</p>}
                 </div>
               </div>
               <div className={styles.createTopicBtn}>

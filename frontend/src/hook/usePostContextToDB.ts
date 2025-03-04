@@ -3,15 +3,23 @@ import React, { useState } from "react";
 import { POSTS_API_URL } from "../config";
 
 interface usePostContextToDBReturn {
+  mustSelectGender: string;
+  setMustSelectGender: (value: string) => void;
+  noSelectGender: () => void;
   threadContext: string;
   setThreadContext: (value: string) => void;
   gender: number;
-  setGender: (value: 1 | 2) => void;
+  setGender: (value: 0 | 1 | 2) => void;
 }
 
 const usePostContextToDB = (): usePostContextToDBReturn => {
   const [threadContext, setThreadContext] = useState("");
-  const [gender, setGender] = useState(0);
+  const [gender, setGender] = useState<0 | 1 | 2>(0);
+  const [mustSelectGender, setMustSelectGender] = useState<string>("");
+
+  const noSelectGender = () => {
+    setMustSelectGender("どちらかを選択してください");
+  };
 
   const threadContextSubmit = async (
     event: React.FormEvent,
@@ -29,6 +37,9 @@ const usePostContextToDB = (): usePostContextToDBReturn => {
     }
   };
   return {
+    mustSelectGender,
+    setMustSelectGender,
+    noSelectGender,
     threadContext,
     setThreadContext,
     gender,

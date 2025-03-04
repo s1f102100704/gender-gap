@@ -96,6 +96,7 @@
   border-radius: 4px;
 }
 .wrap {
+  resize: none;
   font-size: 13px;
   line-height: 15px;
   -webkit-box-sizing: border-box;
