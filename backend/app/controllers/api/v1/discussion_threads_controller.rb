@@ -31,6 +31,7 @@ module Api
 
         def post_params
           params.require(:post).permit(:content, :gender)
+        end
       end
     end
 end

@@ -12,14 +12,11 @@ class DiscussionThread < ApplicationRecord
       )
 
       return thread
-    end
+  end
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error "Failed to create DiscussionThread with Post: #{e.message}"
     return DiscussionThread.new # 空のオブジェクトを返す（エラーをコントローラ側で処理できるように）
   end
-
-
-
 
   # 最近のスレッドを取得
   def self.fetch_recent
