@@ -1,26 +1,19 @@
 import Header from "../Home/header/Header";
 import KaitenSushi from "../Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
-import useThreadTitleToDB from "../../hook/useThreadTitleToDB";
+import useThreadFormToDB from "../../hook/useThreadFormToDB";
 import usePostContextToDB from "../../hook/usePostContextToDB";
 import React from "react";
 
 const MakeTopic = () => {
-  const { threadTitleSubmit, loading, error, threadTitle, setThreadTitle } =
-    useThreadTitleToDB();
+  const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
+    useThreadFormToDB();
   const { threadContext, setThreadContext, gender, setGender } =
     usePostContextToDB();
 
-  const threadFormSubmit = async (event: React.FormEvent) => {
+  const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await threadTitleSubmit(event, threadContext, gender);
-
-    // const thread_id: number | undefined = await threadTitleSubmit(event);
-    // if (thread_id !== undefined) {
-    //   await threadContextSubmit(event, thread_id);
-    // } else {
-    //   console.error("discussionThreadId is undefined!");
-    // }
+    await threadFormSubmit(event, threadContext, gender);
   };
   return (
     <div className={styles.body}>
@@ -32,7 +25,7 @@ const MakeTopic = () => {
             <div className={styles.h1}>トピックを投稿する</div>
             <div className={styles.formFlow}>img</div>
 
-            <form className={styles.form} onSubmit={threadFormSubmit}>
+            <form className={styles.form} onSubmit={threadSubmit}>
               <div className={styles.inForm}>
                 {/* イメージ追加 */}
                 <div className={styles.image}>

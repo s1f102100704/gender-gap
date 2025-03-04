@@ -1,9 +1,9 @@
-import { DISCUSSION_API_URL } from "../../src/config";
+import { DISCUSSION_API_URL } from "../config";
 import { useState } from "react";
 import axios from "axios";
 
 interface useThreadTitleToDBReturn {
-  threadTitleSubmit: (
+  threadFormSubmit: (
     event: React.FormEvent,
     threadContext: string,
     gender: number
@@ -13,12 +13,12 @@ interface useThreadTitleToDBReturn {
   threadTitle: string;
   setThreadTitle: (value: string) => void;
 }
-const useThreadTitleToDB = (): useThreadTitleToDBReturn => {
+const useThreadFormToDB = (): useThreadTitleToDBReturn => {
   const [threadTitle, setThreadTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const threadTitleSubmit = async (
+  const threadFormSubmit = async (
     event: React.FormEvent,
     threadContext: string,
     gender: number
@@ -49,7 +49,7 @@ const useThreadTitleToDB = (): useThreadTitleToDBReturn => {
   };
 
   return {
-    threadTitleSubmit,
+    threadFormSubmit,
     loading,
     error,
     threadTitle,
@@ -57,4 +57,4 @@ const useThreadTitleToDB = (): useThreadTitleToDBReturn => {
   };
 };
 
-export default useThreadTitleToDB;
+export default useThreadFormToDB;
