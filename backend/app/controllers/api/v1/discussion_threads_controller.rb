@@ -14,9 +14,10 @@ module Api
         end
   
         def create
-          thread = DiscussionThread.build_new(thread_params)
-          if thread.save
-            render_json_response(thread, status: :created)
+          thread = DiscussionThread.create_with_post(thread_params, post_params)
+        
+          if thread.persisted?
+            render_json_response({ id: thread.id, thread_title: thread.thread_title }, status: :created)
           else
             render_json_response({ errors: thread.errors.full_messages }, status: :unprocessable_entity)
           end
@@ -26,6 +27,10 @@ module Api
   
         def thread_params
           params.require(:discussion_thread).permit(:thread_title)
+        end
+
+        def post_params
+          params.require(:post).permit(:content, :gender)
         end
       end
     end

@@ -2,12 +2,12 @@
 
 # デフォルトで挿入するスレッドタイトル
 ["First Discussion Thread", "Second Discussion Thread"].each do |title|
-    DiscussionThread.find_or_create_by!(title: title)
+    DiscussionThread.find_or_create_by!(thread_title: title)
   end
   
   # スレッドを取得
-  thread1 = DiscussionThread.find_by(title: "First Discussion Thread")
-  thread2 = DiscussionThread.find_by(title: "Second Discussion Thread")
+  thread1 = DiscussionThread.find_by(thread_title: "First Discussion Thread")
+  thread2 = DiscussionThread.find_by(thread_title: "Second Discussion Thread")
   
   # 投稿データの挿入
   Post.find_or_create_by!(discussion_thread: thread1, gender: 1, content: "This is a post in the first thread.")
