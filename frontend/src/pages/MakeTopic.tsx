@@ -1,8 +1,8 @@
-import Header from "../Home/header/Header";
-import KaitenSushi from "../Home/kaitenSushi/KaitenSushi";
+import Header from "../components/Home/header/Header";
+import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
-import useThreadFormToDB from "../../hook/makeTopic/useThreadFormToDB";
-import usePostContextToDB from "../../hook/usePostContextToDB";
+import useThreadFormToDB from "../hook/makeTopic/useThreadFormToDB";
+import usePostContextToDB from "../hook/usePostContextToDB";
 import React from "react";
 
 const MakeTopic = () => {
