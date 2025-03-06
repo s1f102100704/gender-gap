@@ -1,7 +1,7 @@
 import useRecentTopic from "../../../../hook/mainTopic/useRecentSelectTopic";
 import styles from "./mainTopic.module.css";
-import SelectTypeTopic from "./selectTypeTopic/SelectTypeTopic";
-import DisplayTopic from "./selectTypeTopic/DisplayTopic";
+import SelectTypeTopic from "./selectTypeTOpic/SelectTypeTopic";
+import DisplayTopic from "./displayTopic/DisplayTopic";
 const MainTopic = () => {
   const { selectedTopic, setWhichTopic } = useRecentTopic();
   return (
