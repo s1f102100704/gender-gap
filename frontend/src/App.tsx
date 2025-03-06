@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import MakeTopic from "./pages/MakeTopic";
+import ThreadDetail from "./pages/ThreadDetail";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/make_topic" element={<MakeTopic />} />
-        <Route path="/popular" />
+        <Route path="threads/:id" element={<ThreadDetail />} />
       </Routes>
     </BrowserRouter>
   );
