@@ -1,28 +1,30 @@
 import React from "react";
 
 interface props {
-  threadDate: {
-    year: number;
-    month: number;
-    day: number;
-    dayOfWeek: string;
-    hours: number;
-    minutes: number;
-    seconds: number;
-  };
+  dateInfo: Date;
 }
 const YYDDMM: React.FC<props> = (props) => {
-  const { threadDate } = props;
+  const { dateInfo } = props;
+  const daysOfWeek = ["日", "月", "火", "水", "木", "金", "土"];
+  const date = {
+    year: dateInfo.getFullYear(),
+    month: dateInfo.getMonth() + 1,
+    day: dateInfo.getDate(),
+    dayOfWeek: daysOfWeek[dateInfo.getDay()],
+    hours: dateInfo.getHours(),
+    minutes: dateInfo.getMinutes(),
+    seconds: dateInfo.getSeconds(),
+  };
   return (
     <div>
-      {`${threadDate.year}/${String(threadDate.month).padStart(
+      {`${date.year}/${String(date.month).padStart(2, "0")}/${String(
+        date.day
+      ).padStart(2, "0")}`}
+      ({date.dayOfWeek})&nbsp;
+      {`${String(date.hours).padStart(2, "0")}:${String(date.minutes).padStart(
         2,
         "0"
-      )}/${String(threadDate.day).padStart(2, "0")}`}
-      ({threadDate.dayOfWeek})
-      {`${String(threadDate.hours).padStart(2, "0")}:${String(
-        threadDate.minutes
-      ).padStart(2, "0")}:${String(threadDate.seconds).padStart(2, "0")}`}
+      )}:${String(date.seconds).padStart(2, "0")}`}
     </div>
   );
 };

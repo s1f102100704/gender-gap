@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./createPostForm.module.css";
 const CreatePostForm = () => {
   return (

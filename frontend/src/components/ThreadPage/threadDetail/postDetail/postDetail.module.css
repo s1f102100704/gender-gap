@@ -1,0 +1,9 @@
+.postConfig {
+  min-height: 80px;
+  margin-bottom: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.postHeader {
+  display: flex;
+}
