@@ -5,13 +5,15 @@ import styles from "./recentTopic.module.css";
 import { Link } from "react-router-dom";
 const RecentTopic = () => {
   const [recentThreads, setRecentThreads] = useState<
-    { thread_title: string; id: string }[]
+    { thread_title: string; id: string; created_at: number }[]
   >([]);
   useEffect(() => {
     const fetchThreadsTitle = async () => {
       try {
         const response = await axios.get(DISCUSSION_API_URL, {});
         const threadTitle = response.data.data;
+        console.log(threadTitle);
+
         setRecentThreads(threadTitle);
       } catch (err) {
         console.log(err);
@@ -23,7 +25,7 @@ const RecentTopic = () => {
     <>
       {recentThreads.map((thread, index) => (
         <div key={index}>
-          <Link key={thread.id} to={`threads/${thread.id}`}>
+          <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
             <div className={styles.threadConfig}>
               <div className={styles.threadImg}>img</div>
               <div>
