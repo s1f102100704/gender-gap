@@ -24,3 +24,10 @@
 .textInfo {
   margin-left: 15px;
 }
+.createCommentBtn {
+  margin-top: auto;
+  margin-left: auto;
+  width: 120px;
+  height: 40px;
+  background-color: red;
+}

@@ -1,4 +1,3 @@
-import React from "react";
 import Header from "../components/Home/header/Header";
 import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./threadDetail.module.css";

@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./threadDetail.module.css";
 import PostDetail from "./postDetail/PostDetail";
 import useGetThreadInfo from "../../../hook/threadDetail/useGetThreadInfo";
+import YYDDMM from "./YYDDMM/YYDDMM";
+import CreatePostForm from "./createPostForm/CreatePostForm";
 const ThreadDetail = () => {
   const { threadTitle, threadId, threadDate } = useGetThreadInfo();
 
@@ -11,20 +13,12 @@ const ThreadDetail = () => {
         <div className={styles.img}>img</div>
         <div className={styles.textInfo}>
           <div>{threadTitle}</div>
-          <div>
-            {`${threadDate.year}/${String(threadDate.month).padStart(
-              2,
-              "0"
-            )}/${String(threadDate.day).padStart(2, "0")}`}
-            ({threadDate.dayOfWeek})
-            {`${String(threadDate.hours).padStart(2, "0")}:${String(
-              threadDate.minutes
-            ).padStart(2, "0")}:${String(threadDate.seconds).padStart(2, "0")}`}
-          </div>
+          <YYDDMM threadDate={threadDate} />
         </div>
-        <div></div>
+        <div className={styles.createCommentBtn}>コメントを投稿</div>
       </div>
       <PostDetail />
+      <CreatePostForm />
     </div>
   );
 };

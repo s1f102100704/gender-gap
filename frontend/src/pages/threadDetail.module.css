@@ -9,3 +9,6 @@
   margin: 0 auto;
   width: 1040px;
 }
+.createCommentBtn {
+  background-color: red;
+}
