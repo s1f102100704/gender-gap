@@ -9,7 +9,15 @@ interface threadInfo {
 interface useGetThreadInfoReturn {
   threadTitle: string;
   threadId: string;
-  threadCreatedAt: number;
+  threadDate: {
+    year: number;
+    month: number;
+    day: number;
+    dayOfWeek: string;
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
 }
 const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const location = useLocation();
@@ -17,7 +25,19 @@ const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const threadTitle = threadInfo.thread_title;
   const threadId = threadInfo.id;
   const threadCreatedAt = threadInfo.created_at;
-  return { threadTitle, threadId, threadCreatedAt };
+  const threadCreatedAtClone = new Date(threadCreatedAt);
+
+  const daysOfWeek = ["日", "月", "火", "水", "木", "金", "土"];
+  const threadDate = {
+    year: threadCreatedAtClone.getFullYear(),
+    month: threadCreatedAtClone.getMonth() + 1,
+    day: threadCreatedAtClone.getDate(),
+    dayOfWeek: daysOfWeek[threadCreatedAtClone.getDay()],
+    hours: threadCreatedAtClone.getHours(),
+    minutes: threadCreatedAtClone.getMinutes(),
+    seconds: threadCreatedAtClone.getSeconds(),
+  };
+  return { threadTitle, threadId, threadDate };
 };
 
 export default useGetThreadInfo;
