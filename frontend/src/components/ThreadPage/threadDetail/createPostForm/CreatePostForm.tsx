@@ -10,7 +10,9 @@ const CreatePostForm = () => {
           className={styles.textarea}
         ></textarea>
         <div>画像を選択</div>
-        <div>コメントを投稿する</div>
+        <div className={styles.submitComment}>
+          <p>コメントを投稿する</p>
+        </div>
       </form>
     </div>
   );
