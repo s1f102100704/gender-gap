@@ -3,7 +3,11 @@ import PostDetail from "./postDetail/PostDetail";
 import useGetThreadInfo from "../../../hook/threadDetail/useGetThreadInfo";
 import YYDDMM from "./YYDDMM/YYDDMM";
 import CreatePostForm from "./createPostForm/CreatePostForm";
+import { useLocation } from "react-router-dom";
 const ThreadDetail = () => {
+  const location = useLocation();
+  const threadInfo = location.state;
+  const threadId = threadInfo.id;
   const { threadTitle, dateInfo } = useGetThreadInfo();
 
   return (
@@ -16,8 +20,8 @@ const ThreadDetail = () => {
         </div>
         <div className={styles.createCommentBtn}>コメントを投稿</div>
       </div>
-      <PostDetail />
-      <CreatePostForm />
+      <PostDetail threadId={threadId} />
+      <CreatePostForm threadId={threadId} />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { POSTS_API_URL } from "../../../../config";
-import { useLocation } from "react-router-dom";
 import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
 interface Posts {
@@ -24,12 +23,12 @@ const fetchPostsComments = async (threadId: string) => {
   }
 };
 
-const PostDetail = () => {
+interface Props {
+  threadId: string;
+}
+const PostDetail = (porps: Props) => {
   const [posts, setPosts] = useState<Posts[]>([]);
-  const location = useLocation();
-  const threadInfo = location.state;
-  const threadId = threadInfo.id;
-
+  const { threadId } = porps;
   useEffect(() => {
     fetchPostsComments(threadId).then(setPosts);
   }, [threadId]);

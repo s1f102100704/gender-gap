@@ -1,8 +1,5 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { POSTS_API_URL } from "../config";
-
-interface usePostContextToDBReturn {
+import { useState } from "react";
+interface usePostStateReturn {
   mustSelectGender: string;
   setMustSelectGender: (value: string) => void;
   noSelectGender: () => void;
@@ -11,8 +8,7 @@ interface usePostContextToDBReturn {
   gender: number;
   setGender: (value: 0 | 1 | 2) => void;
 }
-
-const usePostContextToDB = (): usePostContextToDBReturn => {
+const usePostState = (): usePostStateReturn => {
   const [threadContext, setThreadContext] = useState("");
   const [gender, setGender] = useState<0 | 1 | 2>(0);
   const [mustSelectGender, setMustSelectGender] = useState<string>("");
@@ -21,21 +17,6 @@ const usePostContextToDB = (): usePostContextToDBReturn => {
     setMustSelectGender("どちらかを選択してください");
   };
 
-  const threadContextSubmit = async (
-    event: React.FormEvent,
-    discussion_thread_id: number
-  ): Promise<void> => {
-    event.preventDefault();
-    const content = threadContext;
-    try {
-      const response = await axios.post(POSTS_API_URL, {
-        post: { content, discussion_thread_id, gender },
-      });
-      console.log("Success to post content:", response.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
   return {
     mustSelectGender,
     setMustSelectGender,
@@ -47,4 +28,4 @@ const usePostContextToDB = (): usePostContextToDBReturn => {
   };
 };
 
-export default usePostContextToDB;
+export default usePostState;

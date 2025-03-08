@@ -2,7 +2,7 @@ import { DISCUSSION_API_URL } from "../../config";
 import { useState } from "react";
 import axios from "axios";
 
-interface useThreadTitleToDBReturn {
+interface useThreadFormToDBReturn {
   threadFormSubmit: (
     event: React.FormEvent,
     setThreadContext: (value: string) => void,
@@ -14,7 +14,7 @@ interface useThreadTitleToDBReturn {
   threadTitle: string;
   setThreadTitle: (value: string) => void;
 }
-const useThreadFormToDB = (): useThreadTitleToDBReturn => {
+const useThreadFormToDB = (): useThreadFormToDBReturn => {
   const [threadTitle, setThreadTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

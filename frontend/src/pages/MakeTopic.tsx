@@ -2,8 +2,9 @@ import Header from "../components/Home/header/Header";
 import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
 import useThreadFormToDB from "../hook/makeTopic/useThreadFormToDB";
-import usePostContextToDB from "../hook/usePostContextToDB";
 import React from "react";
+import SelectGender from "../components/CreateForm/SelectGender";
+import usePostState from "../hook/createPost/usePostState";
 
 const MakeTopic = () => {
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
@@ -16,14 +17,14 @@ const MakeTopic = () => {
     setThreadContext,
     gender,
     setGender,
-  } = usePostContextToDB();
+  } = usePostState();
 
-  const threadSubmit = async (event: React.FormEvent) => {
+  const threadSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     if (gender == 0) {
       noSelectGender();
     } else {
-      await threadFormSubmit(event, setThreadContext, threadContext, gender);
+      threadFormSubmit(event, setThreadContext, threadContext, gender);
     }
   };
   return (
@@ -63,39 +64,12 @@ const MakeTopic = () => {
                       required
                     ></textarea>
                   </div>
-                  <div className={styles.selectGender}>
-                    <label className={styles.checkboxContainer}>
-                      <input
-                        type="radio"
-                        name="gender"
-                        className={styles.customCheckbox}
-                        value="1"
-                        checked={gender === 1}
-                        onChange={(e) => {
-                          setGender(Number(e.target.value) as 1 | 2);
-                          setMustSelectGender("");
-                        }}
-                      />
-                      <span className={styles.checkboxUi}></span>
-                      <label>男</label>
-                    </label>
-                    <label className={styles.checkboxContainer}>
-                      <input
-                        type="radio"
-                        name="gender"
-                        className={styles.customCheckbox}
-                        value="2"
-                        checked={gender === 2}
-                        onChange={(e) => {
-                          setGender(Number(e.target.value) as 1 | 2);
-                          setMustSelectGender("");
-                        }}
-                      />
-                      <span className={styles.checkboxUi}></span>
-                      <label>女</label>
-                    </label>
-                  </div>
-                  {mustSelectGender && <p>{mustSelectGender}</p>}
+                  <SelectGender
+                    setMustSelectGender={setMustSelectGender}
+                    mustSelectGender={mustSelectGender}
+                    setGender={setGender}
+                    gender={gender}
+                  />
                 </div>
               </div>
               <div className={styles.createTopicBtn}>
