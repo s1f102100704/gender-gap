@@ -11,6 +11,17 @@
   width: 100%;
   height: 160px;
 }
+.wrap {
+  resize: none;
+  font-size: 13px;
+  line-height: 15px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 140px;
+  padding: 12px 10px;
+  border-radius: 4px;
+}
 .submitComment {
   border: 1px solid;
   text-align: center;

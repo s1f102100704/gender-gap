@@ -18,25 +18,29 @@ const CreatePostForm = (props: Props) => {
   } = usePostState();
   const { threadId } = props;
   const { threadContextSubmit } = usePostContextToDB({ threadContext, gender });
-  const postSubmit = (event: React.FormEvent) => {
+  const postSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (gender == 0) {
       noSelectGender();
     } else {
-      threadContextSubmit(event, threadId);
+      await threadContextSubmit(event, threadId);
+      await window.location.reload();
     }
   };
   return (
     <div>
       <form className={styles.form} onSubmit={postSubmit}>
         <h1>コメントを投稿する</h1>
-        <textarea
-          placeholder="コメントを書く"
-          className={styles.textarea}
-          value={threadContext}
-          onChange={(e) => setThreadContext(e.target.value)}
-          required
-        ></textarea>
+
+        <div className={styles.textarea}>
+          <textarea
+            placeholder="コメントを書く"
+            className={styles.wrap}
+            value={threadContext}
+            onChange={(e) => setThreadContext(e.target.value)}
+            required
+          ></textarea>
+        </div>
         <div>画像を選択</div>
         <SelectGender
           setMustSelectGender={setMustSelectGender}
