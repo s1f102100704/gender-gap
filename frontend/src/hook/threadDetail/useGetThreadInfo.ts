@@ -13,7 +13,6 @@ const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const location = useLocation();
   const threadInfo: threadInfo = location.state;
   const threadTitle = threadInfo.thread_title;
-  // const threadId = threadInfo.id;
   const threadCreatedAt = threadInfo.created_at;
   const dateInfo = new Date(threadCreatedAt);
   return { threadTitle, dateInfo };

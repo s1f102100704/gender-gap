@@ -19,12 +19,12 @@ const MakeTopic = () => {
     setGender,
   } = usePostState();
 
-  const threadSubmit = (event: React.FormEvent) => {
+  const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (gender == 0) {
       noSelectGender();
     } else {
-      threadFormSubmit(event, setThreadContext, threadContext, gender);
+      await threadFormSubmit(event, setThreadContext, threadContext, gender);
     }
   };
   return (

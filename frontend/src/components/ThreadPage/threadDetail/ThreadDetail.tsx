@@ -6,8 +6,10 @@ import CreatePostForm from "./createPostForm/CreatePostForm";
 import { useLocation } from "react-router-dom";
 const ThreadDetail = () => {
   const location = useLocation();
+
   const threadInfo = location.state;
   const threadId = threadInfo.id;
+
   const { threadTitle, dateInfo } = useGetThreadInfo();
 
   return (
