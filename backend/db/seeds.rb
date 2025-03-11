@@ -18,9 +18,8 @@
   post2 = Post.find_by(content: "This is a post in the second thread.")
   
   # いいねデータの挿入
-  Like.find_or_create_by!(post: post1, gender: 1)
-  Like.find_or_create_by!(post: post2, gender: 2)
-  
+  Vote.find_or_create_by!(post_id: post1.id, ip_address: "192.168.1.1", vote_type: 1)  # Good
+  Vote.find_or_create_by!(post_id: post1.id, ip_address: "192.168.1.2", vote_type: -1) 
   # スレッド統計データの挿入
   ThreadStat.find_or_create_by!(discussion_thread: thread1, total_likes_m: 1, total_likes_f: 0)
   ThreadStat.find_or_create_by!(discussion_thread: thread2, total_likes_m: 0, total_likes_f: 1)
