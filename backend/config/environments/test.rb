@@ -61,4 +61,16 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.logger = Logger.new(STDOUT)
+
+  # ログレベルを DEBUG に設定（詳細な情報を取得）
+  config.log_level = :debug
+
+  # 明示的にログの出力先を指定
+  config.paths['log'] = 'log/test.log'
+
+  # STDOUT にもログを出力（Docker環境向け）
+  config.active_support.deprecation = :log
+  config.hosts.clear
 end

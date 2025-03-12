@@ -1,0 +1,57 @@
+.voteContainer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .upvoteButton,
+  .downvoteButton {
+    border: none;
+    border-radius: 8px;
+    padding: 2px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: #ddd;
+    color: #333;
+  }
+  
+  .upvoteButton:hover,
+  .downvoteButton:hover {
+    
+    background-color: #bbb;
+  }
+  
+  .voteBarContainer {
+    flex-grow: 1;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .voteBar {
+    display:flex;
+    height: 100%;
+    transition: width 0.3s ease;
+    background-color: #888;
+  }
+  .upvoteBar,.downvoteBar{
+    height:100%;
+  }
+  .upvoteBar{
+    background-color:#4CAF50;
+  }
+  .downvoteBar{
+    background-color: #FF9800;
+  }

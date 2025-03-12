@@ -10,19 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_02_143412) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_11_075538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "discussion_threads", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "thread_title", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "post_id", null: false
-    t.integer "gender", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,14 +35,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_02_143412) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+  create_table "votes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "post_id", null: false
+    t.inet "ip_address", null: false
+    t.integer "vote_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["post_id", "ip_address"], name: "index_votes_on_post_id_and_ip_address", unique: true
   end
 
-  add_foreign_key "likes", "posts"
   add_foreign_key "posts", "discussion_threads"
   add_foreign_key "thread_stats", "discussion_threads"
+  add_foreign_key "votes", "posts"
 end
