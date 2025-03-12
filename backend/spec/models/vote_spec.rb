@@ -27,4 +27,12 @@ RSpec.describe Vote, type: :model do
 
     expect(duplicate_vote).not_to be_valid
   end
+
+  it "updates existing vote instead of creating a duplicate" do
+    vote1 = Vote.create_or_update_vote(@post, "192.168.1.1", 1)
+    vote2 = Vote.create_or_update_vote(@post, "192.168.1.1", -1)
+
+    expect(Vote.where(post_id: @post.id, ip_address: "192.168.1.1").count).to eq(1)
+    expect(vote2[:vote].vote_type).to eq(-1) # 更新されたことを確認
+  end
 end
