@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { POSTS_API_URL } from "../../../../config";
 import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
+import VoteBar from "./VoteBar/VoteBar";
 interface Posts {
   id: string;
   disscussion_thread_id: string;
@@ -43,6 +44,7 @@ const PostDetail = (porps: Props) => {
             <YYDDMM dateInfo={new Date(post.created_at)} />
           </div>
           <p>{post.content}</p>
+          <VoteBar initialDownvotes={0} initialUpvotes={0}/>
         </div>
       ))}
     </div>
