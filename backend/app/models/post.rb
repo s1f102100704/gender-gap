@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :discussion_thread, foreign_key: "discussion_thread_id"
+  has_many :votes, dependent: :destroy
   validates :gender, presence: true
   validates :content, presence: true
   scope :recent, -> {order(created_at: :desc)}
