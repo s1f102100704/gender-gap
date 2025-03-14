@@ -1,7 +1,6 @@
 module Api
     module V1
         class Api::V1::PostsController < ApplicationController
-
             def index
                 content = Post.where(discussion_thread_id: params[:discussion_thread_id])
                 if content
@@ -21,7 +20,7 @@ module Api
                 
             end
             def create
-                content = Post.build_new(content_params)
+                content = Post.build_new(content_params,@current_user.id)
                 if content.save 
                     render_json_response({content:content}, status: :created)
                 else
