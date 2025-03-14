@@ -2,13 +2,14 @@ class DiscussionThread < ApplicationRecord
   has_many :posts, dependent: :destroy, foreign_key: "discussion_thread_id"
   scope :recent, -> { order(created_at: :desc) }
 
-  def self.create_with_post(thread_params, post_params)
+  def self.create_with_post(thread_params, post_params,user_id)
     ActiveRecord::Base.transaction do
       thread = create!(thread_params)
 
       thread.posts.create!(
         content: post_params[:content],
-        gender: post_params[:gender]
+        gender: post_params[:gender],
+        user_id: user_id,
       )
 
       return thread
