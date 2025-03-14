@@ -41,7 +41,7 @@ module Api
       end
 
       def vote_params
-        params.require(:vote).permit(:vote_type,:user_id,:post_id)
+        params.require(:vote).permit(:vote_type,:post_id)
       end
     end
   end
