@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_14_110648) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_14_125915) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_14_110648) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.inet "ip_address", null: false
+    t.string "ip_address", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["ip_address"], name: "index_users_on_ip_address", unique: true
