@@ -4,8 +4,9 @@ import usePostVoteCounts from '../../../../../hook/threadDetail/usePostVoteCount
 interface VoteProps {
     initialUpvotes: number;
     initialDownvotes: number;
+    post_id:string;
   }
-const VoteBar = ({ initialUpvotes, initialDownvotes }: VoteProps) => {
+const VoteBar = ({ initialUpvotes, initialDownvotes,post_id }: VoteProps) => {
     const {postVotes} = usePostVoteCounts();
     const [upvotes, setUpvotes] = useState(initialUpvotes);
     const [downvotes, setDownvotes] = useState(initialDownvotes);
@@ -15,7 +16,7 @@ const VoteBar = ({ initialUpvotes, initialDownvotes }: VoteProps) => {
 
     return (
       <div className={styles.voteContainer}>
-        <button className={styles.upvoteButton} onClick={() => postVotes(1)}>
+        <button className={styles.upvoteButton} onClick={() => postVotes(1,post_id)}>
           +
         </button>
         <div className={styles.voteBarContainer}>
@@ -24,7 +25,7 @@ const VoteBar = ({ initialUpvotes, initialDownvotes }: VoteProps) => {
             <div className={styles.downvoteBar} style={{ width: `${downvoteRatio}%` }}></div>
           </div>
         </div>
-        <button className={styles.downvoteButton} onClick={() => postVotes(2)}>
+        <button className={styles.downvoteButton} onClick={() => postVotes(2,post_id)}>
           -
         </button>
       </div>
