@@ -29,7 +29,7 @@ module Api
 
       # 投票の集計データを取得
       def index
-        render_success({ votes: Vote.vote_counts(@post) })
+        render_success({ votes: Vote.vote_counts(@post),post_id: @post.id })
       end
 
       private

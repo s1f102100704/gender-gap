@@ -5,13 +5,12 @@ const usePostVoteCounts = (post_id: string) => {
   const postVotes = async (vote_type: 1 | -1) => {
     const votesUrl = `http://localhost:3000/api/v1/posts/${post_id}/votes`;
     try {
-      const response = await axios.post(votesUrl, {
+      await axios.post(votesUrl, {
         vote: { vote_type: vote_type, post_id: post_id },
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log("response:", response);
     } catch (err) {
       console.log(err);
     }
@@ -21,8 +20,7 @@ const usePostVoteCounts = (post_id: string) => {
     const votesUrl = `http://localhost:3000/api/v1/posts/${post_id}/votes`;
     try {
       const response = await axios.get(votesUrl);
-      console.log("response:", response.data.votes);
-      return response.data.votes;
+      return response.data;
     } catch (err) {
       console.log(err);
     }

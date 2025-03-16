@@ -1,33 +1,46 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./voteBar.module.css";
 import usePostVoteCounts from "../../../../../hook/threadDetail/usePostVoteCounts";
+import useVoteDisplay from "../../../../../hook/threadDetail/voteBar/useVoteDisplay";
 interface VoteProps {
-  initialUpvotes: number;
-  initialDownvotes: number;
   post_id: string;
 }
-const VoteBar = ({ initialUpvotes, initialDownvotes, post_id }: VoteProps) => {
+const VoteBar = ({ post_id }: VoteProps) => {
   const { postVotes, getVotes } = usePostVoteCounts(post_id);
-  const [upvotes, setUpvotes] = useState(initialUpvotes);
-  const [downvotes, setDownvotes] = useState(initialDownvotes);
-  const totalVotes = upvotes + downvotes;
-  const upvoteRatio = totalVotes > 0 ? (upvotes / totalVotes) * 100 : 50;
-  const downvoteRatio = totalVotes > 0 ? (downvotes / totalVotes) * 100 : 50;
-
+  const {
+    addVotes,
+    removeVotes,
+    setUpvotes,
+    setDownvotes,
+    goodVotes,
+    badVotes,
+    upvoteRatio,
+    downvoteRatio,
+  } = useVoteDisplay({ postVotes, post_id });
   useEffect(() => {
     const fetchVotes = async () => {
       const data = await getVotes();
-      setUpvotes(data.good);
-      setDownvotes(data.bad);
+      const postId = data.post_id;
+      const goodVotes = data.votes.good;
+      const badVotes = data.votes.bad;
+      if (postId == post_id) {
+        setUpvotes({ [post_id]: goodVotes });
+        setDownvotes({ [post_id]: badVotes });
+      }
     };
     fetchVotes();
-  }, [getVotes]);
+  }, [getVotes, post_id, setDownvotes, setUpvotes]);
   return (
     <div className={styles.voteContainer}>
-      <button className={styles.upvoteButton} onClick={() => postVotes(1)}>
+      <button
+        className={styles.upvoteButton}
+        onClick={() => {
+          addVotes();
+        }}
+      >
         +
       </button>
-      <div>{upvotes}</div>
+      <div>{goodVotes}</div>
       <div className={styles.voteBarContainer}>
         <div className={styles.voteBar}>
           <div
@@ -40,8 +53,13 @@ const VoteBar = ({ initialUpvotes, initialDownvotes, post_id }: VoteProps) => {
           ></div>
         </div>
       </div>
-      <div>{upvotes}</div>
-      <button className={styles.downvoteButton} onClick={() => postVotes(-1)}>
+      <div>{badVotes}</div>
+      <button
+        className={styles.downvoteButton}
+        onClick={() => {
+          removeVotes();
+        }}
+      >
         -
       </button>
     </div>
