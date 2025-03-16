@@ -44,7 +44,7 @@ const PostDetail = (porps: Props) => {
             <YYDDMM dateInfo={new Date(post.created_at)} />
           </div>
           <p>{post.content}</p>
-          <VoteBar initialDownvotes={0} initialUpvotes={0}/>
+          <VoteBar initialDownvotes={0} initialUpvotes={0} post_id={post.id}/>
         </div>
       ))}
     </div>

@@ -12,7 +12,7 @@ class Post < ApplicationRecord
     find(id)
   end
 
-  def self.build_new(params)
-    new(params)
+  def self.build_new(params,user_id)
+    new(params.merge(user_id: user_id))
   end
 end
