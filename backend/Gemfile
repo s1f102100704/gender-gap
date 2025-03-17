@@ -34,3 +34,5 @@ end
 gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
 
 gem "rspec-rails", "~> 7.1"
+
+gem 'sidekiq'
