@@ -20,6 +20,10 @@ Bundler.require(*Rails.groups)
 
 module Backend
   class Application < Rails::Application
+    #sidekiqUI使う
+    config.active_job.queue_adapter = :sidekiq
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
