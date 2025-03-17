@@ -3,12 +3,9 @@ module Api
     class VotesController < ApplicationController
       before_action :set_post
 
-      def client_ip
-        request.remote_ip
-      end
       # 投票する（または変更）
       def create
-        result = Vote.create_or_update_vote(@post, client_ip, vote_params[:vote_type])
+        result = Vote.create_or_update_vote(@post, @current_user.id, vote_params[:vote_type])
       
         Rails.logger.debug "Vote create_or_update_vote result: #{result.inspect}"
       
@@ -21,7 +18,7 @@ module Api
 
       # 投票を取り消す
       def destroy
-        result = Vote.remove_vote(@post, client_ip)
+        result = Vote.remove_vote(@post, @current_user.id)
         
         if result[:success]
           render_success({ message: result[:message] })
@@ -32,11 +29,10 @@ module Api
 
       # 投票の集計データを取得
       def index
-        render_success({ votes: Vote.vote_counts(@post) })
+        render_success({ votes: Vote.vote_counts(@post),post_id: @post.id })
       end
 
       private
-
       def set_post
         @post = Post.find(params[:post_id])
       rescue ActiveRecord::RecordNotFound
@@ -44,7 +40,7 @@ module Api
       end
 
       def vote_params
-        params.require(:vote).permit(:vote_type,:ip_address,:post_id)
+        params.require(:vote).permit(:vote_type,:post_id)
       end
     end
   end

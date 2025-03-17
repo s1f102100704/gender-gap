@@ -1,34 +1,69 @@
-import  { useState } from 'react'
-import styles from "./voteBar.module.css"
-import usePostVoteCounts from '../../../../../hook/threadDetail/usePostVoteCounts';
+import { useEffect } from "react";
+import styles from "./voteBar.module.css";
+import usePostVoteCounts from "../../../../../hook/threadDetail/usePostVoteCounts";
+import useVoteDisplay from "../../../../../hook/threadDetail/voteBar/useVoteDisplay";
 interface VoteProps {
-    initialUpvotes: number;
-    initialDownvotes: number;
-  }
-const VoteBar = ({ initialUpvotes, initialDownvotes }: VoteProps) => {
-    const {postVotes} = usePostVoteCounts();
-    const [upvotes, setUpvotes] = useState(initialUpvotes);
-    const [downvotes, setDownvotes] = useState(initialDownvotes);
-    const totalVotes = upvotes + downvotes;
-    const upvoteRatio = totalVotes > 0 ? (upvotes / totalVotes) * 100 : 50;
-    const downvoteRatio = totalVotes > 0 ? (downvotes / totalVotes) * 100 : 50;
-
-    return (
-      <div className={styles.voteContainer}>
-        <button className={styles.upvoteButton} onClick={() => postVotes(1)}>
-          +
-        </button>
-        <div className={styles.voteBarContainer}>
-          <div className={styles.voteBar}>
-            <div className={styles.upvoteBar} style={{ width: `${upvoteRatio}%` }}></div>
-            <div className={styles.downvoteBar} style={{ width: `${downvoteRatio}%` }}></div>
-          </div>
-        </div>
-        <button className={styles.downvoteButton} onClick={() => postVotes(2)}>
-          -
-        </button>
-      </div>
-    );
+  post_id: string;
 }
+const VoteBar = ({ post_id }: VoteProps) => {
+  const { postVotes, getVotes } = usePostVoteCounts(post_id);
+  const {
+    addVotes,
+    removeVotes,
+    setUpvotes,
+    setDownvotes,
+    goodVotes,
+    badVotes,
+    upvoteRatio,
+    downvoteRatio,
+  } = useVoteDisplay({ postVotes, post_id });
+  useEffect(() => {
+    const fetchVotes = async () => {
+      const data = await getVotes();
+      const postId = data.post_id;
+      const goodVotes = data.votes.good;
+      const badVotes = data.votes.bad;
+      if (postId == post_id) {
+        setUpvotes({ [post_id]: goodVotes });
+        setDownvotes({ [post_id]: badVotes });
+      }
+    };
+    fetchVotes();
+  }, [getVotes, post_id, setDownvotes, setUpvotes]);
+  return (
+    <div className={styles.voteContainer}>
+      <button
+        className={styles.upvoteButton}
+        onClick={() => {
+          addVotes();
+        }}
+      >
+        +
+      </button>
+      <div>{goodVotes}</div>
+      <div className={styles.voteBarContainer}>
+        <div className={styles.voteBar}>
+          <div
+            className={styles.upvoteBar}
+            style={{ width: `${upvoteRatio}%` }}
+          ></div>
+          <div
+            className={styles.downvoteBar}
+            style={{ width: `${downvoteRatio}%` }}
+          ></div>
+        </div>
+      </div>
+      <div>{badVotes}</div>
+      <button
+        className={styles.downvoteButton}
+        onClick={() => {
+          removeVotes();
+        }}
+      >
+        -
+      </button>
+    </div>
+  );
+};
 
-export default VoteBar
+export default VoteBar;
