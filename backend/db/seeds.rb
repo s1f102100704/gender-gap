@@ -27,8 +27,9 @@
 
   [post1, post2].each do |post|
     VotesStatus.find_or_create_by!(post_id: post.id) do |votes_status|
-      votes_status.upvotes_count = 0
-      votes_status.downvotes_count = 0
+      votes_status.goodvotes_count = 0
+      votes_status.badvotes_count = 0
+    end
   end
   # スレッド統計データの挿入
   ThreadStat.find_or_create_by!(discussion_thread: thread1, total_likes_m: 1, total_likes_f: 0)

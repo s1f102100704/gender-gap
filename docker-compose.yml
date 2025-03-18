@@ -9,7 +9,7 @@ services:
   backend:
     build: ./backend
     container_name: rails_api
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails db:migrate && bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
     volumes:
@@ -21,6 +21,11 @@ services:
     depends_on:
       - db
       - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
   sidekiq:
     build: ./backend
     container_name: sidekiq
@@ -58,6 +63,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

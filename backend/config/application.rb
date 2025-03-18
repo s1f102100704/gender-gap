@@ -26,8 +26,6 @@ module Backend
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
 
-
-
     config.autoload_paths += %W(#{config.root}/app/queries)
     config.eager_load_paths += %W(#{config.root}/app/queries)
   end
