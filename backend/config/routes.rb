@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       resources :discussion_threads_newtopic, only: [:index]
       resources :posts, only: [:index, :show, :create], defaults: { format: :json } do
         resources :votes, only: [:index, :create, :destroy]
+      resources :votes_status, only: [:index]
       end
     end
   end

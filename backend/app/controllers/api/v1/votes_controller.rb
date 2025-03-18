@@ -7,14 +7,12 @@ module Api
       def create
         result = Vote.create_or_update_vote(@post, @current_user.id, vote_params[:vote_type])
       
-        Rails.logger.debug "Vote create_or_update_vote result: #{result.inspect}"
-      
         if result[:success]
+          UpdateVoteCountsJob.perform_later(@post.id)
           render_success({ vote: result[:vote] }, status: result[:status])
         else
           render_error(result[:message] , status: result[:status])
         end
-        UpdateVoteCountsJob.perform_later
       end
 
       # 投票を取り消す
