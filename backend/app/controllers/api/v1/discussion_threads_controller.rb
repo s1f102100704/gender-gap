@@ -2,10 +2,8 @@ module Api
     module V1
       class DiscussionThreadsController < ApplicationController
         def index
-          threads = DiscussionThread.fetch_recent
-          render_json_response(threads)
         end
-  
+
         def show
           thread = DiscussionThread.find_by_id!(params[:id])
           render_json_response(thread)

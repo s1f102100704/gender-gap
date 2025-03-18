@@ -1,4 +1,3 @@
-
 posgre接続
 
-docker exec -it postgres_db psql -U postgres
+docker exec -it gender-gap-db psql -U postgres

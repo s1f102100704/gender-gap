@@ -1,6 +1,5 @@
 class DiscussionThread < ApplicationRecord
   has_many :posts, dependent: :destroy, foreign_key: "discussion_thread_id"
-  scope :recent, -> { order(created_at: :desc) }
 
   def self.create_with_post(thread_params, post_params,user_id)
     ActiveRecord::Base.transaction do
@@ -11,9 +10,9 @@ class DiscussionThread < ApplicationRecord
         gender: post_params[:gender],
         user_id: user_id,
       )
-
-      return thread
+    return thread
   end
+
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error "Failed to create DiscussionThread with Post: #{e.message}"
     return DiscussionThread.new 
@@ -21,7 +20,12 @@ class DiscussionThread < ApplicationRecord
 
   # 最近のスレッドを取得
   def self.fetch_recent
-    recent
+    DiscussionThreadQuery.new.recent
+  end
+
+  # 人気のスレッドを取得（直近1週間のコメント数が多い順）
+  def self.fetch_popular
+    DiscussionThreadQuery.new.popular
   end
 
   # ID からスレッドを取得（例外処理は Controller 側で行う）
