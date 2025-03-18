@@ -5,18 +5,13 @@ class VoteCacheService
     return JSON.parse(cached_votes) if cached_votes
 
     # キャッシュがない場合はDBから取得
-    post = Post.find(post_id)
+    post = Post.find_by_id(post_id)
     votes = Vote.vote_counts(post)
 
     # キャッシュに保存（10分間）
     $redis.set(redis_key, votes.to_json)
-    $redis.expire(redis_key, 60.minutes.to_i)
+    $redis.expire(redis_key, 30.minutes.to_i)
 
     votes
-  end
-
-  def self.clear_cache(post_id)
-    redis_key = "post_#{post_id}_votes"
-    $redis.del(redis_key)
   end
 end
