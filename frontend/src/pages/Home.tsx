@@ -1,7 +1,7 @@
 import styles from "./home.module.css"
 import Header from "../components/Home/header/Header";
 import MainTopic from "../components/Home/contents/mainTopic/MainTopic";
-import SubTopic from "../components/Home/contents/subTopic/SubTopic";
+import SubTopic from "../components/Home/contents/subTopic/Subtopic";
 import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 
 const Home = () => {
