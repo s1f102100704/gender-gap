@@ -10,9 +10,9 @@ class DiscussionThread < ApplicationRecord
         gender: post_params[:gender],
         user_id: user_id,
       )
+    return thread
+  end
 
-      return thread
-    end
   rescue ActiveRecord::RecordInvalid => e
     Rails.logger.error "Failed to create DiscussionThread with Post: #{e.message}"
     return DiscussionThread.new 
