@@ -12,8 +12,6 @@ const RecentTopic = () => {
       try {
         const response = await axios.get(DISCUSSION_THREAD_RECENT_API_URL, {});
         const threadTitle = response.data.data;
-        console.log(response.data);
-        console.log(threadTitle);
         setPopularThreads(threadTitle);
       } catch (err) {
         console.log(err);
