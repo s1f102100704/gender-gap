@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
   backend:
     build: ./backend
     container_name: rails_api
@@ -12,8 +17,23 @@ services:
       - bundle_cache:/usr/local/bundle
     environment:
       - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/0
     depends_on:
       - db
+      - redis
+  sidekiq:
+    build: ./backend
+    container_name: sidekiq
+    command: bundle exec sidekiq
+    volumes:
+      - ./backend:/rails
+      - bundle_cache:/usr/local/bundle
+    environment:
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/0 # Sidekiq が Redis を使えるように設定
+    depends_on:
+      - backend
+      - redis
 
   frontend:
     build: ./frontend
