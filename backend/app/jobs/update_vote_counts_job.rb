@@ -12,3 +12,4 @@ class UpdateVoteCountsJob < ApplicationJob
     end
   end
 end
+
