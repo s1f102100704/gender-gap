@@ -11,12 +11,22 @@ class DiscussionThreadQuery
   
     def popular
       DiscussionThread
-      .left_joins(:posts)
-      .where('posts.created_at >= ?', 1.week.ago)
-      .group(:id)
-      .order("COUNT(posts.id) DESC")
-      .limit(@limit)
-      .select("discussion_threads.*")
+        .left_joins(:posts)
+        .where('posts.created_at >= ?', 1.day.ago)
+        .group(:id)
+        .order("COUNT(posts.id) DESC")
+        .limit(@limit)
+        .select("discussion_threads.*")
+    end
+
+    def weekPopular
+      DiscussionThread
+        .left_joins(:posts)
+        .where('posts.created_at >= ?', 1.week.ago)
+        .group(:id)
+        .order("COUNT(posts.id) DESC")
+        .limit(@limit)
+        .select("discussion_threads.*")
     end
   end
    
