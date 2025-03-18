@@ -1,10 +1,15 @@
 version: "3.8"
 
 services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
   backend:
     build: ./backend
     container_name: rails_api
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails db:migrate && bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
     volumes:
@@ -12,8 +17,28 @@ services:
       - bundle_cache:/usr/local/bundle
     environment:
       - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/0
     depends_on:
       - db
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  sidekiq:
+    build: ./backend
+    container_name: sidekiq
+    command: bundle exec sidekiq
+    volumes:
+      - ./backend:/rails
+      - bundle_cache:/usr/local/bundle
+    environment:
+      - RAILS_ENV=development
+      - REDIS_URL=redis://redis:6379/0 # Sidekiq が Redis を使えるように設定
+    depends_on:
+      - backend
+      - redis
 
   frontend:
     build: ./frontend
@@ -38,6 +63,11 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:

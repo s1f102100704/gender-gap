@@ -21,6 +21,10 @@ Bundler.require(*Rails.groups)
 module Backend
   class Application < Rails::Application
     config.load_defaults 7.1
+    #sidekiqUI使う
+    config.active_job.queue_adapter = :sidekiq
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
 
     config.autoload_paths += %W(#{config.root}/app/queries)
     config.eager_load_paths += %W(#{config.root}/app/queries)
