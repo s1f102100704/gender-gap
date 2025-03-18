@@ -18,10 +18,18 @@
   # 投稿を取得
   post1 = Post.find_by(content: "This is a post in the first thread.")
   post2 = Post.find_by(content: "This is a post in the second thread.")
+
+
   
   # いいねデータの挿入
   Vote.find_or_create_by!(post_id: post1.id, user_id:user1.id, vote_type: 1)  # Good
   Vote.find_or_create_by!(post_id: post2.id, user_id:user2.id, vote_type: -1) #bad
+
+  [post1, post2].each do |post|
+    VotesStatus.find_or_create_by!(post_id: post.id) do |votes_status|
+      votes_status.upvotes_count = 0
+      votes_status.downvotes_count = 0
+  end
   # スレッド統計データの挿入
   ThreadStat.find_or_create_by!(discussion_thread: thread1, total_likes_m: 1, total_likes_f: 0)
   ThreadStat.find_or_create_by!(discussion_thread: thread2, total_likes_m: 0, total_likes_f: 1)

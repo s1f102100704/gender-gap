@@ -62,7 +62,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_17_172810) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_votes_statuses_on_post_id"
   end
-
+  
   add_foreign_key "posts", "discussion_threads"
   add_foreign_key "posts", "users"
   add_foreign_key "thread_stats", "discussion_threads"
