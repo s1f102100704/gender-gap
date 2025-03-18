@@ -4,7 +4,7 @@ import { DISCUSSION_THREAD_RECENT_API_URL } from "../../../../../../config";
 import styles from "./recentTopic.module.css";
 import { Link } from "react-router-dom";
 const RecentTopic = () => {
-  const [popularThreads, setPopularThreads] = useState<
+  const [recentThreads, setRecentThreads] = useState<
     { thread_title: string; id: string; created_at: number }[]
   >([]);
   useEffect(() => {
@@ -12,9 +12,7 @@ const RecentTopic = () => {
       try {
         const response = await axios.get(DISCUSSION_THREAD_RECENT_API_URL, {});
         const threadTitle = response.data.data;
-        console.log(response.data);
-        console.log(threadTitle);
-        setPopularThreads(threadTitle);
+        setRecentThreads(threadTitle);
       } catch (err) {
         console.log(err);
       }
@@ -23,7 +21,7 @@ const RecentTopic = () => {
   }, []);
   return (
     <>
-      {popularThreads.map((thread, index) => (
+      {recentThreads.map((thread, index) => (
         <div key={index}>
           <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
             <div className={styles.threadConfig}>
