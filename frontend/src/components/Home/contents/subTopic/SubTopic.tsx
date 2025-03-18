@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styles from "./subTopic.module.css"
 
-const SubTopic =()=>{
+const SubTopic = () => {
     return (
         <div className={styles.subTopic}>
             <div className={styles.createTopic}><Link to="/make_topic">New Topic</Link></div>
