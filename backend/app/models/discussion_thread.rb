@@ -23,9 +23,14 @@ class DiscussionThread < ApplicationRecord
     DiscussionThreadQuery.new.recent
   end
 
-  # 人気のスレッドを取得（直近1週間のコメント数が多い順）
+  # 人気のスレッドを取得（直近1日のコメント数が多い順）
   def self.fetch_popular
     DiscussionThreadQuery.new.popular
+  end
+
+  # 人気のスレッドを取得（直近1週間のコメント数が多い順）
+  def self.fetch_week_popular
+    DiscussionThreadQuery.new.weekPopular
   end
 
   # ID からスレッドを取得（例外処理は Controller 側で行う）
