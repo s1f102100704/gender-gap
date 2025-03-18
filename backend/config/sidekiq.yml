@@ -4,4 +4,4 @@
 :schedule:
   update_votes_status:
     cron: "*/5 * * * *" # 5分ごとに実行
-    class: "UpdateVotesStatusJob"
+    class: "UpdateVotesCountsJob"

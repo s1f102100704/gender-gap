@@ -14,6 +14,7 @@ module Api
         else
           render_error(result[:message] , status: result[:status])
         end
+        UpdateVoteCountsJob.perform_later
       end
 
       # 投票を取り消す
