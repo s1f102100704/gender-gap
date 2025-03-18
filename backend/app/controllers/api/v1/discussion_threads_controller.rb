@@ -3,7 +3,7 @@ module Api
       class DiscussionThreadsController < ApplicationController
         def index
         end
-  
+
         def show
           thread = DiscussionThread.find_by_id!(params[:id])
           render_json_response(thread)
