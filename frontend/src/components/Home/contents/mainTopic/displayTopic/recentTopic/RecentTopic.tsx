@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DISCUSSION_API_URL } from "../../../../../../config";
+import { DISCUSSION_THREAD_RECENT_API_URL } from "../../../../../../config";
 import styles from "./recentTopic.module.css";
 import { Link } from "react-router-dom";
 const RecentTopic = () => {
@@ -10,7 +10,7 @@ const RecentTopic = () => {
   useEffect(() => {
     const fetchThreadsTitle = async () => {
       try {
-        const response = await axios.get(DISCUSSION_API_URL, {});
+        const response = await axios.get(DISCUSSION_THREAD_RECENT_API_URL, {});
         const threadTitle = response.data.data;
         setRecentThreads(threadTitle);
       } catch (err) {

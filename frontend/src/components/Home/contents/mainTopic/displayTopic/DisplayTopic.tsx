@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./displayTopic.module.css";
 import RecentTopic from "./recentTopic/RecentTopic";
+import PopularTopic from "./popularTopic/PopularTopic";
 interface props {
   selectedTopic: "popular" | "recent";
 }
@@ -10,7 +11,7 @@ const DisplayTopic: React.FC<props> = (props) => {
   return (
     <>
       <div className={styles.displayTopic}>
-        {selectedTopic == "popular" ? <div>popular</div> : <RecentTopic />}
+        {selectedTopic == "popular" ? <PopularTopic /> : <RecentTopic />}
       </div>
     </>
   );
