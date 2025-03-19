@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_18_175204) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_19_153614) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_18_175204) do
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "recommended_threads", force: :cascade do |t|
+    t.uuid "discussion_thread_id", null: false
+    t.datetime "recommended_at", precision: nil, default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "thread_stats", primary_key: "discussion_thread_id", id: :uuid, default: nil, force: :cascade do |t|
@@ -56,6 +63,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_18_175204) do
 
   add_foreign_key "posts", "discussion_threads"
   add_foreign_key "posts", "users"
+  add_foreign_key "recommended_threads", "discussion_threads"
   add_foreign_key "thread_stats", "discussion_threads"
   add_foreign_key "votes", "posts"
   add_foreign_key "votes", "users"
