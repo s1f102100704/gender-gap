@@ -10,7 +10,7 @@ class VoteCacheService
 
     # キャッシュに保存（10分間）
     $redis.set(redis_key, votes.to_json)
-    $redis.expire(redis_key, 30.minutes.to_i)
+    $redis.expire(redis_key, 10.minutes.to_i)
 
     votes
   end
