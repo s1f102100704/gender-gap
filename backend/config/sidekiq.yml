@@ -1,0 +1,7 @@
+:concurrency: 5
+:queues:
+  - default
+:schedule:
+  update_votes_status:
+    cron: "*/5 * * * *" # 5分ごとに実行
+    class: "UpdateVotesStatusJob"
