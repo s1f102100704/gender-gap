@@ -1,10 +1,22 @@
-.createTopic {
-    vertical-align: middle;
-    width: 300px;
-    height: 38px;
-    line-height: 38px;
-    text-align: center;
-    font-size: 15px;
-    background-color: #e0d7b5;
+.threadImg {
+    width: 60px;
+    height: 60px;
+    border: 1px solid;
+}
+
+.threadConfig {
+    min-height: 80px;
     margin-bottom: 20px;
+    padding-right: 20px;
+    border-bottom: 1px solid #e3e3e3;
+    display: flex;
+}
+
+.threadHeader {
+    margin-left: 15px;
+    display: flex;
+}
+
+.threadTitle {
+    margin-left: 15px;
 }

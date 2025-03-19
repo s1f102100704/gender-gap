@@ -35,3 +35,8 @@
   ThreadStat.find_or_create_by!(discussion_thread: thread1, total_likes_m: 1, total_likes_f: 0)
   ThreadStat.find_or_create_by!(discussion_thread: thread2, total_likes_m: 0, total_likes_f: 1)
   
+  [thread1].each do |thread|
+    RecommendedThread.find_or_create_by!(discussion_thread: thread) do |recommended_thread|
+      recommended_thread.recommended_at = Time.current
+    end
+  end

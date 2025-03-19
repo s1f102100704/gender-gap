@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./subTopic.module.css"
 import WeekPopularTopic from "./displayTopic/WeekPopularTopic";
 import SubTitleTopic from "./HeaderWeekPopularTopic/HeaderWeekPopularTopic";
+import RecommendTitleTopic from "./recommendTitleTopic/recommendTitleTopic";
 import RecommendTopic from "./recommendTopic/RecommendTopic";
 
 const SubTopic = () => {
@@ -13,6 +14,7 @@ const SubTopic = () => {
                 < WeekPopularTopic />
             </div>
             <div className={styles.recommendTopic}>
+                < RecommendTitleTopic />
                 < RecommendTopic />
             </div>
         </div>
