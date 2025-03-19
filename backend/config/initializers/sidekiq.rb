@@ -1,3 +1,7 @@
+require 'sidekiq'
+
+sidekiq_config = YAML.load_file(Rails.root.join('config/sidekiq.yml'))[Rails.env] || {}
+
 # config/initializers/sidekiq.rb
 Sidekiq.configure_server do |config|
   config.redis = { url: 'redis://redis:6379/0' }

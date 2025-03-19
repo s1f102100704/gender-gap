@@ -15,14 +15,9 @@ class Vote < ApplicationRecord
     elsif vote.vote_type == vote_type
       remove_vote(post,user_id)
     else
-      Rails.logger.debug "判定: #{vote_type == vote.vote_type}"
-      Rails.logger.debug "今回のタイプ: #{vote_type} (class: #{vote_type.class})"
-      Rails.logger.debug "元のタイプ: #{vote.vote_type} (class: #{vote.vote_type.class})"
-
       success = vote.update(vote_type: vote_type)
       status = :ok
     end
-
     return { success: success, vote: vote, errors: vote.errors.full_messages, status: status }
   end
 
