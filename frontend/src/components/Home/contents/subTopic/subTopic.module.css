@@ -19,4 +19,12 @@
     width: 100%;
     height: 50vh;
     background-color: white;
+    margin-bottom: 50px
+}
+
+.recommendTopic {
+    width: 100%;
+    height: 30vh;
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 50px
 }
