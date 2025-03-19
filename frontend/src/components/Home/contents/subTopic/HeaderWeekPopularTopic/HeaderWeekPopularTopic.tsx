@@ -1,6 +1,6 @@
 import styles from "./HeaderWeekPopularTopic.module.css"
 
-const SubTitleTopic = () => {
+const HeaderWeekPopularTopic = () => {
     return (
         <div className={styles.subTopic}>
             <div className={styles.createTopic}>一週間の人気トピック</div>
@@ -8,4 +8,4 @@ const SubTitleTopic = () => {
     )
 }
 
-export default SubTitleTopic;
+export default HeaderWeekPopularTopic;

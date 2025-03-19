@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styles from "./subTopic.module.css"
 import WeekPopularTopic from "./displayTopic/WeekPopularTopic";
-import SubTitleTopic from "./HeaderWeekPopularTopic/HeaderWeekPopularTopic";
-import RecommendTitleTopic from "./recommendTitleTopic/recommendTitleTopic";
+import HeaderWeekPopularTopic from "./HeaderWeekPopularTopic/HeaderWeekPopularTopic";
+import RecommendTitleTopic from "./recommendTitleTopic/RecommendTitleTopic";
 import RecommendTopic from "./recommendTopic/RecommendTopic";
 
 const SubTopic = () => {
@@ -10,7 +10,7 @@ const SubTopic = () => {
         <div className={styles.subTopic}>
             <div className={styles.createTopic}><Link to="/make_topic">New Topic</Link></div>
             <div className={styles.weekTopic}>
-                < SubTitleTopic />
+                < HeaderWeekPopularTopic />
                 < WeekPopularTopic />
             </div>
             <div className={styles.recommendTopic}>
