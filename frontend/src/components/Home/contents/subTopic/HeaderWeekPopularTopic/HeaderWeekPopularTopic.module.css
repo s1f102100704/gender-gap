@@ -1,0 +1,10 @@
+.createTopic {
+    vertical-align: middle;
+    width: 300px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    font-size: 15px;
+    background-color: #e0d7b5;
+    margin-bottom: 20px;
+}
