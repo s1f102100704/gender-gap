@@ -1,7 +1,6 @@
-// src/components/LoginForm.jsx
+import axios from "axios";
 import { useState } from "react";
-// import { login } from "../api";
-// import { saveToken } from "../auth";
+import { LOGIN_API_URL } from "../../../config"; // APIのURLを統一
 import { useNavigate } from "react-router-dom";
 import styles from "./loginForm.module.css";
 
@@ -11,17 +10,16 @@ const LoginForm = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async (e: { preventDefault: () => void; }) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError("");
-
-        // try {
-        //     const { token } = await login(email, password);
-        //     saveToken(token);
-        //     navigate("/dashboard");
-        // } catch (err) {
-        //     setError("ログインに失敗しました。");
-        // }
+        try {
+            const response = await axios.post(`${LOGIN_API_URL}`, { email, password });
+            localStorage.setItem("token", response.data.token);
+            navigate("/dashboard");
+        } catch (err) {
+            setError("ログインに失敗しました。");
+            console.error(err);
+        }
     };
 
     return (
