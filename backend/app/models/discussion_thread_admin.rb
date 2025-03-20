@@ -14,10 +14,10 @@ class DiscussionThreadAdmin < ApplicationRecord
       { error: "スレッドが見つかりません。" }
     end
   end
-  def self.update_title_admin(id)
+  def self.update_title_admin(id, title)
     thread = DiscussionThread.find_by(id: id)
     if thread
-      thread.update(thread_title: "タイトルが変更されました。")
+      thread.update(thread_title: title)
       { message: "スレッドのタイトルが変更されました。" }
     else
       { error: "スレッドが見つかりません。" }

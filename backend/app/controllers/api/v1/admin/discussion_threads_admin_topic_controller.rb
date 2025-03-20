@@ -12,7 +12,8 @@ module Api
             render_json_response(resentThreads)
           end
           def update
-            resentThreads = DiscussionThreadAdmin.update_title_admin(params[:id])
+            Rails.logger.debug("update_title_admin: #{params[:id]}")
+            resentThreads = DiscussionThreadAdmin.update_title_admin(params[:id],params[:thread_title])
             render_json_response(resentThreads)
           end
       end

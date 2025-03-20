@@ -18,9 +18,7 @@ const AdminThreads = () => {
     const [newTitle, setNewTitle] = useState<string>("");
 
     useEffect(() => {
-        if (allAdminThreads.length > 0 && allThreads.length === 0) {
-            setAllThreads(allAdminThreads);
-        }
+        setAllThreads(allAdminThreads);
     }, [allAdminThreads]);
 
     const handleEdit = (id: string, title: string) => {
