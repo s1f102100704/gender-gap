@@ -9,7 +9,11 @@ module Api
           
           def destroy
             resentThreads = DiscussionThreadAdmin.delete_admin(params[:id])
-              render_json_response(resentThreads)
+            render_json_response(resentThreads)
+          end
+          def update
+            resentThreads = DiscussionThreadAdmin.update_title_admin(params[:id])
+            render_json_response(resentThreads)
           end
       end
     end

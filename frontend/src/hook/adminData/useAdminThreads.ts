@@ -9,19 +9,19 @@ export const useAdminThreads = () => {
 
     const hasFetched = useRef(false);
 
+    const fetchThreadsTitle = async () => {
+        try {
+            const response = await axios.get(DISCUSSION_THREAD_ADMIN_API_URL);
+            const threadTitle = response.data.data;
+            setAllAdminThreads(threadTitle);
+        } catch (err) {
+            console.log("🔴 スレッド取得エラー:", err);
+        }
+    };
+
     useEffect(() => {
         if (hasFetched.current) return;
         hasFetched.current = true;
-
-        const fetchThreadsTitle = async () => {
-            try {
-                const response = await axios.get(DISCUSSION_THREAD_ADMIN_API_URL, {});
-                const threadTitle = response.data.data;
-                setAllAdminThreads(threadTitle);
-            } catch (err) {
-                console.log("🔴 スレッド取得エラー:", err);
-            }
-        };
         fetchThreadsTitle();
     }, []);
 
@@ -30,15 +30,13 @@ export const useAdminThreads = () => {
         if (!confirmDelete) return;
 
         try {
-            const response = await fetch(`${DISCUSSION_THREAD_ADMIN_API_URL}/${id}`, {
-                method: "DELETE",
-            });
+            const response = await axios.delete(`${DISCUSSION_THREAD_ADMIN_API_URL}/${id}`);
 
-            if (response.ok) {
-                setAllAdminThreads(prevThreads => prevThreads.filter(thread => thread.id !== id));
+            if (response.status === 200) {
                 alert("スレッドが削除されました！");
+                fetchThreadsTitle();
             } else {
-                const errorData = await response.json();
+                const errorData = response.data;
                 alert(errorData.error || "削除に失敗しました。");
             }
         } catch (err) {
@@ -47,5 +45,15 @@ export const useAdminThreads = () => {
         }
     };
 
-    return { allAdminThreads, deleteThread };
+    const updateThreadTitle = async (id: string, newTitle: string) => {
+        try {
+            await axios.put(`${DISCUSSION_THREAD_ADMIN_API_URL}/${id}`, { thread_title: newTitle });
+            fetchThreadsTitle();
+        } catch (err) {
+            console.error("🔴 スレッドタイトル更新エラー:", err);
+            throw err;
+        }
+    };
+
+    return { allAdminThreads, deleteThread, updateThreadTitle };
 };
