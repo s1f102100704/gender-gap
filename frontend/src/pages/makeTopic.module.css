@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
 }
+
 .body {
   display: flex;
   align-items: flex-start;
@@ -9,7 +10,7 @@
   margin: 0;
   width: 100%;
   height: 100%;
-  background-color: #e8f9f0;
+  background-color: var(--background-color);
 }
 
 .contents {
@@ -37,7 +38,7 @@
 
 .h1 {
   line-height: 34px;
-  border-bottom: 1px dashed #ff4d5b;
+  border-bottom: 2px solid var(--border-strong-color);
   padding-bottom: 15px;
 }
 
@@ -48,13 +49,16 @@
   margin-right: 20px;
   float: right;
 }
+
 .formFlow {
   width: 641px;
   margin: 21px 0 30px;
 }
+
 .inForm {
   display: flex;
 }
+
 .image {
   font-size: 100%;
   margin: 0;
@@ -64,58 +68,92 @@
   outline: 0;
   background: 0 0;
 }
+
 .topicImg {
   width: 130px;
   height: 130px;
   background-color: grey;
 }
+
 .addImage {
   width: 128px;
   margin-top: 10px;
   margin-right: 0;
 }
+
 .other {
   box-sizing: border-box;
   width: 100%;
   padding-left: 20px;
 }
+
 .threadTitle {
   font-size: 13px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-strong-color);
   line-height: 15px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
   height: 40px;
   margin-bottom: 10px;
   padding: 12px 10px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
 
 .textarea {
   position: relative;
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--border-strong-color);
+  border-radius: var(--border-radius);
 }
+
 .wrap {
   resize: none;
   font-size: 13px;
   line-height: 15px;
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   width: 100%;
   height: 140px;
   padding: 12px 10px;
-  border-radius: 4px;
+  border-radius: var(--border-radius);
 }
+
 .createTopicBtn {
-  line-height: 48px;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 50%;
-  height: 48px;
+  height: 50px;
   margin: 40px auto 0;
   text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+}
+
+.btn {
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease-in-out,
+    transform 0.2s;
+}
+
+.btn:hover {
+  background-color: #5fd878; /* より明るいグリーン */
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background-color: #4ac067; /* 少し濃いグリーン */
+  transform: scale(1);
+}
+
+.btn:disabled {
+  background-color: #b2b2b2;
+  cursor: not-allowed;
+  transform: none;
 }

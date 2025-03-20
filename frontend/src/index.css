@@ -1,10 +1,13 @@
+/* ポップなデザインのCSS（落ち着いたポップ・緑ベースの中立配色） */
+
 :root {
-  --primary-color: #ff6b81;
-  --secondary-color: #ffcc00;
-  --background-color: #fdfd96;
-  --text-color: #333;
+  --primary-color: #7bed9f; /* 明るいグリーン */
+  --secondary-color: #dff9fb; /* 優しいパステルグリーン */
+  --background-color: #e8f6e8;
+  --text-color: #444;
   --border-radius: 12px;
-  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --border-strong-color: gray;
 }
 
 body {
