@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAdminRecommendedThreads } from "../../../../hook/adminData/useAdminRecommendedThreads";
+import { useCheckbox } from "../../../../hook/checkbox/useCheckbox";
 import styles from "./adminRecommendedThreads.module.css";
 import { Link } from "react-router-dom";
 
@@ -10,30 +11,17 @@ interface Thread {
 }
 
 const AdminRecommendedThreads = () => {
-    const [recommendedThreads, setRecommendedThreads] = useState<Thread[]>([]);
-    const { allRecommendedThreads } = useAdminRecommendedThreads();
+    const { allRecommendedThreads, bulkDeleteRecommendedThreads } = useAdminRecommendedThreads();
+    const { selectedThreads, handleCheckboxChange, handleSubmit } = useCheckbox(bulkDeleteRecommendedThreads);
 
-    // ✅ チェックされたスレッドの状態を管理
-    const [selectedThreads, setSelectedThreads] = useState<{ [key: string]: boolean }>({});
+    const [recommendedThreads, setRecommendedThreads] = useState<Thread[]>([]);
 
     useEffect(() => {
-        if (allRecommendedThreads.length > 0 && recommendedThreads.length === 0) {
-            setRecommendedThreads(allRecommendedThreads);
-        }
+        setRecommendedThreads(allRecommendedThreads);
     }, [allRecommendedThreads]);
 
-    // ✅ チェックボックスの変更を処理
-    const handleCheckboxChange = (id: string | undefined) => {
-        if (!id) return;
-        setSelectedThreads((prev) => ({
-            ...prev,
-            [id]: !prev[id], // チェックの ON/OFF を切り替え
-        }));
-    };
-
     return (
-        <div className={styles.threadContainer}>
-            {/* ✅ ヘッダーにチェックボックスを追加 */}
+        <><div className={styles.threadContainer}>
             <div className={styles.threadHeader}>
                 {recommendedThreads.some(thread => thread.id) && <span className={styles.threadId}>ID</span>}
                 <span className={styles.threadTitle}>スレッド名</span>
@@ -41,7 +29,6 @@ const AdminRecommendedThreads = () => {
                 <span className={styles.threadCheckbox}>✔</span>
             </div>
 
-            {/* ✅ 各行にチェックボックスを追加 */}
             {recommendedThreads.map((thread) => (
                 <div key={thread.id || thread.thread_title} className={styles.threadRow}>
                     {thread.id && (
@@ -57,11 +44,12 @@ const AdminRecommendedThreads = () => {
                         type="checkbox"
                         checked={!!selectedThreads[thread.id!]}
                         onChange={() => handleCheckboxChange(thread.id)}
-                        className={styles.checkbox}
-                    />
+                        className={styles.checkbox} />
                 </div>
             ))}
-        </div>
+        </div><button onClick={handleSubmit} className={styles.submitButton}>
+                選択したスレッドを削除
+            </button></>
     );
 };
 
