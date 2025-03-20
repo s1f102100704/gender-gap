@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_20_052543) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_20_143432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,8 +70,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_20_052543) do
 
   add_foreign_key "posts", "discussion_threads"
   add_foreign_key "posts", "users"
-  add_foreign_key "recommended_threads", "discussion_threads"
-  add_foreign_key "thread_stats", "discussion_threads"
+  add_foreign_key "recommended_threads", "discussion_threads", on_delete: :cascade
+  add_foreign_key "thread_stats", "discussion_threads", on_delete: :cascade
   add_foreign_key "votes", "posts"
   add_foreign_key "votes", "users"
 end
