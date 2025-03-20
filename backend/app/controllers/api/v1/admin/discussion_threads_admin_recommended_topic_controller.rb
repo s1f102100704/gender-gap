@@ -6,6 +6,11 @@ module Api
               resentThreads = DiscussionThreadAdminRecommended.fetch_recommended
               render_json_response(resentThreads)
           end
+          def bulk_add
+            DiscussionThreadAdminRecommended.bulk_add(params[:selectedThreads])
+            Rails.logger.debug("bulk_add: #{params[:selectedThreads]}")
+            render_json_response({ message: "おすすめスレッドが追加されました。" })
+          end
           def bulk_delete
             DiscussionThreadAdminRecommended.bulk_delete(params[:selectedThreads])
             Rails.logger.debug("bulk_delete: #{params[:selectedThreads]}")

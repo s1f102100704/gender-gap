@@ -66,3 +66,41 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+/* ✅ チェックボックスのスタイル */
+.checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #fff;
+    /* 背景色を明示的に指定 */
+    border: 2px solid #000;
+    /* 枠線を追加 */
+}
+
+.checkbox:checked {
+    background-color: red;
+    /* 背景を赤に */
+    border-color: red;
+}
+
+.submitButton {
+    margin-top: 800px;
+    margin-left: 50px;
+    height: 80px;
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submitButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}

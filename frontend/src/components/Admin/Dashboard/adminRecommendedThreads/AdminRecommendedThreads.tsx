@@ -11,8 +11,9 @@ interface Thread {
 }
 
 const AdminRecommendedThreads = () => {
-    const { allRecommendedThreads, bulkDeleteRecommendedThreads } = useAdminRecommendedThreads();
-    const { selectedThreads, handleCheckboxChange, handleSubmit } = useCheckbox(bulkDeleteRecommendedThreads);
+    const { allRecommendedThreads, bulkDeleteRecommendedThreads, bulkAddRecommendedThreads } = useAdminRecommendedThreads();
+    const { selectedThreads, handleCheckboxChange, handleDelete
+    } = useCheckbox(bulkDeleteRecommendedThreads, bulkAddRecommendedThreads);
 
     const [recommendedThreads, setRecommendedThreads] = useState<Thread[]>([]);
 
@@ -47,7 +48,7 @@ const AdminRecommendedThreads = () => {
                         className={styles.checkbox} />
                 </div>
             ))}
-        </div><button onClick={handleSubmit} className={styles.submitButton}>
+        </div><button onClick={handleDelete} className={styles.submitButton}>
                 選択したスレッドを削除
             </button></>
     );
