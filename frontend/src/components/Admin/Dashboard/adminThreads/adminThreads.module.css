@@ -1,8 +1,8 @@
 .threadContainer {
     width: 100%;
     max-width: 1000px;
-    margin: auto;
     background: #fff;
+    margin-top: 50px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -61,7 +61,7 @@
 
 .editInput {
     padding: 5px;
-    width: 50%;
+    width: 25%;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
