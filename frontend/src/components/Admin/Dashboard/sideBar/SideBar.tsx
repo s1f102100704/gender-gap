@@ -38,6 +38,14 @@ const SideBar: React.FC<AdminProps> = ({ admin }) => {
                     </li>
                     <li>
                         <Link
+                            to="/dashboard/recommended"
+                            className={location.pathname === "/dashboard/recommended" ? styles.active : ""}
+                        >
+                            おすすめスレッド管理
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
                             to="/users"
                             className={location.pathname === "/users" ? styles.active : ""}
                         >

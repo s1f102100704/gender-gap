@@ -1,8 +1,9 @@
 import { useLocation } from "react-router-dom";
 import Sidebar from "../Dashboard/sideBar/SideBar";
 import AdminThreads from "../Dashboard/adminThreads/AdminThreads";
+import AdminRecommendedThreads from "../Dashboard/adminRecommendedThreads/AdminRecommendedThreads";
 import { useAdminData } from "../../../hook/adminData/useAdminData";
-import styles from "./dashboard.module.css"; // ✅ CSS を追加
+import styles from "./dashboard.module.css";
 
 const Dashboard = () => {
     const { admin } = useAdminData();
@@ -15,6 +16,8 @@ const Dashboard = () => {
             <main className={styles.mainContent}>
                 {location.pathname === "/dashboard/threads" ? (
                     <AdminThreads />
+                ) : location.pathname === "/dashboard/recommended" ? (
+                    <AdminRecommendedThreads />
                 ) : (
                     <div>
                         <h2>管理者ダッシュボード</h2>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
       namespace :admin do
         resources :discussion_threads_admin_topic, only: [:index, :destroy, :update]
+        resources :discussion_threads_admin_recommended_topic, only: [:index, :destroy, :update]
       end
       post "/login", to: "admins#login"
       get "/admin", to: "admins#show"
