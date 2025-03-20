@@ -5,4 +5,13 @@ class DiscussionThreadAdmin < ApplicationRecord
   def self.fetch_admin
     DiscussionThreadAdminQuery.new.all
   end
+  def self.delete_admin(id)
+    thread = DiscussionThread.find_by(id: id)
+    if thread
+      thread.destroy
+      { message: "スレッドが削除されました。" }
+    else
+      { error: "スレッドが見つかりません。" }
+    end
+  end
 end

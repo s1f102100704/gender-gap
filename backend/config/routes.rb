@@ -16,13 +16,12 @@ Rails.application.routes.draw do
         resources :votes, only: [:create]
         resources :votes_status, only: [:index]
       end
-      
-      namespace :admin do
-        resources :discussion_threads_admintopic, only: [:index]
-      end
-    end
 
-    post "/login", to: "admins#login"
-    get "/admin", to: "admins#show"
+      namespace :admin do
+        resources :discussion_threads_admin_topic, only: [:index, :destroy]
+      end
+      post "/login", to: "admins#login"
+      get "/admin", to: "admins#show"
+    end
   end
 end

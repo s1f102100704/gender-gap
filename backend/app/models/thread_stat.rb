@@ -1,4 +1,3 @@
 class ThreadStat < ApplicationRecord
-    belongs_to :discussion_thread
-  end
-  
+  belongs_to :discussion_thread, dependent: :destroy
+end

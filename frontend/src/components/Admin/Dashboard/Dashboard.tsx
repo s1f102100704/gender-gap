@@ -6,13 +6,13 @@ import styles from "./dashboard.module.css"; // ✅ CSS を追加
 
 const Dashboard = () => {
     const { admin } = useAdminData();
-    const location = useLocation(); // ✅ 現在のURLを取得
+    const location = useLocation();
 
     return (
-        <div className={styles.dashboardContainer}> {/* ✅ Sidebar と Main を並べるコンテナ */}
+        <div className={styles.dashboardContainer}>
             <Sidebar admin={admin} />
 
-            <main className={styles.mainContent}> {/* ✅ メインコンテンツ */}
+            <main className={styles.mainContent}>
                 {location.pathname === "/dashboard/threads" ? (
                     <AdminThreads />
                 ) : (

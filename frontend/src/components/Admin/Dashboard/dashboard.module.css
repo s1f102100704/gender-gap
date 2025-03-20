@@ -1,25 +1,21 @@
 .dashboardContainer {
     display: flex;
     height: 100vh;
-    /* 画面いっぱいの高さにする */
 }
 
-/* ✅ Sidebar のスタイル（幅を固定） */
 .sidebar {
     width: 250px;
     background-color: #2c3e50;
-    /* サイドバーの背景色 */
     color: white;
     height: 100vh;
     padding: 20px;
 }
 
-/* ✅ メインコンテンツのスタイル */
 .mainContent {
     flex: 1;
-    /* 残りのスペースを埋める */
     padding: 20px;
     background-color: #ddf3ef;
     overflow-y: auto;
-    /* スクロールできるようにする */
+    display: flex;
+    justify-content: center;
 }

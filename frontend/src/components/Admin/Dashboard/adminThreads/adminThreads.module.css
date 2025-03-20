@@ -1,11 +1,9 @@
-/* ✅ スレッド一覧全体のレイアウト */
 .threadContainer {
-    width: 900px;
-    margin: auto;
+    width: 1300px;
+    margin-left: 300px;
     font-family: sans-serif;
 }
 
-/* ✅ ヘッダー（固定） */
 .threadHeader {
     display: flex;
     font-size: 14px;
@@ -15,7 +13,6 @@
     border-bottom: 2px solid #ccc;
 }
 
-/* ✅ 各スレッドの行（リスト） */
 .threadRow {
     display: flex;
     padding: 10px 15px;
@@ -30,37 +27,68 @@
     background: #eef1f5;
 }
 
-/* ✅ 各カラムのスタイル */
 .threadId {
     width: 10%;
-    /* IDカラムの幅 */
     text-align: left;
 }
 
 .threadTitle {
     width: 60%;
-    /* スレッド名の幅 */
     text-align: left;
     font-weight: bold;
 }
 
 .threadDate {
     width: 30%;
-    /* 作成日時の幅 */
     text-align: right;
 }
 
 .threadId {
     width: 10%;
-    /* IDカラムの幅 */
     text-align: left;
     white-space: nowrap;
-    /* ✅ 1行にする */
     overflow: hidden;
-    /* ✅ はみ出た部分を非表示 */
     text-overflow: ellipsis;
-    /* ✅ 長すぎる場合は「...」で省略 */
     max-width: 100px;
-    /* ✅ ID の最大幅を制限 */
     display: inline-block;
+}
+
+/* ✅ 操作ボタンエリア */
+.threadActions {
+    margin-left: 40px;
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/* ✅ 各ボタンのスタイル */
+.actionButton {
+    padding: 5px 10px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.actionButton:hover {
+    background-color: #2980b9;
+}
+
+/* ✅ 削除ボタンは赤色 */
+.deleteButton {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.deleteButton:hover {
+    background-color: #c0392b;
 }
