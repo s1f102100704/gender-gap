@@ -16,7 +16,6 @@ const fetchPostsComments = async (threadId: string) => {
     const response = await axios.get(
       `${POSTS_API_URL}?discussion_thread_id=${threadId}`
     );
-    console.log("postsData:", response.data.data);
     return response.data.data;
   } catch (err) {
     console.log(err);

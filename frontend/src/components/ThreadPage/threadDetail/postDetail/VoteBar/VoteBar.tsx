@@ -19,14 +19,12 @@ const VoteBar = ({ post_id }: VoteProps) => {
   } = useVoteDisplay({ postVotes, post_id });
   useEffect(() => {
     const fetchVotes = async () => {
-      const data = await getVotes();
-      const postId = data.post_id;
-      const goodVotes = data.votes.good;
-      const badVotes = data.votes.bad;
-      if (postId == post_id) {
-        setUpvotes({ [post_id]: goodVotes });
-        setDownvotes({ [post_id]: badVotes });
-      }
+      const votes = await getVotes();
+      const goodVotes = votes.good;
+      const badVotes = votes.bad;
+
+      setUpvotes({ [post_id]: goodVotes });
+      setDownvotes({ [post_id]: badVotes });
     };
     fetchVotes();
   }, [getVotes, post_id, setDownvotes, setUpvotes]);
