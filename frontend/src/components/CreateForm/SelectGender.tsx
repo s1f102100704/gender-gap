@@ -26,7 +26,7 @@ const SelectGender: React.FC<Props> = (props) => {
             }}
           />
           <span className={styles.checkboxUi}></span>
-          <label>男</label>
+          <label>男性</label>
         </label>
         <label className={styles.checkboxContainer}>
           <input
@@ -41,7 +41,7 @@ const SelectGender: React.FC<Props> = (props) => {
             }}
           />
           <span className={styles.checkboxUi}></span>
-          <label>女</label>
+          <label>女性</label>
         </label>
       </div>
       {mustSelectGender && <p>{mustSelectGender}</p>}

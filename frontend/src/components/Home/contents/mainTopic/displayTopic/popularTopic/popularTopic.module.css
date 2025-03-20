@@ -1,22 +1,39 @@
 .threadImg {
-    width: 60px;
-    height: 60px;
-    border: 1px solid;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--shadow-color);
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: var(--text-color);
 }
 
 .threadConfig {
-    min-height: 80px;
-    margin-bottom: 20px;
-    padding-right: 20px;
-    border-bottom: 1px solid #e3e3e3;
-    display: flex;
+  min-height: 80px;
+  margin-bottom: 20px;
+  padding-right: 20px;
+  border-bottom: 1px solid var(--border-strong-color);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: white;
+  padding: 10px;
 }
 
 .threadHeader {
-    margin-left: 15px;
-    display: flex;
+  margin-left: 15px;
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-color);
 }
 
 .threadTitle {
-    margin-left: 15px;
+  margin-left: 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-color);
 }

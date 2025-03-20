@@ -1,5 +1,6 @@
 /* スレッド一覧のコンテナ */
 .threadContainer {
+
     width: 100%;
     max-width: 1200px;
     margin-left: 400px;
@@ -14,156 +15,156 @@
 
 /* ヘッダーのデザイン */
 .threadHeader {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    background: #f5f5f5;
-    font-weight: bold;
-    border-bottom: 2px solid #ddd;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: #f5f5f5;
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
 }
 
 /* 各スレッドの行 */
 .threadRow {
-    display: flex;
-    align-items: center;
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    transition: background 0.2s ease-in-out;
-    text-decoration: none;
-    /* リンクの下線を消す */
-    color: #333;
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s ease-in-out;
+  text-decoration: none;
+  /* リンクの下線を消す */
+  color: #333;
 }
 
 .threadRow:hover {
-    background: #f0f8ff;
-    /* ホバー時の背景色 */
+  background: #f0f8ff;
+  /* ホバー時の背景色 */
 }
 
 /* 各カラムのスタイル */
 .threadId,
 .threadTitle,
 .threadDate {
-    flex: 1;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* ID のカラム */
 .threadId {
-    max-width: 150px;
+  max-width: 150px;
 }
 
 /* スレッドタイトル */
 .threadTitle {
-    font-weight: bold;
-    max-width: 300px;
+  font-weight: bold;
+  max-width: 300px;
 }
 
 /* 作成日時 */
 .threadDate {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 /* ボタンエリア */
 .threadActions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 /* アクションボタン */
 .actionButton,
 .deleteButton,
 .cancelButton {
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: opacity 0.2s ease-in-out;
-    border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+  border: none;
 }
 
 /* アクションボタン（詳細・編集） */
 .actionButton {
-    background: #4CAF50;
-    color: white;
+  background: #4caf50;
+  color: white;
 }
 
 .actionButton:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 /* キャンセルボタン */
 .cancelButton {
-    background: #ccc;
-    color: #333;
+  background: #ccc;
+  color: #333;
 }
 
 .cancelButton:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 /* 削除ボタン */
 .deleteButton {
-    background: #f44336;
-    color: white;
+  background: #f44336;
+  color: white;
 }
 
 .deleteButton:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 /* 編集用のインプットフィールド */
 .editInput {
-    padding: 6px;
-    width: 60%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  padding: 6px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .threadCheckbox {
-    margin-left: 30px;
-    width: 40px;
-    text-align: center;
+  margin-left: 30px;
+  width: 40px;
+  text-align: center;
 }
 
 /* ✅ チェックボックスのスタイル */
 .checkbox {
-    width: 20px;
-    height: 20px;
-    margin-left: 40px;
-    cursor: pointer;
-    display: inline-block;
-    background-color: #fff;
-    /* 背景色を明示的に指定 */
-    border: 2px solid #000;
-    /* 枠線を追加 */
+  width: 20px;
+  height: 20px;
+  margin-left: 40px;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #fff;
+  /* 背景色を明示的に指定 */
+  border: 2px solid #000;
+  /* 枠線を追加 */
 }
 
 .checkbox:checked {
-    background-color: red;
-    /* 背景を赤に */
-    border-color: red;
+  background-color: red;
+  /* 背景を赤に */
+  border-color: red;
 }
 
 .submitButton {
-    margin-top: 800px;
-    margin-left: 100px;
-    height: 70px;
-    width: 150px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+  margin-top: 800px;
+  margin-left: 100px;
+  height: 70px;
+  width: 150px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .submitButton:disabled {
-    background: #ccc;
-    cursor: not-allowed;
+  background: #ccc;
+  cursor: not-allowed;
 }

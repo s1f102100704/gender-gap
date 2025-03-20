@@ -1,28 +1,35 @@
 .subTopic {
-  width: 300px;
-  margin-right: 20px;
+  width: 320px;
+  margin-right: 0px;
   float: right;
+  margin-bottom: 20px;
 }
 
 .createTopic {
   vertical-align: middle;
-  width: 300px;
+  width: 320px;
   height: 58px;
   line-height: 58px;
   text-align: center;
   font-size: 15px;
-  background-color: #e0d7b5;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
   margin-bottom: 20px;
 }
 
-.weekTopic {
-  width: 100%;
-  background-color: white;
-  margin-bottom: 50px;
+.createTopic:hover {
+  transform: scale(1.05);
 }
 
+.weekTopic,
 .recommendTopic {
-  width: 100%;
-  background-color: rgb(255, 255, 255);
+  width: 300px;
+  background-color: white;
   margin-bottom: 50px;
+  padding: 10px;
+  border-radius: var(--border-radius);
 }
