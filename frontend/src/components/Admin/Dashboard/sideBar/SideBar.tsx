@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./sideBar.module.css";
+import { Link, useLocation } from "react-router-dom";
+
 interface AdminProps {
     admin: {
         email: string;
@@ -7,33 +9,56 @@ interface AdminProps {
 }
 
 const SideBar: React.FC<AdminProps> = ({ admin }) => {
+    const location = useLocation(); // ✅ 現在の URL を取得
+
     return (
         <div className={styles.sidebar}>
-
             <h2>管理者ダッシュボード</h2>
             <div className={styles.columContainer}>
                 {admin ? <p>ログイン中: {admin.email}</p> : <p>ログイン情報取得中...</p>}
-            </div><div className={styles.columContainer}>
+            </div>
+
+            <div className={styles.columContainer}>
                 <ul>
                     <li>
-                        <a href="/dashboard" className="active">
+                        <Link
+                            to="/dashboard"
+                            className={location.pathname === "dashboard" ? styles.active : ""}
+                        >
                             ホーム
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/users">
+                        <Link
+                            to="/dashboard/threads"
+                            className={location.pathname === "/dashboard/threads" ? styles.active : ""}
+                        >
+                            スレッド管理
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            to="/users"
+                            className={location.pathname === "/users" ? styles.active : ""}
+                        >
                             ユーザー管理
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/settings">
+                        <Link
+                            to="/settings"
+                            className={location.pathname === "/settings" ? styles.active : ""}
+                        >
                             設定
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="/logout">
+                        <Link
+                            to="/logout"
+                            className={location.pathname === "/logout" ? styles.active : ""}
+                        >
                             ログアウト
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
