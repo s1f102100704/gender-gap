@@ -1,23 +1,17 @@
-import axios from "axios";
-import { useState } from "react";
-import { LOGIN_API_URL } from "../../../config";
-import { useNavigate } from "react-router-dom";
-import styles from "./dashboard.module.css";
+import Sidebar from "../Dashboard/sideBar/SideBar";
+import { useAdminData } from "../../../hook/adminData/useAdminData";
 
-const Dashbord = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
 
-    const handleLogin = async (e: React.FormEvent) => {
-    };
+
+const Dashboard = () => {
+
+    const { admin, logout } = useAdminData();
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.loginTitle}>Dashbord</h2>
+        <div>
+            <Sidebar admin={admin} />
         </div>
     );
 };
 
-export default Dashbord;
+export default Dashboard;

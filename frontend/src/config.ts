@@ -9,3 +9,4 @@ export const DISCUSSION_RECOMMEND_API_URL = import.meta.env
   .VITE_DISCUSSION_THREAD_RECOMMEND_API_URL;
 export const POSTS_API_URL = import.meta.env.VITE_POSTS_API_URL;
 export const LOGIN_API_URL = import.meta.env.VITE_LOGIN_API_URL;
+export const LOGIN_ADMIN_USER_API_URL = import.meta.env.VITE_LOGIN_ADMIN_USER_API_URL;

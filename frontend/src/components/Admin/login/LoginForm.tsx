@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { LOGIN_API_URL } from "../../../config"; // APIのURLを統一
+import { LOGIN_API_URL } from "../../../config";
 import { useNavigate } from "react-router-dom";
 import styles from "./loginForm.module.css";
 
