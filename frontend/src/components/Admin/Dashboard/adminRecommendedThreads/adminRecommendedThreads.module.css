@@ -1,7 +1,8 @@
 /* スレッド一覧のコンテナ */
 .threadContainer {
     width: 100%;
-    max-width: 800px;
+    max-width: 1200px;
+    margin-left: 400px;
     margin-top: 50px;
     background: #fff;
     border-radius: 8px;

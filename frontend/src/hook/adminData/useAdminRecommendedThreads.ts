@@ -20,6 +20,29 @@ export const useAdminRecommendedThreads = () => {
         }
     };
 
+    // ✅ おすすめスレッドを一括追加
+    const bulkAddRecommendedThreads = async (selectedIds: string[]) => {
+        if (selectedIds.length === 0) {
+            alert("選択されたスレッドがありません！");
+            return;
+        }
+
+        try {
+            const response = await axios.post(`${DISCUSSION_THREAD_ADMIN_RECOMMENDED_API_URL}/bulk-add`, {
+                selectedThreads: selectedIds,
+            });
+
+            console.log("✅ 追加成功:", response.data);
+            alert("おすすめスレッドが追加されました！");
+
+            // 🔄 最新のデータを取得して更新
+            fetchRecommendedThreads();
+        } catch (error) {
+            console.error("❌ 追加エラー:", error);
+            alert("追加に失敗しました。");
+        }
+    };
+
     // ❌ おすすめスレッドを一括削除
     const bulkDeleteRecommendedThreads = async (selectedIds: string[]) => {
         if (selectedIds.length === 0) {
@@ -49,5 +72,5 @@ export const useAdminRecommendedThreads = () => {
         fetchRecommendedThreads();
     }, []);
 
-    return { allRecommendedThreads, fetchRecommendedThreads, bulkDeleteRecommendedThreads };
+    return { allRecommendedThreads, fetchRecommendedThreads, bulkDeleteRecommendedThreads, bulkAddRecommendedThreads };
 };

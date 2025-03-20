@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAdminThreads } from "../../../../hook/adminData/useAdminThreads";
+import { useCheckbox } from "../../../../hook/checkbox/useCheckbox";
 import styles from "./adminThreads.module.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useAdminRecommendedThreads } from "../../../../hook/adminData/useAdminRecommendedThreads";
 
 interface Thread {
     id?: string;
@@ -12,10 +14,15 @@ interface Thread {
 const AdminThreads = () => {
     const [allThreads, setAllThreads] = useState<Thread[]>([]);
     const { allAdminThreads, deleteThread, updateThreadTitle } = useAdminThreads();
-    const navigate = useNavigate();
+    const { bulkDeleteRecommendedThreads, bulkAddRecommendedThreads } = useAdminRecommendedThreads();
 
     const [editMode, setEditMode] = useState<string | null>(null);
     const [newTitle, setNewTitle] = useState<string>("");
+
+    const { selectedThreads, handleCheckboxChange, handleAdd } = useCheckbox(
+        bulkDeleteRecommendedThreads, // ✅ 削除用
+        bulkAddRecommendedThreads // ✅ 追加用
+    );
 
     useEffect(() => {
         setAllThreads(allAdminThreads);
@@ -43,12 +50,13 @@ const AdminThreads = () => {
     };
 
     return (
-        <div className={styles.threadContainer}>
+        <><div className={styles.threadContainer}>
             <div className={styles.threadHeader}>
                 {allThreads.some(thread => thread.id) && <span className={styles.threadId}>ID</span>}
                 <span className={styles.threadTitle}>スレッド名</span>
                 <span className={styles.threadDate}>作成日時</span>
                 <span className={styles.threadActions}>操作</span>
+                <span className={styles.threadCheckbox}>おすすめ追加</span>
             </div>
 
             {allThreads.map((thread) => (
@@ -63,8 +71,7 @@ const AdminThreads = () => {
                             type="text"
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
-                            className={styles.editInput}
-                        />
+                            className={styles.editInput} />
                     ) : (
                         <span className={styles.threadTitle}>{thread.thread_title}</span>
                     )}
@@ -84,9 +91,18 @@ const AdminThreads = () => {
                             </>
                         )}
                     </div>
+
+                    {/* ✅ おすすめスレッド追加のチェックボックス */}
+                    <input
+                        type="checkbox"
+                        checked={!!selectedThreads[thread.id!]}
+                        onChange={() => handleCheckboxChange(thread.id)}
+                        className={styles.checkbox} />
                 </div>
             ))}
-        </div>
+        </div><button onClick={handleAdd} className={styles.submitButton}>
+                選択したスレッドをおすすめに追加
+            </button></>
     );
 };
 
