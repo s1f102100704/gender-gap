@@ -4,8 +4,8 @@ import { DISCUSSION_RECOMMEND_API_URL } from "../../../../../config";
 import styles from "./recommendTopic.module.css";
 import { Link } from "react-router-dom";
 
-const WeekPopularTopic = () => {
-    const [weekPopularThreads, setweekPopularThreads] = useState<
+const recommendTopic = () => {
+    const [recommendThreads, setrecommendThreads] = useState<
         { thread_title: string; id: string; created_at: string; comments_count: number }[]
     >([]);
 
@@ -13,8 +13,7 @@ const WeekPopularTopic = () => {
         const fetchThreadsTitle = async () => {
             try {
                 const response = await axios.get(DISCUSSION_RECOMMEND_API_URL, {});
-                console.log(response.data.data);
-                setweekPopularThreads(response.data.data);
+                setrecommendThreads(response.data.data);
             } catch (err) {
                 console.log(err);
             }
@@ -24,8 +23,8 @@ const WeekPopularTopic = () => {
 
     return (
         <>
-            {weekPopularThreads.length > 0 ? (
-                weekPopularThreads.map((thread, index) => (
+            {recommendThreads.length > 0 ? (
+                recommendThreads.map((thread, index) => (
                     <div key={index}>
                         <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
                             <div className={styles.threadConfig}>
@@ -48,4 +47,4 @@ const WeekPopularTopic = () => {
     );
 };
 
-export default WeekPopularTopic;
+export default recommendTopic;
