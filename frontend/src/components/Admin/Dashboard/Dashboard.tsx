@@ -1,23 +1,29 @@
-import axios from "axios";
-import { useState } from "react";
-import { LOGIN_API_URL } from "../../../config";
-import { useNavigate } from "react-router-dom";
-import styles from "./dashboard.module.css";
+import { useLocation } from "react-router-dom";
+import Sidebar from "../Dashboard/sideBar/SideBar";
+import AdminThreads from "../Dashboard/adminThreads/AdminThreads";
+import { useAdminData } from "../../../hook/adminData/useAdminData";
+import styles from "./dashboard.module.css"; // ✅ CSS を追加
 
-const Dashbord = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
-
-    const handleLogin = async (e: React.FormEvent) => {
-    };
+const Dashboard = () => {
+    const { admin } = useAdminData();
+    const location = useLocation(); // ✅ 現在のURLを取得
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.loginTitle}>Dashbord</h2>
+        <div className={styles.dashboardContainer}> {/* ✅ Sidebar と Main を並べるコンテナ */}
+            <Sidebar admin={admin} />
+
+            <main className={styles.mainContent}> {/* ✅ メインコンテンツ */}
+                {location.pathname === "/dashboard/threads" ? (
+                    <AdminThreads />
+                ) : (
+                    <div>
+                        <h2>管理者ダッシュボード</h2>
+                        {admin ? <p>ようこそ, {admin.email} さん！</p> : <p>データを取得中...</p>}
+                    </div>
+                )}
+            </main>
         </div>
     );
 };
 
-export default Dashbord;
+export default Dashboard;

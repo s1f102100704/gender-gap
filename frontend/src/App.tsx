@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/threads" element={<Dashboard />} />
         <Route path="/make_topic" element={<MakeTopic />} />
         <Route path="threads/:id" element={<ThreadPage />} />
       </Routes>

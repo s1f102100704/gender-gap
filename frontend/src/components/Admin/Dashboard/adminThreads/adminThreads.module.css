@@ -1,0 +1,66 @@
+/* ✅ スレッド一覧全体のレイアウト */
+.threadContainer {
+    width: 900px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+/* ✅ ヘッダー（固定） */
+.threadHeader {
+    display: flex;
+    font-size: 14px;
+    font-weight: bold;
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-bottom: 2px solid #ccc;
+}
+
+/* ✅ 各スレッドの行（リスト） */
+.threadRow {
+    display: flex;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    transition: background 0.2s;
+    text-decoration: none;
+    color: #333;
+    background-color: rgb(255, 255, 255);
+}
+
+.threadRow:hover {
+    background: #eef1f5;
+}
+
+/* ✅ 各カラムのスタイル */
+.threadId {
+    width: 10%;
+    /* IDカラムの幅 */
+    text-align: left;
+}
+
+.threadTitle {
+    width: 60%;
+    /* スレッド名の幅 */
+    text-align: left;
+    font-weight: bold;
+}
+
+.threadDate {
+    width: 30%;
+    /* 作成日時の幅 */
+    text-align: right;
+}
+
+.threadId {
+    width: 10%;
+    /* IDカラムの幅 */
+    text-align: left;
+    white-space: nowrap;
+    /* ✅ 1行にする */
+    overflow: hidden;
+    /* ✅ はみ出た部分を非表示 */
+    text-overflow: ellipsis;
+    /* ✅ 長すぎる場合は「...」で省略 */
+    max-width: 100px;
+    /* ✅ ID の最大幅を制限 */
+    display: inline-block;
+}
