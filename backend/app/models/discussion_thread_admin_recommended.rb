@@ -4,6 +4,10 @@ class DiscussionThreadAdminRecommended < ApplicationRecord
   def self.fetch_recommended
     DiscussionThreadAdminRecommendedQuery.new.all
   end
+
+  def self.bulk_delete(ids)
+    DiscussionThread.where(id: ids).destroy_all
+  end
   # def self.delete_admin(id)
   #   thread = DiscussionThread.find_by(id: id)
   #   if thread

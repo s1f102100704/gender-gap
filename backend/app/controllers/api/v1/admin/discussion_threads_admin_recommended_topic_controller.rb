@@ -6,7 +6,11 @@ module Api
               resentThreads = DiscussionThreadAdminRecommended.fetch_recommended
               render_json_response(resentThreads)
           end
-          
+          def bulk_delete
+            DiscussionThreadAdminRecommended.bulk_delete(params[:selectedThreads])
+            Rails.logger.debug("bulk_delete: #{params[:selectedThreads]}")
+            render_json_response({ message: "おすすめスレッドが削除されました。" })
+          end
           # def destroy
           #   resentThreads = DiscussionThreadAdmin.delete_admin(params[:id])
           #   render_json_response(resentThreads)

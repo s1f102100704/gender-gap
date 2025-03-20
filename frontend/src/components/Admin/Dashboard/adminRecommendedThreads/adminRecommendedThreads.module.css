@@ -141,10 +141,28 @@
     /* 枠線を追加 */
 }
 
-/* ✅ 選択されたスレッドの表示 */
-.selectedThreads {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f5f5f5;
+.checkbox:checked {
+    background-color: red;
+    /* 背景を赤に */
+    border-color: red;
+}
+
+.submitButton {
+    margin-top: 800px;
+    margin-left: 100px;
+    height: 70px;
+    width: 150px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submitButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
 }
