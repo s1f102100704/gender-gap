@@ -6,33 +6,27 @@ import { Post } from "../../../../types/post";
 
 const AdminPostsList = () => {
     const [allPosts, setAllPosts] = useState<Post[]>([]);
-    const { allAdminPosts, deletePost, updatePostTitle } = useAdminPosts();
-
+    const { allAdminPosts, deletePost, updatePostContent } = useAdminPosts();
+    const [newContent, setNewContent] = useState<string>("");
     const [editMode, setEditMode] = useState<string | null>(null);
-    const [newTitle, setNewTitle] = useState<string>("");
 
     useEffect(() => {
         setAllPosts(allAdminPosts);
     }, [allAdminPosts]);
 
-    const handleEdit = (id: string, title: string) => {
+    const handleEdit = (id: string, content: string) => {
         setEditMode(id);
-        setNewTitle(title);
+        setNewContent(content);
     };
 
     const handleSave = async (id: string) => {
-        if (!newTitle.trim()) return;
+        if (!newContent.trim()) return;
 
         try {
-            await updatePostTitle(id, newTitle);
-            setAllPosts((prev) =>
-                prev.map((post) =>
-                    post.id === id ? { ...post, post_title: newTitle } : post
-                )
-            );
+            await updatePostContent(id, newContent);
             setEditMode(null);
         } catch (error) {
-            console.error("タイトル更新エラー:", error);
+            console.error("更新エラー:", error);
         }
     };
 
@@ -52,9 +46,18 @@ const AdminPostsList = () => {
                     <span className={styles.threadId} title={post.id}>
                         {post.id.length > 15 ? `${post.id.slice(0, 12)}...` : post.id}
                     </span>
-                    <span className={styles.threadContent}>
-                        {post.content.length > 30 ? post.content.slice(0, 30) + "…" : post.content}
-                    </span>
+                    {editMode === post.id ? (
+                        <textarea
+                            value={newContent}
+                            onChange={(e) => setNewContent(e.target.value)}
+                            className={styles.editTextarea}
+                            rows={2}
+                        />
+                    ) : (
+                        <span className={styles.threadContent}>
+                            {post.content.length > 30 ? post.content.slice(0, 30) + "…" : post.content}
+                        </span>
+                    )}
 
                     <span className={styles.threadDate}>
                         {new Date(post.created_at).toLocaleString()}
@@ -77,7 +80,13 @@ const AdminPostsList = () => {
                         ) : (
                             <>
                                 <Link to={`/posts/${post.id}`} className={styles.actionButton}>詳細</Link>
-                                <button className={styles.actionButton} onClick={() => handleEdit(post.id!, post.post_title || "")}>編集</button>
+                                <button
+                                    className={styles.actionButton}
+                                    onClick={() => handleEdit(post.id!, post.content)}
+                                >
+                                    編集
+                                </button>
+
                                 <button className={styles.deleteButton} onClick={() => deletePost(post.id)}>削除</button>
                             </>
                         )}

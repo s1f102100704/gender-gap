@@ -116,3 +116,10 @@
     flex: 1;
     text-align: center;
 }
+
+.editTextarea {
+    padding: 5px;
+    width: 25%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

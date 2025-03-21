@@ -14,10 +14,11 @@ class DiscussionThreadAdminPosts < ApplicationRecord
       { error: "ポストが見つかりません。" }
     end
   end
-  def self.update_posts(id, title)
-    thread = Post.find_by(id: id)
-    if thread
-      thread.update(thread_title: title)
+  def self.update_posts(id, postContent)
+    post = Post.find_by(id: id)
+    if post
+      Rails.logger.debug(postContent)
+      post.update(content: postContent)
       { message: "ポストが変更されました。" }
     else
       { error: "ポストが見つかりません。" }

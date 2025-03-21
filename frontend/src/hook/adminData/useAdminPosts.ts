@@ -44,15 +44,17 @@ export const useAdminPosts = () => {
         }
     };
 
-    const updatePostTitle = async (id: string, newTitle: string) => {
+    const updatePostContent = async (id: string, newContent: string) => {
         try {
-            await axios.put(`${DISCUSSION_THREAD_ADMIN_POSTS_API_URL}/${id}`, { post_title: newTitle });
+            await axios.put(`${DISCUSSION_THREAD_ADMIN_POSTS_API_URL}/${id}`, {
+                postContent: newContent,
+            });
             fetchPosts();
         } catch (err) {
-            console.error("🔴 投稿タイトル更新エラー:", err);
+            console.error("投稿内容の更新エラー:", err);
             throw err;
         }
     };
 
-    return { allAdminPosts, deletePost, updatePostTitle };
+    return { allAdminPosts, deletePost, updatePostContent };
 };

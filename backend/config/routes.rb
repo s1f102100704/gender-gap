@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       namespace :admin do
         resources :discussion_threads_admin_topic, only: [:index, :destroy, :update]
         
-        resources :discussion_threads_admin_recommended_topic, only: [:index, :destroy, :update] do  # ✅ collection を内包
+        resources :discussion_threads_admin_recommended_topic, only: [:index, :destroy, :update] do
           collection do
             post 'bulk-delete', to: 'discussion_threads_admin_recommended_topic#bulk_delete'
             post 'bulk-add', to: 'discussion_threads_admin_recommended_topic#bulk_add'

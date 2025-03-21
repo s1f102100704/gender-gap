@@ -12,8 +12,14 @@ module Api
             render_json_response(resentThreads)
           end
           def update
-            resentThreads = DiscussionThreadAdminPosts.update_posts(params[:id],params[:thread_title])
-            render_json_response(resentThreads)
+            result = DiscussionThreadAdminPosts.update_posts(params[:id], post_params[:content])
+            render json: result
+          end
+          
+          private
+          
+          def post_params
+            params.require(:discussion_threads_admin_post).permit(:content)
           end
       end
     end
