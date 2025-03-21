@@ -3,12 +3,7 @@ import { useAdminRecommendedThreads } from "../../../../hook/adminData/useAdminR
 import { useCheckbox } from "../../../../hook/checkbox/useCheckbox";
 import styles from "./adminRecommendedThreads.module.css";
 import { Link } from "react-router-dom";
-
-interface Thread {
-    id?: string;
-    thread_title: string;
-    created_at: number;
-}
+import { Thread } from "../../../../types/thread";
 
 const AdminRecommendedThreads = () => {
     const { allRecommendedThreads, bulkDeleteRecommendedThreads, bulkAddRecommendedThreads } = useAdminRecommendedThreads();

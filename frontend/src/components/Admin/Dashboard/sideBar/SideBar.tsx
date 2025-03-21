@@ -1,12 +1,7 @@
 import React from "react";
 import styles from "./sideBar.module.css";
 import { Link, useLocation } from "react-router-dom";
-
-interface AdminProps {
-    admin: {
-        email: string;
-    } | null;
-}
+import { AdminProps } from "../../../../types/user";
 
 const SideBar: React.FC<AdminProps> = ({ admin }) => {
     const location = useLocation(); // ✅ 現在の URL を取得
