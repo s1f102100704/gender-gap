@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :discussion_thread, foreign_key: "discussion_thread_id"
   has_many :votes, dependent: :destroy 
+  has_many :reports
   has_one :votes_status, foreign_key: :post_id
   validates :gender, presence: true
   validates :content, presence: true
@@ -15,5 +16,9 @@ class Post < ApplicationRecord
 
   def self.build_new(params,user_id)
     new(params.merge(user_id: user_id))
+  end
+
+  def self.reported
+    PostsQuery.new.reported
   end
 end
