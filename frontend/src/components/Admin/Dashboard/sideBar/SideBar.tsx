@@ -2,9 +2,11 @@ import React from "react";
 import styles from "./sideBar.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { AdminProps } from "../../../../types/user";
+import { useAdminData } from "../../../../hook/adminData/useAdminData";
 
 const SideBar: React.FC<AdminProps> = ({ admin }) => {
     const location = useLocation(); // ✅ 現在の URL を取得
+    const { logout } = useAdminData();
 
     return (
         <div className={styles.sidebar}>
@@ -63,14 +65,11 @@ const SideBar: React.FC<AdminProps> = ({ admin }) => {
                             ユーザー管理
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            to="/logout"
-                            className={location.pathname === "/logout" ? styles.active : ""}
-                        >
-                            ログアウト
-                        </Link>
-                    </li>
+                    <div className={styles.logoutWrapper}>
+                        <button onClick={logout} className={styles.logoutButton}>
+                            🚪 ログアウト
+                        </button>
+                    </div>
                 </ul>
             </div>
         </div>
