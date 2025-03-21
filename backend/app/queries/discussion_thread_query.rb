@@ -16,7 +16,7 @@ class DiscussionThreadQuery
         .group(:id)
         .order("COUNT(posts.id) DESC")
         .limit(@limit)
-        .select("discussion_threads.*")
+        .select("discussion_threads.*, COUNT(posts.id) AS posts_count")
     end
 
     def weekPopular
@@ -26,7 +26,7 @@ class DiscussionThreadQuery
         .group(:id)
         .order("COUNT(posts.id) DESC")
         .limit(@limit)
-        .select("discussion_threads.*")
+        .select("discussion_threads.*, COUNT(posts.id) AS comments_count")
     end
   end
    
