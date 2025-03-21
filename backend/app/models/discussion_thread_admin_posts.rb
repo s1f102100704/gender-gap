@@ -6,9 +6,9 @@ class DiscussionThreadAdminPosts < ApplicationRecord
     Post.all
   end
   def self.delete_posts(id)
-    thread = Post.find_by(id: id)
-    if thread
-      thread.destroy
+    post = Post.find_by(id: id)
+    if post
+      post.destroy
       { message: "ポストが削除されました。" }
     else
       { error: "ポストが見つかりません。" }

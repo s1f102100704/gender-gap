@@ -92,7 +92,6 @@ const AdminThreads = () => {
                         )}
                     </div>
 
-                    {/* ✅ おすすめスレッド追加のチェックボックス */}
                     <input
                         type="checkbox"
                         checked={!!selectedThreads[thread.id!]}
