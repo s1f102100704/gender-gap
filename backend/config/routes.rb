@@ -31,6 +31,8 @@ Rails.application.routes.draw do
         end
 
         resources :discussion_threads_admin_posts, only: [:index, :destroy, :update]
+
+        resources :posts_report, only: [:index, :destroy, :update]
       end
 
       post "/login", to: "admins#login"

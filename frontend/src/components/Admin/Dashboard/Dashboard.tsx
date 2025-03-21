@@ -4,6 +4,7 @@ import AdminThreads from "../Dashboard/adminThreads/AdminThreads";
 import AdminRecommendedThreads from "../Dashboard/adminRecommendedThreads/AdminRecommendedThreads";
 import AdminPosts from "../Dashboard/adminPosts/AdminPosts";
 import { useAdminData } from "../../../hook/adminData/useAdminData";
+import AdminPostsReported from "../Dashboard/adminPostsReported/AdminPostsReported";
 import styles from "./dashboard.module.css";
 
 const Dashboard = () => {
@@ -21,6 +22,8 @@ const Dashboard = () => {
                     <AdminRecommendedThreads />
                 ) : location.pathname === "/dashboard/posts" ? (
                     <AdminPosts />
+                ) : location.pathname === "/dashboard/posts/reported" ? (
+                    <AdminPostsReported />
                 ) : (
                     <div>
                         <h2>管理者ダッシュボード</h2>

@@ -54,6 +54,14 @@ const SideBar: React.FC<AdminProps> = ({ admin }) => {
                     </li>
                     <li>
                         <Link
+                            to="/dashboard/posts/reported"
+                            className={location.pathname === "/dashboard/posts/reported" ? styles.active : ""}
+                        >
+                            レポートポスト管理
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
                             to="/settings"
                             className={location.pathname === "/settings" ? styles.active : ""}
                         >

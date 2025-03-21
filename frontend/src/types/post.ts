@@ -7,4 +7,9 @@ export interface Post {
     discussion_thread_id: string;
     gender: number;
     user_id: string;
+    reports_count?: number;
+}
+
+export interface Props {
+    postId: string;
 }
