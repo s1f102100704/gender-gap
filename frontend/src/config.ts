@@ -16,3 +16,4 @@ export const DISCUSSION_THREAD_ADMIN_POSTS_API_URL = import.meta.env
 export const POSTS_API_URL = import.meta.env.VITE_POSTS_API_URL;
 export const LOGIN_API_URL = import.meta.env.VITE_LOGIN_API_URL;
 export const LOGIN_ADMIN_USER_API_URL = import.meta.env.VITE_LOGIN_ADMIN_USER_API_URL;
+export const POSTS_REPORT_API_URL = import.meta.env.VITE_POST_REPORT_API_URL;
