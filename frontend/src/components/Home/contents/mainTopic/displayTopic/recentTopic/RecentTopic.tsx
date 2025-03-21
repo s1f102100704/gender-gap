@@ -3,10 +3,21 @@ import { useEffect, useState } from "react";
 import { DISCUSSION_THREAD_RECENT_API_URL } from "../../../../../../config";
 import styles from "./recentTopic.module.css";
 import { Link } from "react-router-dom";
+import useCreatedAt from "../../../../../../hook/makeTopic/useCreatedAt";
 const RecentTopic = () => {
   const [recentThreads, setRecentThreads] = useState<
-    { thread_title: string; id: string; created_at: number }[]
+    {
+      thread_title: string;
+      id: string;
+      created_at: number;
+      comments_count: number;
+    }[]
   >([]);
+  console.log(recentThreads);
+  const { sinceDate } = useCreatedAt();
+  const createSinceDate = (fullDate: Date) => {
+    return sinceDate(fullDate);
+  };
   useEffect(() => {
     const fetchThreadsTitle = async () => {
       try {
@@ -28,8 +39,13 @@ const RecentTopic = () => {
               <div className={styles.threadImg}>img</div>
               <div>
                 <div className={styles.threadHeader}>
-                  <div className={styles.countComments}>０コメント</div>
-                  <div className={styles.dateTime}>３秒前</div>
+                  <div className={styles.countComments}>
+                    {thread.comments_count}コメント
+                  </div>
+                  <div className={styles.dateTime}>
+                    {" "}
+                    {createSinceDate(new Date(thread.created_at))}
+                  </div>
                 </div>
                 <div className={styles.threadTitle}>{thread.thread_title}</div>
               </div>

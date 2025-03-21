@@ -6,9 +6,13 @@ class RecommendedDiscussionThreadQuery
   end
 
   def recommend
-    DiscussionThread.where(id: RecommendedThread.select(:discussion_thread_id))
-                    .order(updated_at: :desc)
-                    .limit(@limit)
+    DiscussionThread
+    .left_joins(:posts)
+    .where(id: RecommendedThread.select(:discussion_thread_id))
+    .group(:id)
+    .select('discussion_threads.*, COUNT(posts.id) AS comments_count')
+    .order(updated_at: :desc)
+    .limit(@limit)
   end
 end
  
