@@ -16,6 +16,7 @@ function App() {
         <Route path="/dashboard/recommended" element={<Dashboard />} />
         <Route path="/dashboard/posts" element={<Dashboard />} />
         <Route path="/dashboard/posts/reported" element={<Dashboard />} />
+        <Route path="/dashboard/posts/reported/:postId" element={<Dashboard />} />
         <Route path="/make_topic" element={<MakeTopic />} />
         <Route path="threads/:id" element={<ThreadPage />} />
       </Routes>

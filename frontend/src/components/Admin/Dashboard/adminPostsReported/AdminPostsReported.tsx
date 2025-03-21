@@ -27,21 +27,6 @@ const AdminPostsReported = () => {
         fetch();
     }, []);
 
-    const handleSave = async (id: string) => {
-        if (!newContent.trim()) return;
-
-        try {
-            await updatePostContent(id, newContent);
-            setEditMode(null);
-
-            // 保存後、一覧を更新（または該当項目だけ置き換えてもOK）
-            const res = await axios.get(ADMIN_POSTS_REPORT_API_URL);
-            setReportedPosts(res.data.data);
-        } catch (error) {
-            console.error("更新エラー:", error);
-        }
-    };
-
     return (
         <div className={styles.threadContainer}>
             <div className={styles.threadHeader}>
@@ -93,19 +78,17 @@ const AdminPostsReported = () => {
                     </span>
 
                     <div className={styles.threadActions}>
-                        {editMode === post.id ? (
-                            <>
-                                <button className={styles.actionButton} onClick={() => handleSave(post.id!)}>保存</button>
-                                <button className={styles.cancelButton} onClick={() => setEditMode(null)}>キャンセル</button>
-                            </>
-                        ) : (
-                            <>
-                                <Link to={`/posts/${post.id}`} className={styles.actionButton}>詳細</Link>
-                                <button className={styles.deleteButton} onClick={() => deletePost(post.id)}>
-                                    削除
-                                </button>
-                            </>
-                        )}
+                        <>
+                            <Link
+                                to={`/dashboard/posts/reported/${post.id}`}
+                                className={styles.actionButton}
+                            >
+                                詳細
+                            </Link>
+                            <button className={styles.deleteButton} onClick={() => deletePost(post.id)}>
+                                削除
+                            </button>
+                        </>
                     </div>
                 </div>
             ))}

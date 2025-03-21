@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         resources :discussion_threads_admin_posts, only: [:index, :destroy, :update]
 
         resources :posts_report, only: [:index, :destroy, :update]
+        get "report_contents/:post_id", to: "report_contents#show"
       end
 
       post "/login", to: "admins#login"
