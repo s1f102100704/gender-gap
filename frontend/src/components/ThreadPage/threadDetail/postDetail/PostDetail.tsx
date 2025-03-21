@@ -4,6 +4,7 @@ import { POSTS_API_URL } from "../../../../config";
 import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
 import VoteBar from "./VoteBar/VoteBar";
+import PostMenu from "./postMenu/PostMenu";
 interface Posts {
   id: string;
   disscussion_thread_id: string;
@@ -41,6 +42,7 @@ const PostDetail = (porps: Props) => {
             <div>{index + 1}.&nbsp;</div>
             <div>匿名:&nbsp;{post.gender == 1 ? "男" : "女"}&nbsp;</div>
             <YYDDMM dateInfo={new Date(post.created_at)} />
+            <PostMenu postId={post.id} />
           </div>
           <p>{post.content}</p>
           <VoteBar post_id={post.id} />

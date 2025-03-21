@@ -16,6 +16,9 @@ Rails.application.routes.draw do
         resources :votes, only: [:create]
         resources :votes_status, only: [:index]
       end
+      namespace :report do
+        resources :posts_report, only: [:create]
+      end
 
       namespace :admin do
         resources :discussion_threads_admin_topic, only: [:index, :destroy, :update]

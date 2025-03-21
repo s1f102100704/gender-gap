@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_20_143432) do
+ActiveRecord::Schema[7.1].define(version: 2025_03_21_153152) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_20_143432) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "post_id", null: false
+    t.string "reason_code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "comment"
+    t.index ["post_id"], name: "index_reports_on_post_id"
+  end
+
   create_table "thread_stats", primary_key: "discussion_thread_id", id: :uuid, default: nil, force: :cascade do |t|
     t.integer "total_likes_m", default: 0, null: false
     t.integer "total_likes_f", default: 0, null: false
@@ -71,6 +80,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_20_143432) do
   add_foreign_key "posts", "discussion_threads"
   add_foreign_key "posts", "users"
   add_foreign_key "recommended_threads", "discussion_threads", on_delete: :cascade
+  add_foreign_key "reports", "posts"
   add_foreign_key "thread_stats", "discussion_threads", on_delete: :cascade
   add_foreign_key "votes", "posts"
   add_foreign_key "votes", "users"
