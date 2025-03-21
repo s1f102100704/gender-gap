@@ -26,6 +26,8 @@ Rails.application.routes.draw do
             post 'bulk-add', to: 'discussion_threads_admin_recommended_topic#bulk_add'
           end
         end
+
+        resources :discussion_threads_admin_posts, only: [:index, :destroy, :update]
       end
 
       post "/login", to: "admins#login"

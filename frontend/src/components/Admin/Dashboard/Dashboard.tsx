@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import Sidebar from "../Dashboard/sideBar/SideBar";
 import AdminThreads from "../Dashboard/adminThreads/AdminThreads";
 import AdminRecommendedThreads from "../Dashboard/adminRecommendedThreads/AdminRecommendedThreads";
+import AdminPosts from "../Dashboard/adminPosts/AdminPosts";
 import { useAdminData } from "../../../hook/adminData/useAdminData";
 import styles from "./dashboard.module.css";
 
@@ -18,6 +19,8 @@ const Dashboard = () => {
                     <AdminThreads />
                 ) : location.pathname === "/dashboard/recommended" ? (
                     <AdminRecommendedThreads />
+                ) : location.pathname === "/dashboard/posts" ? (
+                    <AdminPosts />
                 ) : (
                     <div>
                         <h2>管理者ダッシュボード</h2>

@@ -1,0 +1,118 @@
+.threadContainer {
+    width: 100%;
+    max-width: 1300px;
+    background: #fff;
+    margin-top: 50px;
+    margin-left: 300px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.threadHeader,
+.threadRow {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.threadHeader {
+    font-weight: bold;
+    background: #f5f5f5;
+}
+
+.threadId,
+.threadTitle,
+.threadDate,
+.threadActions {
+    flex: 1;
+    text-align: center;
+}
+
+.threadActions {
+    display: flex;
+    gap: 5px;
+}
+
+.actionButton,
+.deleteButton,
+.cancelButton {
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.actionButton {
+    background: #4CAF50;
+    color: white;
+    border: none;
+}
+
+.cancelButton {
+    background: #ccc;
+}
+
+.deleteButton {
+    background: #f44336;
+    color: white;
+    border: none;
+}
+
+.editInput {
+    padding: 5px;
+    width: 25%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* ✅ チェックボックスのスタイル */
+.checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: inline-block;
+    background-color: #fff;
+    /* 背景色を明示的に指定 */
+    border: 2px solid #000;
+    /* 枠線を追加 */
+}
+
+.checkbox:checked {
+    background-color: red;
+    /* 背景を赤に */
+    border-color: red;
+}
+
+.submitButton {
+    margin-top: 800px;
+    margin-left: 50px;
+    height: 80px;
+    width: 200px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submitButton:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.threadContent {
+    flex: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.threadMeta {
+    flex: 1;
+    text-align: center;
+}

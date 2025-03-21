@@ -46,10 +46,10 @@ const SideBar: React.FC<AdminProps> = ({ admin }) => {
                     </li>
                     <li>
                         <Link
-                            to="/users"
-                            className={location.pathname === "/users" ? styles.active : ""}
+                            to="/dashboard/posts"
+                            className={location.pathname === "/dashboard/posts" ? styles.active : ""}
                         >
-                            ユーザー管理
+                            ポスト管理
                         </Link>
                     </li>
                     <li>
@@ -57,7 +57,7 @@ const SideBar: React.FC<AdminProps> = ({ admin }) => {
                             to="/settings"
                             className={location.pathname === "/settings" ? styles.active : ""}
                         >
-                            設定
+                            ユーザー管理
                         </Link>
                     </li>
                     <li>
