@@ -67,4 +67,10 @@
 .columContainer {
     display: flex;
     margin-top: 30px;
+    color: white;
+    /* ✅ これを追加！ */
+}
+
+.columContainer p {
+    color: white;
 }

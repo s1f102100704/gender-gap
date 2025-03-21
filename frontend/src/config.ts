@@ -18,3 +18,4 @@ export const LOGIN_API_URL = import.meta.env.VITE_LOGIN_API_URL;
 export const LOGIN_ADMIN_USER_API_URL = import.meta.env.VITE_LOGIN_ADMIN_USER_API_URL;
 export const POSTS_REPORT_API_URL = import.meta.env.VITE_POST_REPORT_API_URL;
 export const ADMIN_POSTS_REPORT_API_URL = import.meta.env.VITE_ADMIN_POST_REPORT_API_URL;
+export const REPORT_CONTENTS_API_URL = import.meta.env.VITE_REPORT_CONTENTS_API_URL;
