@@ -16,9 +16,9 @@ const AdminPostsReported = () => {
     useEffect(() => {
         const fetch = async () => {
             try {
-                const res = await axios.get(ADMIN_POSTS_REPORT_API_URL);
-                console.log(res.data.data);
-                setReportedPosts(res.data.data);
+                const report_post = await axios.get(ADMIN_POSTS_REPORT_API_URL);
+                console.log(report_post.data.data);
+                setReportedPosts(report_post.data.data);
             } catch (e) {
                 console.error("通報投稿の取得に失敗", e);
             }

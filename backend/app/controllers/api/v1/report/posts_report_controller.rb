@@ -2,12 +2,15 @@ module Api
   module V1
     module Report
       class PostsReportController < ApplicationController
+
+        def index
+          posts = Post.reported
+          render_json_response(posts)
+        end
+  
         def create
           report = ::Report.create_by_params(report_params)
-
           render json: { message: "通報を受け付けました" }, status: :created
-        rescue ActiveRecord::RecordInvalid => e
-          render json: { error: e.record.errors.full_messages }, status: :unprocessable_entity
         end
 
         private

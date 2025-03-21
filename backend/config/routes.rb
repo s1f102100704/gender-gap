@@ -17,10 +17,13 @@ Rails.application.routes.draw do
         resources :votes_status, only: [:index]
       end
       namespace :report do
-        resources :posts_report, only: [:create]
+        resources :posts_report, only: [:index,:create]
+        get "report_contents/:post_id", to: "report_contents#show"
       end
 
       namespace :admin do
+        post "/login", to: "admins#login"
+        get "/admin", to: "admins#show"
         resources :discussion_threads_admin_topic, only: [:index, :destroy, :update]
         
         resources :discussion_threads_admin_recommended_topic, only: [:index, :destroy, :update] do
@@ -31,13 +34,7 @@ Rails.application.routes.draw do
         end
 
         resources :discussion_threads_admin_posts, only: [:index, :destroy, :update]
-
-        resources :posts_report, only: [:index, :destroy, :update]
-        get "report_contents/:post_id", to: "report_contents#show"
       end
-
-      post "/login", to: "admins#login"
-      get "/admin", to: "admins#show"
     end
   end
 end

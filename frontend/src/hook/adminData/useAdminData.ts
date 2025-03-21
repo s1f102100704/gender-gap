@@ -24,7 +24,6 @@ export const useAdminData = () => {
     useEffect(() => {
         const fetchAdmin = async () => {
             const token = getToken();
-            console.log(token);
             if (!token) {
                 navigate("/admin");
                 return;
@@ -35,11 +34,9 @@ export const useAdminData = () => {
                     method: "GET",
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                console.log(response);
 
 
                 const data = await response.json();
-                console.log("Parsed Data:", data);
                 if (data.error) {
                     logout();
                 } else {
