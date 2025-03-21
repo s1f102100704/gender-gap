@@ -4,12 +4,7 @@ import { useCheckbox } from "../../../../hook/checkbox/useCheckbox";
 import styles from "./adminThreads.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAdminRecommendedThreads } from "../../../../hook/adminData/useAdminRecommendedThreads";
-
-interface Thread {
-    id?: string;
-    thread_title: string;
-    created_at: number;
-}
+import { Thread } from "../../../../types/thread";
 
 const AdminThreads = () => {
     const [allThreads, setAllThreads] = useState<Thread[]>([]);
