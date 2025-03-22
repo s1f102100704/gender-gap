@@ -140,7 +140,7 @@ const SideBar: React.FC<AdminProps> = ({ admin }) => {
                     </li>
                 )}
 
-                {/* ログアウト */}
+
                 <div className={styles.logoutWrapper}>
                     <button onClick={logout} className={styles.logoutButton}>
                         ログアウト
