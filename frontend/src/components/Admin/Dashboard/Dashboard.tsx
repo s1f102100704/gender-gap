@@ -16,7 +16,6 @@ const Dashboard = () => {
     return (
         <div className={styles.dashboardContainer}>
             <Sidebar admin={admin} />
-
             <main className={styles.mainContent}>
                 {matchReportedDetail ? (
                     <ReportedPostDetail />

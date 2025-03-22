@@ -4,6 +4,7 @@ import { useCheckbox } from "../../../../hook/checkbox/useCheckbox";
 import styles from "./adminRecommendedThreads.module.css";
 import { Link } from "react-router-dom";
 import { Thread } from "../../../../types/thread";
+import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
 
 const AdminRecommendedThreads = () => {
     const { allRecommendedThreads, bulkDeleteRecommendedThreads, bulkAddRecommendedThreads } = useAdminRecommendedThreads();
@@ -17,8 +18,8 @@ const AdminRecommendedThreads = () => {
     }, [allRecommendedThreads]);
 
     return (
-        <><div className={styles.threadContainer}>
-            <div className={styles.threadHeader}>
+        <><div className={commmonStyles.threadContainer}>
+            <div className={commmonStyles.threadHeader}>
                 {recommendedThreads.some(thread => thread.id) && <span className={styles.threadId}>ID</span>}
                 <span className={styles.threadTitle}>スレッド名</span>
                 <span className={styles.threadDate}>作成日時</span>
@@ -26,7 +27,7 @@ const AdminRecommendedThreads = () => {
             </div>
 
             {recommendedThreads.map((thread) => (
-                <div key={thread.id || thread.thread_title} className={styles.threadRow}>
+                <div key={thread.id || thread.thread_title} className={commmonStyles.threadRow}>
                     {thread.id && (
                         <span className={styles.threadId} title={thread.id}>
                             {thread.id.length > 15 ? `${thread.id.slice(0, 12)}...` : thread.id}
