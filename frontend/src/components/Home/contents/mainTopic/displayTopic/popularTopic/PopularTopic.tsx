@@ -3,11 +3,22 @@ import { useEffect, useState } from "react";
 import { DISCUSSION_THREAD_POPULAR_API_URL } from "../../../../../../../src/config";
 import styles from "./popularTopic.module.css";
 import { Link } from "react-router-dom";
+import useCreatedAt from "../../../../../../hook/makeTopic/useCreatedAt";
 
 const PopularTopic = () => {
   const [popularThreads, setPopularThreads] = useState<
-    { thread_title: string; id: string; created_at: string; comments_count: number }[]
+    {
+      thread_title: string;
+      id: string;
+      created_at: string;
+      comments_count: number;
+    }[]
   >([]);
+  const { sinceDate } = useCreatedAt();
+
+  const createSinceDate = (fullDate: Date) => {
+    return sinceDate(fullDate);
+  };
 
   useEffect(() => {
     const fetchThreadsTitle = async () => {
@@ -31,10 +42,16 @@ const PopularTopic = () => {
                 <div className={styles.threadImg}>img</div>
                 <div>
                   <div className={styles.threadHeader}>
-                    <div className={styles.countComments}>{thread.comments_count}コメント</div>
-                    <div className={styles.dateTime}>{new Date(thread.created_at).toLocaleString()}</div>
+                    <div className={styles.countComments}>
+                      {thread.comments_count}コメント
+                    </div>
+                    <div className={styles.dateTime}>
+                      {createSinceDate(new Date(thread.created_at))}
+                    </div>
                   </div>
-                  <div className={styles.threadTitle}>{thread.thread_title}</div>
+                  <div className={styles.threadTitle}>
+                    {thread.thread_title}
+                  </div>
                 </div>
               </div>
             </Link>

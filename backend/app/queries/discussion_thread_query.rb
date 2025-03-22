@@ -6,7 +6,12 @@ class DiscussionThreadQuery
     end
   
     def recent
-      DiscussionThread.order(created_at: :desc).limit(@limit)
+      DiscussionThread
+        .left_joins(:posts)
+        .select('discussion_threads.*, COUNT(posts.id) AS comments_count')
+        .group('discussion_threads.id, discussion_threads.created_at')
+        .order('discussion_threads.created_at DESC')
+        .limit(@limit)
     end
   
     def popular
@@ -16,7 +21,7 @@ class DiscussionThreadQuery
         .group(:id)
         .order("COUNT(posts.id) DESC")
         .limit(@limit)
-        .select("discussion_threads.*")
+        .select("discussion_threads.*, COUNT(posts.id) AS posts_count")
     end
 
     def weekPopular
@@ -26,7 +31,7 @@ class DiscussionThreadQuery
         .group(:id)
         .order("COUNT(posts.id) DESC")
         .limit(@limit)
-        .select("discussion_threads.*")
+        .select("discussion_threads.*, COUNT(posts.id) AS comments_count")
     end
   end
    
