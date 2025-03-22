@@ -17,9 +17,6 @@ services:
       - bundle_cache:/usr/local/bundle
     env_file:
       - ./backend/.env
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0
     depends_on:
       - db
       - redis
@@ -35,12 +32,11 @@ services:
     volumes:
       - ./backend:/rails
       - bundle_cache:/usr/local/bundle
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0 # Sidekiq が Redis を使えるように設定
     depends_on:
       - backend
       - redis
+    env_file:
+      - ./backend/.env
 
   frontend:
     build: ./frontend
