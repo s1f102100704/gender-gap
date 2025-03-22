@@ -6,7 +6,7 @@ import { Post } from "../../../../types/post";
 
 const AdminPostsList = () => {
     const [allPosts, setAllPosts] = useState<Post[]>([]);
-    const { allAdminPosts, deletePost, updatePostContent } = useAdminPosts();
+    const { allAdminPosts, deletePost, updatePostContent, } = useAdminPosts();
     const [newContent, setNewContent] = useState<string>("");
     const [editMode, setEditMode] = useState<string | null>(null);
 

@@ -10,4 +10,10 @@ class Report < ApplicationRecord
     report.save!
     report
   end
+
+  def self.for_post(post_id)
+    where(post_id: post_id)
+      .select(:id, :reason_code, :comment, :created_at)
+      .order(created_at: :desc)
+  end
 end
