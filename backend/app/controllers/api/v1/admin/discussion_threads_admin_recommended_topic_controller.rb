@@ -3,8 +3,10 @@ module Api
     module Admin
       class DiscussionThreadsAdminRecommendedTopicController < DiscussionThreadsController
           def index
-              resentThreads = DiscussionThreadAdminRecommended.fetch_recommended
-              render_json_response(resentThreads)
+              recommended = DiscussionThreadAdminRecommended.fetch_recommended
+
+              Rails.logger.debug("recommendedaaaaaa: #{recommended}")
+              render_json_response(recommended)
           end
 
           def bulk_add
