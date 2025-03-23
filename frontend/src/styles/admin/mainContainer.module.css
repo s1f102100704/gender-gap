@@ -27,3 +27,29 @@
     font-weight: bold;
     background: #f5f5f5;
 }
+
+
+.parentWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.controller {
+    display: flex;
+    margin-left: 5%;
+    width: 85%;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.postControls {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}

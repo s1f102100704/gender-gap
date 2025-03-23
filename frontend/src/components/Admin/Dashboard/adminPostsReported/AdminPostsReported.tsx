@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import styles from "./adminPostsReported.module.css";
 import { Link } from "react-router-dom";
-import { Post } from "../../../../types/post";
-import { ADMIN_POSTS_REPORT_API_URL } from "../../../../config";
-import { useAdminPosts } from "../../../../hook/adminData/useAdminPosts";
+import { useAdminReportedPosts } from "../../../../hook/adminData/useAdminReportedPosts";
 import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
 import ReportedPostControls from "./reportedPostControls/ReportedPostControls";
 import { usePageControls } from "../../../../hook/pageControls/usePageControls";
@@ -20,22 +17,20 @@ const AdminPostsReported = () => {
         setSearchText,
         sortKey,
         setSortKey
-    } = useAdminPosts();
+    } = useAdminReportedPosts();
 
     const {
         currentPage,
         setCurrentPage,
         currentItems,
         totalPages,
-        pageNumbers,
-        resetPage
-    } = usePageControls(filteredAndSortedPosts, 10);
+    } = usePageControls(filteredAndSortedPosts, 13);
 
     return (
-        <div className={styles.parentWrapper}>
-            <div className={styles.controller}>
+        <div className={commmonStyles.parentWrapper}>
+            <div className={commmonStyles.controller}>
                 <h1 className={styles.title}>通報された投稿</h1>
-                <div className={styles.postControls}>
+                <div className={commmonStyles.postControls}>
                     <ReportedPostControls
                         searchText={searchText}
                         setSearchText={setSearchText}
