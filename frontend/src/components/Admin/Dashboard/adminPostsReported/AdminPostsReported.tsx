@@ -7,6 +7,8 @@ import { ADMIN_POSTS_REPORT_API_URL } from "../../../../config";
 import { useAdminPosts } from "../../../../hook/adminData/useAdminPosts";
 import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
 import ReportedPostControls from "./reportedPostControls/ReportedPostControls";
+import { usePageControls } from "../../../../hook/pageControls/usePageControls";
+import Pagination from "../../../../common/pagination/Pagination";
 
 const AdminPostsReported = () => {
     const [editMode, setEditMode] = useState<string | null>(null);
@@ -20,17 +22,35 @@ const AdminPostsReported = () => {
         setSortKey
     } = useAdminPosts();
 
+    const {
+        currentPage,
+        setCurrentPage,
+        currentItems,
+        totalPages,
+        pageNumbers,
+        resetPage
+    } = usePageControls(filteredAndSortedPosts, 10);
+
     return (
         <div className={styles.parentWrapper}>
             <div className={styles.controller}>
                 <h1 className={styles.title}>通報された投稿</h1>
-                <ReportedPostControls
-                    searchText={searchText}
-                    setSearchText={setSearchText}
-                    sortKey={sortKey}
-                    setSortKey={setSortKey} />
-                <div className={commmonStyles.threadContainer}>
+                <div className={styles.postControls}>
+                    <ReportedPostControls
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                        sortKey={sortKey}
+                        setSortKey={setSortKey} />
 
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        setCurrentPage={setCurrentPage}
+                    />
+
+                </div>
+
+                <div className={commmonStyles.threadContainer}>
                     <div className={commmonStyles.threadHeader}>
                         <span className={styles.threadId}>ID</span>
                         <span className={styles.threadContent}>内容</span>
@@ -41,7 +61,7 @@ const AdminPostsReported = () => {
                         <span className={styles.threadActions}>操作</span>
                     </div>
 
-                    {filteredAndSortedPosts.map((post) => (
+                    {currentItems.map((post) => (
                         <div key={post.id} className={commmonStyles.threadRow}>
                             <span className={styles.threadId} title={post.id}>
                                 {post.id.length > 15 ? `${post.id.slice(0, 12)}...` : post.id}

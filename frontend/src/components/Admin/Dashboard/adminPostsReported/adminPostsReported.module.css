@@ -8,7 +8,7 @@
 .controller {
     display: flex;
     margin-left: 5%;
-    width: 95%;
+    width: 85%;
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 20px;
@@ -112,6 +112,11 @@
 .threadMeta {
     flex: 1;
     text-align: center;
+
+    /* ✅ 追加で折り返し防止＆省略 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .editTextarea {
@@ -124,4 +129,41 @@
 .warning {
     color: red;
     font-weight: bold;
+}
+
+.paginationWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 8px;
+}
+
+.pageButton {
+    background-color: white;
+    border: 1px solid #90caf9;
+    color: #1565c0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: bold;
+}
+
+.pageButton:hover {
+    background-color: #e3f2fd;
+}
+
+.activePage {
+    background-color: #42a5f5;
+    color: white;
+    border: 1px solid #42a5f5;
+}
+
+.postControls {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }
