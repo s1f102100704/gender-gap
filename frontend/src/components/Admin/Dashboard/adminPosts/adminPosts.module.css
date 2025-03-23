@@ -20,6 +20,14 @@
     font-size: 14px;
 }
 
+
+
+.title {
+    margin-top: 20px;
+}
+
+
+
 .actionButton {
     background: #4CAF50;
     color: white;
@@ -28,6 +36,7 @@
 
 .cancelButton {
     background: #ccc;
+    width: 100px;
 }
 
 .deleteButton {
@@ -41,6 +50,8 @@
     width: 25%;
     border: 1px solid #ccc;
     border-radius: 4px;
+
+    height: 20px;
 }
 
 /* ✅ チェックボックスのスタイル */
@@ -91,11 +102,43 @@
 .threadMeta {
     flex: 1;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .editTextarea {
     padding: 5px;
-    width: 25%;
+    width: 360px;
+
+    height: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+}
+
+.postControls {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.parentWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    background-color: #4CAF50;
+}
+
+.controller {
+    display: flex;
+    margin-left: 5%;
+    width: 85%;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 20px;
+    background-color: #007bff;
 }

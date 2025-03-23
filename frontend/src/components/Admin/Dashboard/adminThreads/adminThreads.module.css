@@ -20,6 +20,19 @@
   font-size: 14px;
 }
 
+.title {
+  margin-top: 20px;
+}
+
+.postControls {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .actionButton {
   background: #4caf50;
   color: white;

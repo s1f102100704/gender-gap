@@ -1,31 +1,25 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ADMIN_POSTS_REPORT_API_URL, DISCUSSION_THREAD_ADMIN_POSTS_API_URL } from "../../config";
 import { Post } from "../../types/post";
 
-export const useAdminPosts = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
+export const useAdminReportedPosts = () => {
+    const [reportedPosts, setReportedPosts] = useState<Post[]>([]);
     const [searchText, setSearchText] = useState("");
     const [sortKey, setSortKey] = useState("");
-    const hasFetched = useRef(false);
 
     const fetchPosts = async () => {
         try {
-            const response = await axios.get(DISCUSSION_THREAD_ADMIN_POSTS_API_URL);
-            const posts = response.data.data;
-            console.log(posts);
-            setPosts(posts);
-        } catch (err) {
-            console.log("🔴 投稿取得エラー:", err);
+            const response = await axios.get(ADMIN_POSTS_REPORT_API_URL);
+            setReportedPosts(response.data.data);
+        } catch (error) {
+            console.error("通報投稿の取得に失敗", error);
         }
     };
 
     useEffect(() => {
-        if (hasFetched.current) return;
-        hasFetched.current = true;
         fetchPosts();
     }, []);
-
 
     const deletePost = async (id: string) => {
         const confirmDelete = window.confirm("本当にこの投稿を削除しますか？");
@@ -46,24 +40,14 @@ export const useAdminPosts = () => {
             alert("削除に失敗しました。");
         }
     };
-    const updatePostContent = async (id: string, newContent: string) => {
-        try {
-            await axios.put(`${DISCUSSION_THREAD_ADMIN_POSTS_API_URL}/${id}`, {
-                content: newContent,
-            });
-            fetchPosts();
-        } catch (err) {
-            console.error("投稿内容の更新エラー:", err);
-            throw err;
-        }
-    };
 
-
-    const filteredAndSortedPosts = posts
+    const filteredAndSortedPosts = reportedPosts
         .filter((post) =>
             post.content.toLowerCase().includes(searchText.toLowerCase())
         )
         .sort((a, b) => {
+            console.log("sortKey", sortKey);
+
             if (sortKey === "reports_count") {
                 return (b.reports_count ?? 0) - (a.reports_count ?? 0);
             }
@@ -81,7 +65,6 @@ export const useAdminPosts = () => {
 
 
     return {
-        updatePostContent,
         filteredAndSortedPosts,
         deletePost,
         searchText,
