@@ -7,6 +7,9 @@ export const useAdminRecommendedThreads = () => {
         { thread_title: string; id: string; created_at: number }[]
     >([]);
 
+    const [searchText, setSearchText] = useState("");
+    const [sortKey, setSortKey] = useState("");
+
     const hasFetched = useRef(false);
 
     // 🔄 おすすめスレッドの取得
@@ -14,6 +17,7 @@ export const useAdminRecommendedThreads = () => {
         try {
             const response = await axios.get(DISCUSSION_THREAD_ADMIN_RECOMMENDED_API_URL);
             const threads = response.data.data;
+            console.log("🟢 おすすめスレッド取得成功:", threads);
             setAllRecommendedThreads(threads);
         } catch (err) {
             console.error("🔴 おすすめスレッド取得エラー:", err);
@@ -72,5 +76,18 @@ export const useAdminRecommendedThreads = () => {
         fetchRecommendedThreads();
     }, []);
 
-    return { allRecommendedThreads, fetchRecommendedThreads, bulkDeleteRecommendedThreads, bulkAddRecommendedThreads };
+    const filteredAndSortedRecommendThreads = allRecommendedThreads
+        .filter((allAdminThreads) =>
+            allAdminThreads.thread_title.toLowerCase().includes(searchText.toLowerCase())
+        )
+        .sort((a, b) => {
+
+            if (sortKey === "created_at") {
+                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            }
+            return 0;
+        });
+
+
+    return { allRecommendedThreads, fetchRecommendedThreads, bulkDeleteRecommendedThreads, bulkAddRecommendedThreads, filteredAndSortedRecommendThreads, searchText, setSearchText, sortKey, setSortKey };
 };
