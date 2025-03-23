@@ -6,30 +6,30 @@ import { Post } from "../../../../types/post";
 import { ADMIN_POSTS_REPORT_API_URL } from "../../../../config";
 import { useAdminPosts } from "../../../../hook/adminData/useAdminPosts";
 import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
+import ReportedPostControls from "./reportedPostControls/ReportedPostControls";
 
 const AdminPostsReported = () => {
-    const [reportedPosts, setReportedPosts] = useState<Post[]>([]);
     const [editMode, setEditMode] = useState<string | null>(null);
     const [newContent, setNewContent] = useState<string>("");
-
-    const { deletePost, updatePostContent } = useAdminPosts();
-
-    useEffect(() => {
-        const fetch = async () => {
-            try {
-                const report_post = await axios.get(ADMIN_POSTS_REPORT_API_URL);
-                console.log(report_post.data.data);
-                setReportedPosts(report_post.data.data);
-            } catch (e) {
-                console.error("通報投稿の取得に失敗", e);
-            }
-        };
-
-        fetch();
-    }, []);
+    const {
+        filteredAndSortedPosts,
+        deletePost,
+        searchText,
+        setSearchText,
+        sortKey,
+        setSortKey
+    } = useAdminPosts();
 
     return (
         <div className={commmonStyles.threadContainer}>
+
+            <ReportedPostControls
+                searchText={searchText}
+                setSearchText={setSearchText}
+                sortKey={sortKey}
+                setSortKey={setSortKey}
+            />
+
             <div className={commmonStyles.threadHeader}>
                 <span className={styles.threadId}>ID</span>
                 <span className={styles.threadContent}>内容</span>
@@ -40,7 +40,7 @@ const AdminPostsReported = () => {
                 <span className={styles.threadActions}>操作</span>
             </div>
 
-            {reportedPosts.map((post) => (
+            {filteredAndSortedPosts.map((post) => (
                 <div key={post.id} className={commmonStyles.threadRow}>
                     <span className={styles.threadId} title={post.id}>
                         {post.id.length > 15 ? `${post.id.slice(0, 12)}...` : post.id}
