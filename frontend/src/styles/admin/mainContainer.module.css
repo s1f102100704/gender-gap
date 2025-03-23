@@ -1,11 +1,10 @@
 .threadContainer {
-    width: 73%;
-    left: 20%;
-    margin-left: 200px;
+    width: 83%;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    margin-top: 100px;
 }
 
 .threadHeader,

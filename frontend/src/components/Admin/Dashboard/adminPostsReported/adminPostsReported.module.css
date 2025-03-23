@@ -1,26 +1,23 @@
-.threadContainer {
-    width: 100%;
-    max-width: 1300px;
-    background: #fff;
-    margin-top: 50px;
-    margin-left: 300px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
-
-.threadHeader,
-.threadRow {
+.parentWrapper {
     display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
 }
 
-.threadHeader {
-    font-weight: bold;
-    background: #f5f5f5;
+.controller {
+    display: flex;
+    margin-left: 5%;
+    width: 95%;
+    justify-content: space-between;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
+
+.title {
+    margin-top: 20px;
+}
+
 
 .threadId,
 .threadTitle,
