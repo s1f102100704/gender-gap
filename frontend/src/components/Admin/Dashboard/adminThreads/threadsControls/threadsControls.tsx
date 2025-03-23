@@ -8,7 +8,7 @@ const threadsControls: FC<SearchKey> = ({ searchText, setSearchText, sortKey, se
     <div className={styles.controlPanel}>
       <input
         type="text"
-        placeholder="投稿内容で検索"
+        placeholder="スレッドタイトルで検索"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
         className={styles.searchInput}
