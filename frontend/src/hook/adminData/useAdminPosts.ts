@@ -1,60 +1,70 @@
 import axios from "axios";
-import { useEffect, useState, useRef } from "react";
-import { DISCUSSION_THREAD_ADMIN_POSTS_API_URL } from "../../config";
+import { useEffect, useState } from "react";
+import { ADMIN_POSTS_REPORT_API_URL } from "../../config";
 import { Post } from "../../types/post";
 
 export const useAdminPosts = () => {
-    const [allAdminPosts, setAllAdminPosts] = useState<Post[]>([]);
-    const hasFetched = useRef(false);
-
-    const fetchPosts = async () => {
-        try {
-            const response = await axios.get(DISCUSSION_THREAD_ADMIN_POSTS_API_URL);
-            const posts = response.data.data;
-            console.log(posts);
-            setAllAdminPosts(posts);
-        } catch (err) {
-            console.log("🔴 投稿取得エラー:", err);
-        }
-    };
+    const [reportedPosts, setReportedPosts] = useState<Post[]>([]);
+    const [searchText, setSearchText] = useState("");
+    const [sortKey, setSortKey] = useState("");
 
     useEffect(() => {
-        if (hasFetched.current) return;
-        hasFetched.current = true;
+        const fetchPosts = async () => {
+            try {
+                const response = await axios.get(ADMIN_POSTS_REPORT_API_URL);
+                setReportedPosts(response.data.data);
+            } catch (error) {
+                console.error("通報投稿の取得に失敗", error);
+            }
+        };
+
         fetchPosts();
     }, []);
 
     const deletePost = async (id: string) => {
-        const confirmDelete = window.confirm("本当にこの投稿を削除しますか？");
-        if (!confirmDelete) return;
+        const confirm = window.confirm("本当にこの投稿を削除しますか？");
+        if (!confirm) return;
 
         try {
-            const response = await axios.delete(`${DISCUSSION_THREAD_ADMIN_POSTS_API_URL}/${id}`);
+            await axios.delete(`${ADMIN_POSTS_REPORT_API_URL}/${id}`);
+            alert("投稿が削除されました");
+            // 再取得
+            const res = await axios.get(ADMIN_POSTS_REPORT_API_URL);
+            setReportedPosts(res.data.data);
+        } catch (error) {
+            console.error("削除エラー", error);
+        }
+    };
 
-            if (response.status === 200) {
-                alert("投稿が削除されました！");
-                fetchPosts();
-            } else {
-                const errorData = response.data;
-                alert(errorData.error || "削除に失敗しました。");
+    const filteredAndSortedPosts = reportedPosts
+        .filter((post) =>
+            post.content.toLowerCase().includes(searchText.toLowerCase())
+        )
+        .sort((a, b) => {
+            console.log("sortKey", sortKey);
+
+            if (sortKey === "reports_count") {
+                return (b.reports_count ?? 0) - (a.reports_count ?? 0);
             }
-        } catch (err) {
-            console.error("投稿削除エラー:", err);
-            alert("削除に失敗しました。");
-        }
-    };
 
-    const updatePostContent = async (id: string, newContent: string) => {
-        try {
-            await axios.put(`${DISCUSSION_THREAD_ADMIN_POSTS_API_URL}/${id}`, {
-                postContent: newContent,
-            });
-            fetchPosts();
-        } catch (err) {
-            console.error("投稿内容の更新エラー:", err);
-            throw err;
-        }
-    };
+            if (sortKey === "created_at") {
+                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            }
 
-    return { allAdminPosts, deletePost, updatePostContent };
+            if (sortKey === "updated_at") {
+                return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+            }
+
+            return 0;
+        });
+
+
+    return {
+        filteredAndSortedPosts,
+        deletePost,
+        searchText,
+        setSearchText,
+        sortKey,
+        setSortKey,
+    };
 };

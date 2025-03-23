@@ -13,3 +13,10 @@ export interface Post {
 export interface Props {
     postId: string;
 }
+
+export type SearchKey = {
+    searchText: string;
+    setSearchText: (value: string) => void;
+    sortKey: string;
+    setSortKey: (value: string) => void;
+};
