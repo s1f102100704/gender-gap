@@ -8,7 +8,12 @@
     /* align-items: flex-start; */
     flex-direction: column;
     margin: 0;
+    background-color: #f0f4f8;
+    /* 背景色を変更 */
+    min-height: 100vh;
+    /* 背景色を画面全体に適用 */
 }
+
 
 .contents {
     margin: 0 auto;

@@ -1,0 +1,28 @@
+.threadContainer {
+    width: 73%;
+    left: 20%;
+    margin-left: 200px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.threadHeader,
+.threadRow {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.threadRow:hover {
+    background: #f0f8ff;
+    /* ホバー時の背景色 */
+}
+
+
+.threadHeader {
+    font-weight: bold;
+    background: #f5f5f5;
+}

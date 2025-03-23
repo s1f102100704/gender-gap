@@ -3,6 +3,7 @@ import { useAdminPosts } from "../../../../hook/adminData/useAdminPosts";
 import styles from "./adminPosts.module.css";
 import { Link } from "react-router-dom";
 import { Post } from "../../../../types/post";
+import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
 
 const AdminPostsList = () => {
     const [allPosts, setAllPosts] = useState<Post[]>([]);
@@ -31,8 +32,8 @@ const AdminPostsList = () => {
     };
 
     return (
-        <div className={styles.threadContainer}>
-            <div className={styles.threadHeader}>
+        <div className={commmonStyles.threadContainer}>
+            <div className={commmonStyles.threadHeader}>
                 <span className={styles.threadId}>ID</span>
                 <span className={styles.threadContent}>内容</span>
                 <span className={styles.threadDate}>作成日時</span>
@@ -42,7 +43,7 @@ const AdminPostsList = () => {
             </div>
 
             {allPosts.map((post) => (
-                <div key={post.id} className={styles.threadRow}>
+                <div key={post.id} className={commmonStyles.threadRow}>
                     <span className={styles.threadId} title={post.id}>
                         {post.id.length > 15 ? `${post.id.slice(0, 12)}...` : post.id}
                     </span>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAdminThreads } from "../../../../hook/adminData/useAdminThreads";
 import { useCheckbox } from "../../../../hook/checkbox/useCheckbox";
 import styles from "./adminThreads.module.css";
+import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAdminRecommendedThreads } from "../../../../hook/adminData/useAdminRecommendedThreads";
 import { Thread } from "../../../../types/thread";
@@ -45,8 +46,8 @@ const AdminThreads = () => {
     };
 
     return (
-        <><div className={styles.threadContainer}>
-            <div className={styles.threadHeader}>
+        <><div className={commmonStyles.threadContainer}>
+            <div className={commmonStyles.threadHeader}>
                 {allThreads.some(thread => thread.id) && <span className={styles.threadId}>ID</span>}
                 <span className={styles.threadTitle}>スレッド名</span>
                 <span className={styles.threadDate}>作成日時</span>
@@ -55,7 +56,7 @@ const AdminThreads = () => {
             </div>
 
             {allThreads.map((thread) => (
-                <div key={thread.id || thread.thread_title} className={styles.threadRow}>
+                <div key={thread.id || thread.thread_title} className={commmonStyles.threadRow}>
                     {thread.id && (
                         <span className={styles.threadId} title={thread.id}>
                             {thread.id.length > 15 ? `${thread.id.slice(0, 12)}...` : thread.id}
