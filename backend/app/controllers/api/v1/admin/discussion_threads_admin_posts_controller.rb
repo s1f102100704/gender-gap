@@ -21,6 +21,7 @@ module Api
           def post_params
             params.require(:discussion_threads_admin_post).permit(:content)
           end
+
       end
     end
   end

@@ -11,8 +11,8 @@ module Api
             resentThreads = DiscussionThreadAdmin.delete_admin(params[:id])
             render_json_response(resentThreads)
           end
+
           def update
-            Rails.logger.debug("update_title_admin: #{params[:id]}")
             resentThreads = DiscussionThreadAdmin.update_title_admin(params[:id],params[:thread_title])
             render_json_response(resentThreads)
           end

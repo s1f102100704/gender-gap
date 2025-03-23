@@ -7,6 +7,8 @@ export const useAdminThreads = () => {
         { thread_title: string; id: string; created_at: number }[]
     >([]);
 
+    const [searchText, setSearchText] = useState("");
+    const [sortKey, setSortKey] = useState("");
     const hasFetched = useRef(false);
 
     const fetchThreadsTitle = async () => {
@@ -55,5 +57,19 @@ export const useAdminThreads = () => {
         }
     };
 
-    return { allAdminThreads, deleteThread, updateThreadTitle };
+
+    const filteredAndSortedThreads = allAdminThreads
+        .filter((allAdminThreads) =>
+            allAdminThreads.thread_title.toLowerCase().includes(searchText.toLowerCase())
+        )
+        .sort((a, b) => {
+
+            if (sortKey === "created_at") {
+                return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+            }
+            return 0;
+        });
+
+
+    return { allAdminThreads, deleteThread, updateThreadTitle, filteredAndSortedThreads, searchText, setSearchText, sortKey, setSortKey };
 };

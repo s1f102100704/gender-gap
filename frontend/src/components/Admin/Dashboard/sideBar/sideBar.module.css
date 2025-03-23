@@ -1,101 +1,328 @@
 .sidebar {
-    width: 250px;
+    width: 14%;
     height: 100vh;
-    background: linear-gradient(135deg, #2c3e50, #34495e);
-    color: white;
-    padding: 20px;
+    background-color: #f9fbfc;
+    color: #2c3e50;
+    padding: 24px;
     position: fixed;
-    left: 0;
-    top: 0;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-    font-family: 'Arial', sans-serif;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e0e6ed;
 }
 
 .sidebar h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 20px;
     text-align: center;
-    border-bottom: 2px solid #ecf0f1;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #dfe6ec;
     padding-bottom: 10px;
+    color: #1b4f72;
+    letter-spacing: 1px;
 }
 
 .sidebar ul {
     list-style: none;
     padding: 0;
-}
-
-.sidebar ul li {
-    margin-bottom: 15px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .sidebar ul li a {
-    color: white;
+    padding: 12px 12px;
+    display: block;
+    border-radius: 8px;
+    font-weight: 600;
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    font-size: 16px;
+    color: #616d79;
+
+    transition: all 0.2s ease;
+    font-size: 15px;
+    margin-left: 20px;
 }
 
 .sidebar ul li a:hover {
-    background-color: #1abc9c;
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: transparent;
+    color: #6bb9ee;
+    font-weight: 600;
+    border: none;
 }
 
 .sidebar ul li a.active {
-    background-color: #e74c3c;
+    background-color: transparent;
+    color: #3498db;
+    font-weight: 600;
+    border: none;
+}
+
+.loginCard {
+    background-color: #ffffff;
+    border: 1px solid #dce3ea;
+    padding: 14px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #2c3e50;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.loginLabel {
     font-weight: bold;
-}
-
-.sidebar ul li a i {
-    margin-right: 10px;
-    font-size: 18px;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.columContainer {
-    display: flex;
-    margin-top: 30px;
-    color: white;
-    /* ✅ これを追加！ */
-}
-
-.columContainer p {
-    color: white;
+    color: #3498db;
+    /* 強調ラベル色 */
 }
 
 .logoutWrapper {
     margin-top: auto;
-    padding: 20px;
+    padding-top: 20px;
     display: flex;
     justify-content: center;
 }
 
 .logoutButton {
-    background: #ff4d4d;
-    color: white;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px;
-    font-size: 16px;
+    padding: 12px 20px;
+    background-color: #ffffff;
+    color: #3498db;
+    border: 2px solid #3498db;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s ease;
-    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.4);
+    transition: 0.25s ease;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    /* ✅ ここが追加 or 微調整された影 */
+    box-shadow: 0 2px 6px rgba(52, 152, 219, 0.12);
 }
 
 .logoutButton:hover {
-    background: #ff1a1a;
-    transform: scale(1.05);
+    background-color: #3498db;
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+.menuLabel {
+    position: relative;
+    padding-left: 8px;
+    font-size: 14px;
+    color: #6b898b;
+    font-weight: 800;
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+.menuLabel::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 1px;
+
+}
+
+.icon {
+    font-size: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.dashboardTitle {
+    font-family: 'Orbitron', 'Segoe UI', sans-serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 14px;
+    padding: 16px 24px;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #d4f1f9, #e8f8ff, #f0fbff);
+    border-radius: 16px;
+    color: #00bcd4;
+    box-shadow: 0 0 14px rgba(0, 188, 212, 0.3), inset 0 0 6px rgba(0, 188, 212, 0.15);
+    border: 1px solid rgba(0, 188, 212, 0.3);
+    position: relative;
+    overflow: hidden;
+    animation: pulseGlow 4s ease-in-out infinite;
+}
+
+.dashboardIcon {
+    font-size: 28px;
+    color: #00eaff;
+    background-color: rgba(0, 234, 255, 0.1);
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 234, 255, 0.5);
+    animation: rotateIcon 6s linear infinite;
+}
+
+.dashboardText {
+    font-weight: 800;
+
+    font-size: 20px;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 234, 255, 0.6);
+    letter-spacing: 1.5px;
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 30px rgba(0, 234, 255, 0.8);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
+    }
+}
+
+@keyframes rotateIcon {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loginCard {
+    background: linear-gradient(135deg, #ffffff, #eef6fa);
+    border: 1px solid rgba(52, 152, 219, 0.25);
+    padding: 16px;
+    margin-top: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: 0.3s ease;
+    text-align: center;
+}
+
+.loginCard:hover {
+    box-shadow: 0 6px 18px rgba(0, 183, 255, 0.12);
+}
+
+.adminInfo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+}
+
+.loginIcon {
+    font-size: 22px;
+    background-color: #2980b9;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 8px rgba(41, 128, 185, 0.5);
+}
+
+.loginText {
+    text-align: left;
+}
+
+.adminEmailLabel {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin: 0;
+    font-weight: 600;
+}
+
+.adminEmail {
+    font-size: 14px;
+    color: #2c3e50;
+    font-weight: 500;
+    margin: 0;
+    word-break: break-word;
+}
+
+.loadingInfo {
+    font-size: 13px;
+    color: #7f8c8d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.spinner {
+    width: 12px;
+    height: 12px;
+    border: 2px solid #3498db;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-top: 20px;
+    user-select: none;
+    transition: background 0.2s ease;
+}
+
+.sectionHeader:hover {
+    background-color: rgba(52, 152, 219, 0.08);
+    border-radius: 6px;
+}
+
+.menuLabel {
+    font-size: 13px;
+    color: #7f8c8d;
+    font-weight: 600;
+    margin: 0;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 8px;
+    margin-top: 20px;
+    user-select: none;
+    transition: background 0.2s ease;
+}
+
+.sectionHeader:hover {
+    background-color: rgba(52, 152, 219, 0.08);
+    border-radius: 6px;
+}
+
+.adminEmail {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.adminEmailLabel {
+    font-size: 12px;
+    color: #7f8c8d;
 }

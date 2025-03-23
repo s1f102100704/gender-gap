@@ -7,12 +7,11 @@ class RecommendedDiscussionThreadQuery
 
   def recommend
     DiscussionThread
-    .left_joins(:posts)
-    .where(id: RecommendedThread.select(:discussion_thread_id))
-    .group(:id)
-    .select('discussion_threads.*, COUNT(posts.id) AS comments_count')
-    .order(updated_at: :desc)
-    .limit(@limit)
+      .left_joins(:posts)
+      .joins("INNER JOIN recommended_threads ON recommended_threads.discussion_thread_id = discussion_threads.id")
+      .group(:id, :recommended_at)
+      .select('discussion_threads.*, COUNT(posts.id) AS comments_count, MAX(recommended_threads.recommended_at) AS recommended_at') # recommended_atを取得
+      .order("recommended_at DESC")
+      .limit(@limit)
   end
 end
- 
