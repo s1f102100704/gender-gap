@@ -8,7 +8,7 @@ import RecommendTopic from "./recommendTopic/RecommendTopic";
 const SubTopic = () => {
     return (
         <div className={styles.subTopic}>
-            <div className={styles.createTopic}><Link to="/make_topic">New Topic</Link></div>
+            <Link to="/make_topic"><div className={styles.createTopic}>New Topic</div></Link>
             <div className={styles.weekTopic}>
                 < HeaderWeekPopularTopic />
                 < WeekPopularTopic />
