@@ -10,11 +10,14 @@ class Api::V1::UploadsController < ApplicationController
 
     bucket = s3.bucket(ENV['AWS_BUCKET_NAME'])
 
-    # ファイル名を UUID でユニークに（拡張子はクライアント側と合わせる）
     key = "uploads/#{SecureRandom.uuid}.jpg"
 
     # Presigned URL 発行（PUTメソッドで5分間有効）
-    url = bucket.object(key).presigned_url(:put, expires_in: 300)
+    url = bucket.object(key).presigned_url(:put, {
+      content_type: 'image/jpeg',
+      acl: 'private', 
+      expires_in: 300
+    })
 
     render_json_response({ url: url, key: key },status: :ok)
   end
