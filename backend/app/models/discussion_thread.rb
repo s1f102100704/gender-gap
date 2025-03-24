@@ -9,6 +9,7 @@ class DiscussionThread < ApplicationRecord
         content: post_params[:content],
         gender: post_params[:gender],
         user_id: user_id,
+        image_url:post_params[:image_url]
       )
     return thread
   end

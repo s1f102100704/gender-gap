@@ -9,15 +9,14 @@ services:
   backend:
     build: ./backend
     container_name: rails_api
-    command: bash -c "rm -f tmp/pids/server.pid && bin/rails db:migrate && bin/rails server -b 0.0.0.0"
+    command: bash -c "rm -f tmp/pids/server.pid && bin/rails server -b 0.0.0.0"
     ports:
       - "3000:3000"
     volumes:
       - ./backend:/rails
       - bundle_cache:/usr/local/bundle
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0
+    env_file:
+      - ./backend/.env
     depends_on:
       - db
       - redis
@@ -33,12 +32,11 @@ services:
     volumes:
       - ./backend:/rails
       - bundle_cache:/usr/local/bundle
-    environment:
-      - RAILS_ENV=development
-      - REDIS_URL=redis://redis:6379/0 # Sidekiq が Redis を使えるように設定
     depends_on:
       - backend
       - redis
+    env_file:
+      - ./backend/.env
 
   frontend:
     build: ./frontend
