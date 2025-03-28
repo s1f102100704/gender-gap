@@ -4,8 +4,8 @@ const GenderComponent = () => {
     const { setGender } = useGenderLogin();
 
     const handleSelectGender = (selectedGender: "male" | "female") => {
-        setGender(selectedGender); // 性別を設定
-        console.log(`性別が設定されました: ${selectedGender}`); // デバッグ用ログ
+        setGender(selectedGender);
+        window.location.reload();
     };
 
     return (

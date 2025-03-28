@@ -8,8 +8,7 @@ import GenderDelete from "../components/Gender/delete/GenderDelete";
 import { useGenderLogin } from "../hook/gender/useGenderLogin";
 
 const Home = () => {
-  const { isGenderSet, gender } = useGenderLogin(); // genderも取得
-
+  const { isGenderSet } = useGenderLogin();
   if (!isGenderSet) {
     // genderがローカルストレージにない場合に表示するコンポーネント
     return (
