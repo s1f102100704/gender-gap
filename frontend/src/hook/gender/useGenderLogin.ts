@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 
 export const useGenderLogin = () => {
-    const [gender, setGender] = useState<"male" | "female" | null>(() => {
+    // ローカルストレージから性別を取得し、初期値を設定
+    const getInitialGender = (): "male" | "female" | null => {
         const savedGender = localStorage.getItem("gender");
         return savedGender === "male" || savedGender === "female" ? savedGender : null;
-    });
+    };
 
-    const isGenderSet = !!gender;
+    const [gender, setGender] = useState<"male" | "female" | null>(getInitialGender);
+
+    const isGenderSet = Boolean(gender);
 
     useEffect(() => {
         if (gender) {
@@ -14,10 +17,10 @@ export const useGenderLogin = () => {
         }
     }, [gender]);
 
+    // 性別をクリアする関数
     const clearGender = () => {
         localStorage.removeItem("gender");
         setGender(null);
-        window.location.reload();
     };
 
     return { gender, setGender, isGenderSet, clearGender };
