@@ -13,6 +13,7 @@ users = []
   users << User.find_or_create_by!(ip_address: ip_address)
 end
 
+
 # 管理ユーザー（admin@gmail.com）を追加
 admin = Admin.find_or_create_by!(email: "admin@gmail.com") do |user|
   user.password_digest = "$2a$12$clh1UWDuf6ExVNudPb.FDOyfV00/OQsArbvtwBFLgLK3toB5BU4Ba"
