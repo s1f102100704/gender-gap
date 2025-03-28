@@ -11,6 +11,8 @@ export const useGenderLogin = () => {
 
     const isGenderSet = Boolean(gender);
 
+    // 性別が選択されたときにローカルストレージを更新
+
     useEffect(() => {
         if (gender) {
             localStorage.setItem("gender", gender);
