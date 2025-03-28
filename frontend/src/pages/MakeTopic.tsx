@@ -3,29 +3,21 @@ import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
 import useThreadFormToDB from "../hook/makeTopic/useThreadFormToDB";
 import React from "react";
-import SelectGender from "../components/CreateForm/SelectGender";
 import usePostState from "../hook/createPost/usePostState";
+import { useGenderLogin } from "../hook/gender/useGenderLogin";
 
 const MakeTopic = () => {
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
+  const { gender } = useGenderLogin();
   const {
-    mustSelectGender,
-    setMustSelectGender,
-    noSelectGender,
     threadContext,
     setThreadContext,
-    gender,
-    setGender,
   } = usePostState();
-
+  const validGender = gender ?? 1;
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (gender == 0) {
-      noSelectGender();
-    } else {
-      await threadFormSubmit(event, setThreadContext, threadContext, gender);
-    }
+    await threadFormSubmit(event, setThreadContext, threadContext, validGender);
   };
   return (
     <div className={styles.body}>
@@ -64,12 +56,6 @@ const MakeTopic = () => {
                       required
                     ></textarea>
                   </div>
-                  <SelectGender
-                    setMustSelectGender={setMustSelectGender}
-                    mustSelectGender={mustSelectGender}
-                    setGender={setGender}
-                    gender={gender}
-                  />
                 </div>
               </div>
               <div className={styles.createTopicBtn}>
