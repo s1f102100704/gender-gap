@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const useGenderLogin = () => {
+    const navigate = useNavigate(); // useNavigate フックを使用
+
     // ローカルストレージから性別を取得し、初期値を設定
     const getInitialGender = (): 1 | 2 | null => {
         const savedGender = localStorage.getItem("gender");
@@ -10,6 +13,13 @@ export const useGenderLogin = () => {
     const [gender, setGender] = useState<1 | 2 | null>(getInitialGender);
 
     const isGenderSet = Boolean(gender);
+
+    // 性別が未設定の場合にリダイレクト
+    useEffect(() => {
+        if (!gender) {
+            navigate("/");
+        }
+    }, [gender, navigate]);
 
     // 性別が選択されたときにローカルストレージを更新
     useEffect(() => {
@@ -24,6 +34,13 @@ export const useGenderLogin = () => {
         setGender(null);
     };
 
+    // gender をチェック
+    const getValidGender = (): 1 | 2 => {
+        if (gender === null) {
+            return 1;
+        }
+        return gender;
+    };
 
-    return { gender, setGender, isGenderSet, clearGender };
+    return { gender, setGender, isGenderSet, clearGender, getValidGender };
 };

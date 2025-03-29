@@ -9,7 +9,7 @@ import { useGenderLogin } from "../hook/gender/useGenderLogin";
 const MakeTopic = () => {
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
-  const { gender } = useGenderLogin();
+  const { getValidGender } = useGenderLogin();
   const {
     threadContext,
     setThreadContext,
@@ -17,14 +17,8 @@ const MakeTopic = () => {
 
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    // gender が null の場合は処理を中断
-    if (gender === null) {
-      window.location.reload();
-      return;
-    }
-
-    await threadFormSubmit(event, setThreadContext, threadContext, gender);
+    await threadFormSubmit(event, setThreadContext, threadContext, getValidGender());
+    setThreadTitle("");
   };
   return (
     <div className={styles.body}>
