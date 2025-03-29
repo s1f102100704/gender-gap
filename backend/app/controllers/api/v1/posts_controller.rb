@@ -1,6 +1,6 @@
 module Api
     module V1
-        class Api::V1::PostsController < ApplicationController
+        class PostsController < ApplicationController
             def index
                 content = Post.where(discussion_thread_id: params[:discussion_thread_id])
                 if content
