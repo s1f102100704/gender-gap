@@ -37,8 +37,8 @@ end
 posts = Post.all
 posts.each do |post|
   users.sample(rand(1..3)).each do |user|
-    # 重複を防ぐために find_or_create_by! を使用
-    Vote.find_or_create_by!(
+    # 重複を防ぐために find_or_create_by を使用
+    Vote.find_or_create_by(
       post_id: post.id,
       user_id: user.id
     ) do |vote|

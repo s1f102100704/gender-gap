@@ -1,9 +1,6 @@
 module Api
     module V1
       class DiscussionThreadsController < ApplicationController
-        def index
-        end
-
         def show
           thread = DiscussionThread.find_by_id!(params[:id])
           render_json_response(thread)
@@ -28,7 +25,7 @@ module Api
         end
 
         def post_params
-          params.require(:post).permit(:content, :gender, :user_id,:image_url)
+          params.require(:post).permit(:content, :gender, :image_key)
         end
       end
     end

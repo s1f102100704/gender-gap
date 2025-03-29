@@ -9,7 +9,7 @@ interface useThreadFormToDBReturn {
     setThreadContext: (value: string) => void,
     threadContext: string,
     gender: number,
-    imageUrl?: string | null
+    key?: string | null
   ) => Promise<void>;
   loading: boolean;
   error: string | null;
@@ -31,12 +31,14 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
     created_at: 0,
   });
   const navigate = useNavigate();
+
+
   const threadFormSubmit = async (
     event: React.FormEvent,
     setThreadContext: (value: string) => void,
     threadContext: string,
     gender: number,
-    imageUrl?: string | null
+    image_key?: string | null
   ): Promise<void> => {
     event.preventDefault();
     setLoading(true);
@@ -46,7 +48,7 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
     const created_at = threadInfo.created_at;
     const payload = {
       discussion_thread: { thread_title, created_at },
-      post: { content: content, gender: gender,image_url: imageUrl ||null },
+      post: { content: content, gender: gender,image_url: image_key ||null },
     };
     console.log(payload.post.image_url)
     try {
