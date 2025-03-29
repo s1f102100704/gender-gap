@@ -8,7 +8,6 @@ module Api
                 else
                     render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
                 end
-                
             end
             def show
                 content = Post.where(discussion_thread_id: params[:discussion_thread_id])
