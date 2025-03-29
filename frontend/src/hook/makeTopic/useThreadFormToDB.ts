@@ -8,13 +8,15 @@ interface useThreadFormToDBReturn {
     event: React.FormEvent,
     setThreadContext: (value: string) => void,
     threadContext: string,
-    gender: number
+    gender: number,
+    imageUrl?: string | null
   ) => Promise<void>;
   loading: boolean;
   error: string | null;
   threadTitle: string;
   setThreadTitle: (value: string) => void;
 }
+
 const useThreadFormToDB = (): useThreadFormToDBReturn => {
   const [threadTitle, setThreadTitle] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,7 +35,8 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
     event: React.FormEvent,
     setThreadContext: (value: string) => void,
     threadContext: string,
-    gender: number
+    gender: number,
+    imageUrl?: string | null
   ): Promise<void> => {
     event.preventDefault();
     setLoading(true);
@@ -43,9 +46,9 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
     const created_at = threadInfo.created_at;
     const payload = {
       discussion_thread: { thread_title, created_at },
-      post: { content: content, gender: gender },
+      post: { content: content, gender: gender,image_url: imageUrl ||null },
     };
-
+    console.log(payload.post.image_url)
     try {
       const response = await axios.post(DISCUSSION_API_URL, payload, {
         headers: { "Content-Type": "application/json" },
