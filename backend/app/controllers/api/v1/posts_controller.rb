@@ -1,6 +1,6 @@
 module Api
     module V1
-        class Api::V1::PostsController < ApplicationController
+        class PostsController < ApplicationController
             def index
                 content = Post.where(discussion_thread_id: params[:discussion_thread_id])
                 if content
@@ -8,7 +8,6 @@ module Api
                 else
                     render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
                 end
-                
             end
             def show
                 content = Post.where(discussion_thread_id: params[:discussion_thread_id])
@@ -17,7 +16,6 @@ module Api
                 else
                     render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
                 end
-                
             end
             def create
                 content = Post.build_new(content_params,@current_user.id)
@@ -30,7 +28,7 @@ module Api
 
             private
             def content_params
-                params.require(:post).permit(:content, :discussion_thread_id, :gender)
+                params.require(:post).permit(:content, :discussion_thread_id, :gender, :image_key)
             end
         end
     end

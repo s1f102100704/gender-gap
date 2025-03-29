@@ -40,7 +40,7 @@ const PostDetail = (porps: Props) => {
         <div key={index} className={styles.postConfig}>
           <div className={styles.postHeader}>
             <div>{index + 1}.&nbsp;</div>
-            <div>匿名:&nbsp;{post.gender == 1 ? "男" : "女"}&nbsp;</div>
+            <div>匿名:&nbsp;{post.gender == 1 ? "男性" : "女性"}&nbsp;</div>
             <YYDDMM dateInfo={new Date(post.created_at)} />
             <PostMenu postId={post.id} />
           </div>

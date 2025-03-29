@@ -4,10 +4,9 @@ import styles from "./makeTopic.module.css";
 import useThreadFormToDB from "../hook/makeTopic/useThreadFormToDB";
 import { useGenderLogin } from "../hook/gender/useGenderLogin";
 import React, { useState } from "react";
-import SelectGender from "../components/CreateForm/SelectGender";
 import usePostState from "../hook/createPost/usePostState";
 import ImgUploadForm from "../components/CreateForm/ImgUploadForm";
-import { PRESIGNED_URL_API_URL, S3_BUCKET_NAME, S3_REGEION } from "../config";
+import { PRESIGNED_URL_API_URL, } from "../config";
 
 const MakeTopic = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -21,27 +20,14 @@ const MakeTopic = () => {
 
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await threadFormSubmit(event, setThreadContext, threadContext, getValidGender());
     setThreadTitle("");
 
-    // gender が null の場合は処理を中断
-    if (gender === null) {
-      window.location.reload();
-      return;
-    }
+    let image_key = null;
+    
 
-    await threadFormSubmit(event, setThreadContext, threadContext, gender);
-
-    if (gender == 0) {
-      noSelectGender();
-      return;
-    }
-  
-    let imageUrl = null;
-    const presinged_api_url = PRESIGNED_URL_API_URL
-    console.log(presinged_api_url)
     if (selectedFile) {
-      const res = await fetch(presinged_api_url);
+      const presignedApiUrl = `${PRESIGNED_URL_API_URL}?content_type=${encodeURIComponent(selectedFile.type)}`;
+      const res = await fetch(presignedApiUrl);
       const json   = await res.json();
       const { url, key } = json.data;
   
@@ -53,17 +39,18 @@ const MakeTopic = () => {
         body: selectedFile,
       });
   
-      const bucket = S3_BUCKET_NAME;
-      const region = S3_REGEION;
-      imageUrl = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+      // const bucket = S3_BUCKET_NAME;
+      // const region = S3_REGEION;
+      // imageUrl = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
+      image_key = key;
     }
   
     await threadFormSubmit(
       event,
       setThreadContext,
       threadContext,
-      gender,
-      imageUrl 
+      getValidGender(),
+      image_key,
     );
   };
   return (

@@ -4,6 +4,7 @@ import { DISCUSSION_THREAD_RECENT_API_URL } from "../../../../../../config";
 import styles from "./recentTopic.module.css";
 import { Link } from "react-router-dom";
 import useCreatedAt from "../../../../../../hook/makeTopic/useCreatedAt";
+import ThreadAndPostImage from "../../../threadAndPostImage/ThreadAndPostImage";
 const RecentTopic = () => {
   const [recentThreads, setRecentThreads] = useState<
     {
@@ -11,6 +12,7 @@ const RecentTopic = () => {
       id: string;
       created_at: number;
       comments_count: number;
+      image_key: string;
     }[]
   >([]);
   console.log(recentThreads);
@@ -36,7 +38,9 @@ const RecentTopic = () => {
         <div key={index}>
           <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
             <div className={styles.threadConfig}>
-              <div className={styles.threadImg}>img</div>
+              <div className={styles.threadImg}>
+                <ThreadAndPostImage imageKey = {thread.image_key}/>
+              </div>
               <div>
                 <div className={styles.threadHeader}>
                   <div className={styles.countComments}>
