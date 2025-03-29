@@ -19,3 +19,7 @@ export const LOGIN_ADMIN_USER_API_URL = import.meta.env.VITE_LOGIN_ADMIN_USER_AP
 export const POSTS_REPORT_API_URL = import.meta.env.VITE_POST_REPORT_API_URL;
 export const ADMIN_POSTS_REPORT_API_URL = import.meta.env.VITE_ADMIN_POST_REPORT_API_URL;
 export const REPORT_CONTENTS_API_URL = import.meta.env.VITE_REPORT_CONTENTS_API_URL;
+//S3
+export const PRESIGNED_URL_API_URL = import.meta.env.VITE_PRESIGNED_URL_API_URL
+export const S3_BUCKET_NAME =import.meta.env.VITE_S3_BUCKET_NAME
+export const S3_REGEION=import.meta.env.VITE_S3_REGION
