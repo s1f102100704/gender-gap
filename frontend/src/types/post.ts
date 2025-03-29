@@ -1,4 +1,4 @@
-export interface Post {
+export interface AdminPost {
     id: string;
     post_title?: string;
     content: string;
@@ -10,8 +10,21 @@ export interface Post {
     reports_count?: number;
 }
 
+export interface ThreadsPosts {
+    id: string;
+    disscussion_thread_id: string;
+    gender: number;
+    content: string;
+    created_at: number;
+    votes: { id: string; gender: number; vote_type: number }[];
+}
+
 export interface Props {
     postId: string;
+}
+
+export interface ThreadsProps {
+    threadId: string;
 }
 
 export type SearchKey = {

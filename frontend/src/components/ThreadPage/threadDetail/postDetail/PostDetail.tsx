@@ -5,15 +5,8 @@ import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
 import VoteBar from "./VoteBar/VoteBar";
 import PostMenu from "./postMenu/PostMenu";
-
-interface Posts {
-  id: string;
-  disscussion_thread_id: string;
-  gender: number;
-  content: string;
-  created_at: number;
-  votes: { id: string; gender: number }[];
-}
+import { ThreadsPosts, ThreadsProps } from "../../../../types/post";
+import { usePostCalculate } from "../../../../hook/threadDetail/usePostCalculate";
 
 const fetchPostsComments = async (threadId: string) => {
   try {
@@ -29,26 +22,10 @@ const fetchPostsComments = async (threadId: string) => {
   }
 };
 
-const calculateFontSize = (votesCount: number): string => {
-  const baseSize = 16; // 最小フォントサイズ
-  const maxSize = 32; // 最大フォントサイズ
-  const scale = Math.min(votesCount / 5, 1); // 300 いいねで最大値に達するスケール
-  return `${baseSize + (maxSize - baseSize) * scale}px`;
-};
-
-const calculateFontWeight = (votesCount: number): number => {
-  const baseWeight = 400; // 最小フォントの太さ
-  const maxWeight = 900; // 最大フォントの太さ
-  const scale = Math.min(votesCount / 5, 1); // 300 いいねで最大値に達するスケール
-  return baseWeight + (maxWeight - baseWeight) * scale;
-};
-
-interface Props {
-  threadId: string;
-}
-
-const PostDetail = (props: Props) => {
-  const [posts, setPosts] = useState<Posts[]>([]);
+const PostDetail = (props: ThreadsProps) => {
+  const { positiveVotesCount, calculateFontSize, calculateFontWeight } =
+    usePostCalculate(); // フックから関数を取得
+  const [posts, setPosts] = useState<ThreadsPosts[]>([]);
   const { threadId } = props;
 
   useEffect(() => {
@@ -60,7 +37,8 @@ const PostDetail = (props: Props) => {
   return (
     <div>
       {posts.map((post, index) => {
-        const votesCount = post.votes.length; // いいねの数を取得
+        const votesCount = positiveVotesCount(post);
+
         return (
           <div key={index} className={styles.postConfig}>
             <div className={styles.postHeader}>
@@ -71,8 +49,8 @@ const PostDetail = (props: Props) => {
             </div>
             <p
               style={{
-                fontSize: calculateFontSize(votesCount),
-                fontWeight: calculateFontWeight(votesCount),
+                fontSize: calculateFontSize(votesCount), // フォントサイズを計算
+                fontWeight: calculateFontWeight(votesCount), // フォントの太さを計算
               }}
             >
               {post.content}

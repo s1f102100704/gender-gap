@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import { useAdminPosts } from "../../../../hook/adminData/useAdminPosts";
 import styles from "./adminPosts.module.css";
 import { Link } from "react-router-dom";
-import { Post } from "../../../../types/post";
+import { AdminPost } from "../../../../types/post";
 import commmonStyles from "../../../../styles/admin/mainContainer.module.css";
 import Pagination from "../../../../common/pagination/Pagination";
 import { usePageControls } from "../../../../hook/pageControls/usePageControls";
 import PostControls from "./postControls/PostControls";
 
 const AdminPostsList = () => {
-    const [allPosts, setAllPostsPosts] = useState<Post[]>([]);
+    const [allPosts, setAllPostsPosts] = useState<AdminPost[]>([]);
     const [newContent, setNewContent] = useState<string>("");
     const [editMode, setEditMode] = useState<string | null>(null);
 
