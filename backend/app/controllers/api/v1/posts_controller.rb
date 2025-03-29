@@ -17,7 +17,6 @@ module Api
                 else
                     render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
                 end
-                
             end
             def create
                 content = Post.build_new(content_params,@current_user.id)
