@@ -7,25 +7,18 @@ interface Props {
   threadId: string;
 }
 const CreatePostForm = (props: Props) => {
-  const { gender } = useGenderLogin();
+  const { getValidGender } = useGenderLogin();
   const {
     threadContext,
     setThreadContext,
   } = usePostState();
   const { threadId } = props;
 
-  // gender が null の場合は処理を中断
-  if (gender === null) {
-    window.location.reload();
-    return;
-  }
-
-  const { threadContextSubmit } = usePostContextToDB({ threadContext, gender: gender });
+  const { threadContextSubmit } = usePostContextToDB({ threadContext, gender: getValidGender() });
 
   const postSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     await threadContextSubmit(event, threadId);
-    await window.location.reload();
   };
 
   return (

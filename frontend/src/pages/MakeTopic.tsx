@@ -13,7 +13,7 @@ const MakeTopic = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
-  const { gender } = useGenderLogin();
+  const { getValidGender } = useGenderLogin();
   const {
     threadContext,
     setThreadContext,
@@ -21,6 +21,8 @@ const MakeTopic = () => {
 
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    await threadFormSubmit(event, setThreadContext, threadContext, getValidGender());
+    setThreadTitle("");
 
     // gender が null の場合は処理を中断
     if (gender === null) {
