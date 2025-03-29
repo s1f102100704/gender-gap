@@ -33,7 +33,7 @@ const WeekPopularTopic = () => {
     } else if (female_votes > male_votes) {
       return "rgba(255, 0, 0, 0.1)"; // 赤（女性が優勢）
     } else {
-      return "rgba(200, 200, 200, 0.1)"; // グレー（同数の場合）
+      return "rgba(200, 200, 200, 0.1)";
     }
   };
 
