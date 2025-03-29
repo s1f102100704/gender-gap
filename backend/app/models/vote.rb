@@ -4,12 +4,12 @@ class Vote < ApplicationRecord
     validates :vote_type, inclusion: { in: [1, -1] }
     validates :post_id, uniqueness: { scope: :user_id, message: "can only be voted once per IP" }
   
-  def self.create_or_update_vote(post, user_id, vote_type)
+  def self.create_or_update_vote(post, user_id, vote_type, gender)
     vote = find_by(post_id: post.id, user_id: user_id)
     vote_type = vote_type.to_i
     
     if vote.nil?
-      vote = Vote.new(post_id: post.id, user_id: user_id, vote_type: vote_type)
+      vote = Vote.new(post_id: post.id, user_id: user_id, vote_type: vote_type, gender: gender)
       success = vote.save
       status = success ? :created : :unprocessable_entity
     elsif vote.vote_type == vote_type
