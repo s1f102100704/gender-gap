@@ -47,10 +47,10 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
     const content = threadContext;
     const created_at = threadInfo.created_at;
     const payload = {
-      discussion_thread: { thread_title, created_at },
-      post: { content: content, gender: gender,image_url: image_key ||null },
+      discussion_thread: { thread_title, created_at ,image_key},
+      post: { content: content, gender: gender,image_key: image_key ||null },
     };
-    console.log(payload.post.image_url)
+
     try {
       const response = await axios.post(DISCUSSION_API_URL, payload, {
         headers: { "Content-Type": "application/json" },

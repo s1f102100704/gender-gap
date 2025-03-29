@@ -36,7 +36,7 @@ Rails.application.routes.draw do
         resources :discussion_threads_admin_posts, only: [:index, :destroy, :update]
       end
       get 'presigned_url', to: 'uploads#presigned_url'
-      get 'download_url', to: 'downloads#presigned_url'
+      get 'img_download_url', to: 'img_downloads#presigned_url'
     end
   end
 end

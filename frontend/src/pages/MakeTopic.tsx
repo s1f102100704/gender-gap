@@ -23,10 +23,11 @@ const MakeTopic = () => {
     setThreadTitle("");
 
     let image_key = null;
-    const presinged_api_url = PRESIGNED_URL_API_URL
+    
 
     if (selectedFile) {
-      const res = await fetch(presinged_api_url);
+      const presignedApiUrl = `${PRESIGNED_URL_API_URL}?content_type=${encodeURIComponent(selectedFile.type)}`;
+      const res = await fetch(presignedApiUrl);
       const json   = await res.json();
       const { url, key } = json.data;
   

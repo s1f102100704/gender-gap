@@ -1,4 +1,4 @@
-class Api::V1::DownloadsController < ApplicationController
+class Api::V1::ImgDownloadsController < ApplicationController
   require 'aws-sdk-s3'
 
   def presigned_url
