@@ -2,6 +2,7 @@ import Header from "../components/Home/header/Header";
 import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
 import useThreadFormToDB from "../hook/makeTopic/useThreadFormToDB";
+import { useGenderLogin } from "../hook/gender/useGenderLogin";
 import React, { useState } from "react";
 import SelectGender from "../components/CreateForm/SelectGender";
 import usePostState from "../hook/createPost/usePostState";
@@ -12,19 +13,23 @@ const MakeTopic = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
+  const { gender } = useGenderLogin();
   const {
-    mustSelectGender,
-    setMustSelectGender,
-    noSelectGender,
     threadContext,
     setThreadContext,
-    gender,
-    setGender,
   } = usePostState();
 
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("おかしい")
+
+    // gender が null の場合は処理を中断
+    if (gender === null) {
+      window.location.reload();
+      return;
+    }
+
+    await threadFormSubmit(event, setThreadContext, threadContext, gender);
+
     if (gender == 0) {
       noSelectGender();
       return;
@@ -96,12 +101,6 @@ const MakeTopic = () => {
                       required
                     ></textarea>
                   </div>
-                  <SelectGender
-                    setMustSelectGender={setMustSelectGender}
-                    mustSelectGender={mustSelectGender}
-                    setGender={setGender}
-                    gender={gender}
-                  />
                 </div>
               </div>
               <div className={styles.createTopicBtn}>

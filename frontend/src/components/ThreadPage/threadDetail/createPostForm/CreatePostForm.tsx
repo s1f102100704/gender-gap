@@ -1,32 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import usePostContextToDB from "../../../../hook/createPost/usePostContextToDB";
 import usePostState from "../../../../hook/createPost/usePostState";
-import SelectGender from "../../../CreateForm/SelectGender";
 import styles from "./createPostForm.module.css";
+import { useGenderLogin } from "../../../../hook/gender/useGenderLogin";
 interface Props {
   threadId: string;
 }
 const CreatePostForm = (props: Props) => {
+  const { gender } = useGenderLogin();
   const {
-    mustSelectGender,
-    setMustSelectGender,
-    noSelectGender,
     threadContext,
     setThreadContext,
-    gender,
-    setGender,
   } = usePostState();
   const { threadId } = props;
-  const { threadContextSubmit } = usePostContextToDB({ threadContext, gender });
+
+  // gender が null の場合は処理を中断
+  if (gender === null) {
+    window.location.reload();
+    return;
+  }
+
+  const { threadContextSubmit } = usePostContextToDB({ threadContext, gender: gender });
+
   const postSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (gender == 0) {
-      noSelectGender();
-    } else {
-      await threadContextSubmit(event, threadId);
-      await window.location.reload();
-    }
+    await threadContextSubmit(event, threadId);
+    await window.location.reload();
   };
+
   return (
     <div>
       <form className={styles.form} onSubmit={postSubmit}>
@@ -42,12 +43,6 @@ const CreatePostForm = (props: Props) => {
           ></textarea>
         </div>
         <div>画像を選択</div>
-        <SelectGender
-          setMustSelectGender={setMustSelectGender}
-          mustSelectGender={mustSelectGender}
-          setGender={setGender}
-          gender={gender}
-        />
         <button type="submit" className={styles.submitComment}>
           <p>コメントを投稿する</p>
         </button>

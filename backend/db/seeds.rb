@@ -37,13 +37,12 @@ end
 posts = Post.all
 posts.each do |post|
   users.sample(rand(1..3)).each do |user|
-    Vote.transaction do
-      # テーブルロックを使用して競合を防止
-      Vote.lock.where(post_id: post.id, user_id: user.id).first_or_create!(
-        post_id: post.id,
-        user_id: user.id,
-        vote_type: [1, -1].sample # Good or Bad
-      )
+    # 重複を防ぐために find_or_create_by! を使用
+    Vote.find_or_create_by!(
+      post_id: post.id,
+      user_id: user.id
+    ) do |vote|
+      vote.vote_type = [1, -1].sample # Good or Bad
     end
   end
 end
