@@ -5,7 +5,8 @@ module Api
 
       # 投票する（または変更）
       def create
-        result = Vote.create_or_update_vote(@post, @current_user.id, vote_params[:vote_type])
+        Rails.logger.info("Vote params: #{vote_params.inspect}")
+        result = Vote.create_or_update_vote(@post, @current_user.id, vote_params[:vote_type],vote_params[:gender])
       
         if result[:success]
           UpdateVoteCountsJob.perform_later(@post.id)
@@ -23,7 +24,7 @@ module Api
       end
 
       def vote_params
-        params.require(:vote).permit(:vote_type,:post_id)
+        params.require(:vote).permit(:vote_type, :post_id, :gender)
       end
     end
   end
