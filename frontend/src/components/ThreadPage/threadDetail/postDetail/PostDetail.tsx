@@ -5,49 +5,60 @@ import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
 import VoteBar from "./VoteBar/VoteBar";
 import PostMenu from "./postMenu/PostMenu";
-interface Posts {
-  id: string;
-  disscussion_thread_id: string;
-  gender: number;
-  content: string;
-  created_at: number;
-}
+import { ThreadsPosts, ThreadsProps } from "../../../../types/post";
+import { usePostCalculate } from "../../../../hook/threadDetail/usePostCalculate";
+
 const fetchPostsComments = async (threadId: string) => {
   try {
     const response = await axios.get(
       `${POSTS_API_URL}?discussion_thread_id=${threadId}`
     );
-    return response.data.data;
+
+    console.log("fetchPostsComments", response.data);
+    return response.data;
   } catch (err) {
     console.log(err);
     return [];
   }
 };
 
-interface Props {
-  threadId: string;
-}
-const PostDetail = (porps: Props) => {
-  const [posts, setPosts] = useState<Posts[]>([]);
-  const { threadId } = porps;
+const PostDetail = (props: ThreadsProps) => {
+  const { positiveVotesCount, calculateFontSize, calculateFontWeight } =
+    usePostCalculate(); // フックから関数を取得
+  const [posts, setPosts] = useState<ThreadsPosts[]>([]);
+  const { threadId } = props;
+
   useEffect(() => {
     fetchPostsComments(threadId).then(setPosts);
   }, [threadId]);
+
   if (!posts) return <p>Loading...</p>;
+
   return (
     <div>
-      {posts.map((post, index) => (
-        <div key={index} className={styles.postConfig}>
-          <div className={styles.postHeader}>
-            <div>{index + 1}.&nbsp;</div>
-            <div>匿名:&nbsp;{post.gender == 1 ? "男性" : "女性"}&nbsp;</div>
-            <YYDDMM dateInfo={new Date(post.created_at)} />
-            <PostMenu postId={post.id} />
+      {posts.map((post, index) => {
+        const votesCount = positiveVotesCount(post);
+
+        return (
+          <div key={index} className={styles.postConfig}>
+            <div className={styles.postHeader}>
+              <div>{index + 1}.&nbsp;</div>
+              <div>匿名:&nbsp;{post.gender === 1 ? "男" : "女"}&nbsp;</div>
+              <YYDDMM dateInfo={new Date(post.created_at)} />
+              <PostMenu postId={post.id} />
+            </div>
+            <p
+              style={{
+                fontSize: calculateFontSize(votesCount), // フォントサイズを計算
+                fontWeight: calculateFontWeight(votesCount), // フォントの太さを計算
+              }}
+            >
+              {post.content}
+            </p>
+            <VoteBar post_id={post.id} />
           </div>
-          <p>{post.content}</p>
-          <VoteBar post_id={post.id} />
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

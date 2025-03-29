@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { ADMIN_POSTS_REPORT_API_URL, DISCUSSION_THREAD_ADMIN_POSTS_API_URL } from "../../config";
-import { Post } from "../../types/post";
+import { AdminPost } from "../../types/post";
 
 export const useAdminPosts = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<AdminPost[]>([]);
     const [searchText, setSearchText] = useState("");
     const [sortKey, setSortKey] = useState("");
     const hasFetched = useRef(false);

@@ -1,6 +1,5 @@
-
 # デフォルトで挿入するスレッドタイトル（20件生成）
-thread_titles = Array.new(20) { |i| "Discussion Thread #{i + 1}" }
+thread_titles = Array.new(30) { |i| "Discussion Thread #{i + 1}" }
 
 threads = thread_titles.map do |title|
   DiscussionThread.find_or_create_by!(thread_title: title)
@@ -13,14 +12,13 @@ users = []
   users << User.find_or_create_by!(ip_address: ip_address)
 end
 
-
 # 管理ユーザー（admin@gmail.com）を追加
 admin = Admin.find_or_create_by!(email: "admin@gmail.com") do |user|
   user.password_digest = "$2a$12$clh1UWDuf6ExVNudPb.FDOyfV00/OQsArbvtwBFLgLK3toB5BU4Ba"
 end
 
-# 投稿データを35件生成
-35.times do |i|
+# 投稿データを50件生成
+50.times do |i|
   thread = threads.sample
   user = users.sample
   gender = [1, 2].sample
@@ -33,16 +31,23 @@ end
   )
 end
 
-# 投稿を取得してランダムにいいねを付与（各投稿に最大3つまで）
+# 投稿を取得してランダムにいいねを付与（各投稿に1〜300のランダムな数のいいねを付与）
 posts = Post.all
 posts.each do |post|
-  users.sample(rand(1..3)).each do |user|
-    # 重複を防ぐために find_or_create_by を使用
-    Vote.find_or_create_by(
+
+  # ランダムな数（1〜300）のいいねを生成
+  rand(1..300).times do
+    user = users.sample
+    gender = [1, 2].sample
+
+    # 重複を防ぐために find_or_create_by! を使用
+    Vote.find_or_create_by!(
+
       post_id: post.id,
       user_id: user.id
     ) do |vote|
       vote.vote_type = [1, -1].sample # Good or Bad
+      vote.gender = gender # いいねに性別を追加
     end
   end
 end
@@ -76,4 +81,4 @@ posts.sample(15).each do |post|
   end
 end
 
-puts "✅ Seed data created successfully!" 
+puts "✅ Seed data created successfully!"
