@@ -2,14 +2,25 @@ module Api
     module V1
         class Api::V1::PostsController < ApplicationController
             def index
-                content = Post.where(discussion_thread_id: params[:discussion_thread_id])
-                if content
-                    render_json_response(content)
+                content = Post.includes(:votes).where(discussion_thread_id: params[:discussion_thread_id])
+              
+                if content.exists?
+                  response = content.map do |post|
+                    {
+                      id: post.id,
+                      content: post.content,
+                      discussion_thread_id: post.discussion_thread_id,
+                      gender: post.gender,
+                      votes: post.votes.map { |vote| { id: vote.id, gender: vote.gender } },
+                      created_at: post.created_at,
+                    }
+                  end
+              
+                  render json: response, status: :ok
                 else
-                    render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
+                  render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
                 end
-                
-            end
+              end
             def show
                 content = Post.where(discussion_thread_id: params[:discussion_thread_id])
                 if content
