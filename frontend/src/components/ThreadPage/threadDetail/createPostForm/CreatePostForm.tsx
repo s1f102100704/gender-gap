@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import usePostContextToDB from "../../../../hook/createPost/usePostContextToDB";
 import usePostState from "../../../../hook/createPost/usePostState";
 import styles from "./createPostForm.module.css";
@@ -13,9 +13,14 @@ const CreatePostForm = (props: Props) => {
     setThreadContext,
   } = usePostState();
   const { threadId } = props;
-  const validGender = gender ?? 1;
 
-  const { threadContextSubmit } = usePostContextToDB({ threadContext, gender: validGender });
+  // gender が null の場合は処理を中断
+  if (gender === null) {
+    window.location.reload();
+    return;
+  }
+
+  const { threadContextSubmit } = usePostContextToDB({ threadContext, gender: gender });
 
   const postSubmit = async (event: React.FormEvent) => {
     event.preventDefault();

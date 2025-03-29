@@ -24,5 +24,6 @@ export const useGenderLogin = () => {
         setGender(null);
     };
 
+
     return { gender, setGender, isGenderSet, clearGender };
 };

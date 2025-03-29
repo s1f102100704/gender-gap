@@ -14,10 +14,17 @@ const MakeTopic = () => {
     threadContext,
     setThreadContext,
   } = usePostState();
-  const validGender = gender ?? 1;
+
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    await threadFormSubmit(event, setThreadContext, threadContext, validGender);
+
+    // gender が null の場合は処理を中断
+    if (gender === null) {
+      window.location.reload();
+      return;
+    }
+
+    await threadFormSubmit(event, setThreadContext, threadContext, gender);
   };
   return (
     <div className={styles.body}>
