@@ -1,5 +1,5 @@
 // usePageControls.ts
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 
 export const usePageControls = <T>(items: T[], itemsPerPage: number = 10) => {
   const [currentPage, setCurrentPage] = useState(1);
