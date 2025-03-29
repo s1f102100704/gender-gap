@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GET_PRESIGNED_API_URL } from "../../../../config";
-
+import styles from "./threadAndoPostImage.module.css"
 type Props ={
   imageKey:string;
 }
@@ -20,8 +20,8 @@ const ThreadAndPostImage = ({imageKey}:Props) => {
     }
   }, [imageKey,presinged_api_url]);
   return (
-    <div>
-          {imageUrl && <img src={imageUrl} alt="スレッド画像" />}
+    <div >
+          {imageUrl ? <img className={styles.image}src={imageUrl} alt="スレッド画像" />:<>img</>}
     </div>
   )
 }
