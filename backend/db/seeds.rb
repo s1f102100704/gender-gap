@@ -34,11 +34,11 @@ end
 # 投稿を取得してランダムにいいねを付与（各投稿に1〜300のランダムな数のいいねを付与）
 posts = Post.all
 posts.each do |post|
+
   # ランダムな数（1〜300）のいいねを生成
   rand(1..300).times do
     user = users.sample
     gender = [1, 2].sample
-
     # 重複を防ぐために find_or_create_by を使用
     Vote.find_or_create_by(
       post_id: post.id,
