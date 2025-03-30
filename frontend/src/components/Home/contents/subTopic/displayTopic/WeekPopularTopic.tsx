@@ -85,12 +85,6 @@ const WeekPopularTopic = () => {
         weekPopularThreads.map((thread, index) => (
           <div
             key={index}
-            style={{
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "5px",
-              border: "1px solid #ccc",
-            }}
           >
             <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
               <div className={styles.threadConfig}>
