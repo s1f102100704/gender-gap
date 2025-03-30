@@ -14,7 +14,7 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/rails
-      - bundle_cache:/usr/local/bundle
+      - ./backend/vendor/bundle:/rails/vendor/bundle
     env_file:
       - ./backend/.env
     depends_on:
