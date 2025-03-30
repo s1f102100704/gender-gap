@@ -36,7 +36,7 @@ const ThreadAndPostImage = ({ imageKey }: Props) => {
     fetchImageUrl();
   }, [imageKey, presinged_api_url]);
   return (
-    <div>
+    <>
       {imageUrl ? (
         <img className={styles.image} src={imageUrl} alt="スレッド画像" />
       ) : error ? (
@@ -44,7 +44,7 @@ const ThreadAndPostImage = ({ imageKey }: Props) => {
       ) : (
         <>img</> // ロード中や画像なし時のプレースホルダー
       )}
-    </div>
+    </>
   );
 };
 

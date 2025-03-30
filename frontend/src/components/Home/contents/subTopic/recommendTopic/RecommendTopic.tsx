@@ -4,16 +4,11 @@ import { DISCUSSION_RECOMMEND_API_URL } from "../../../../../config";
 import styles from "./recommendTopic.module.css";
 import { Link } from "react-router-dom";
 import useCreatedAt from "../../../../../hook/makeTopic/useCreatedAt";
+import { Thread } from "../../../../../types/thread";
+import ThreadAndPostImage from "../../threadAndPostImage/ThreadAndPostImage";
 
 const RecommendTopic = () => {
-  const [recommendThreads, setrecommendThreads] = useState<
-    {
-      thread_title: string;
-      id: string;
-      created_at: string;
-      comments_count: number;
-    }[]
-  >([]);
+  const [recommendThreads, setrecommendThreads] = useState<Thread[]>([]);
   const { sinceDate } = useCreatedAt();
   const createSinceDate = (fullDate: Date) => {
     return sinceDate(fullDate);
@@ -37,7 +32,9 @@ const RecommendTopic = () => {
           <div key={index}>
             <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
               <div className={styles.threadConfig}>
-                <div className={styles.threadImg}>img</div>
+                <div className={styles.threadImg}>
+                  <ThreadAndPostImage imageKey={thread.image_key} />
+                </div>
                 <div>
                   <div className={styles.threadHeader}>
                     <div className={styles.countComments}>

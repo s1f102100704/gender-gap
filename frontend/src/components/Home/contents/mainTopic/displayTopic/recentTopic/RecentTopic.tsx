@@ -5,16 +5,9 @@ import styles from "./recentTopic.module.css";
 import { Link } from "react-router-dom";
 import useCreatedAt from "../../../../../../hook/makeTopic/useCreatedAt";
 import ThreadAndPostImage from "../../../threadAndPostImage/ThreadAndPostImage";
+import { Thread } from "../../../../../../types/thread";
 const RecentTopic = () => {
-  const [recentThreads, setRecentThreads] = useState<
-    {
-      thread_title: string;
-      id: string;
-      created_at: number;
-      comments_count: number;
-      image_key: string;
-    }[]
-  >([]);
+  const [recentThreads, setRecentThreads] = useState<Thread[]>([]);
   const { sinceDate } = useCreatedAt();
   const createSinceDate = (fullDate: Date) => {
     return sinceDate(fullDate);

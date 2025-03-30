@@ -3,7 +3,6 @@ import { PRESIGNED_URL_API_URL } from "../../config";
 import imageCompression from "browser-image-compression";
 const usePutImageS3 = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // const [imageKey, setImageKey] = useState<string | null>(null);
 
   const putImage = async () => {
     if (selectedFile) {
@@ -24,7 +23,6 @@ const usePutImageS3 = () => {
         },
         body: compressedFile,
       });
-      // setImageKey(key);
       return key;
     }
     return null;

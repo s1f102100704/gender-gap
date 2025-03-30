@@ -4,16 +4,11 @@ import { DISCUSSION_THREAD_WEEK_POPULAR_API_URL } from "../../../../../config";
 import styles from "./weekPopularTopic.module.css";
 import { Link } from "react-router-dom";
 import useCreatedAt from "../../../../../hook/makeTopic/useCreatedAt";
+import { Thread } from "../../../../../types/thread";
+import ThreadAndPostImage from "../../threadAndPostImage/ThreadAndPostImage";
 
 const WeekPopularTopic = () => {
-  const [weekPopularThreads, setweekPopularThreads] = useState<
-    {
-      thread_title: string;
-      id: string;
-      created_at: string;
-      comments_count: number;
-    }[]
-  >([]);
+  const [weekPopularThreads, setweekPopularThreads] = useState<Thread[]>([]);
   const { sinceDate } = useCreatedAt();
   const createSinceDate = (fullDate: Date) => {
     return sinceDate(fullDate);
@@ -41,7 +36,9 @@ const WeekPopularTopic = () => {
           <div key={index}>
             <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
               <div className={styles.threadConfig}>
-                <div className={styles.threadImg}>img</div>
+                <div className={styles.threadImg}>
+                  <ThreadAndPostImage imageKey={thread.image_key} />
+                </div>
                 <div>
                   <div className={styles.threadHeader}>
                     <div className={styles.countComments}>
