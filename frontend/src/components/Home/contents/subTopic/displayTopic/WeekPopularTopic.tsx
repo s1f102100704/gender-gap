@@ -28,12 +28,41 @@ const WeekPopularTopic = () => {
   const getBackgroundColor = (votesSummary: { male_votes: number; female_votes: number }) => {
     const { male_votes, female_votes } = votesSummary;
 
+    // 差を計算
+    const totalVotes = male_votes + female_votes;
+    const difference = Math.abs(male_votes - female_votes);
+
+    // 差の割合を計算（0.1 以上 1.0 以下に制限）
+    const intensity = totalVotes > 0 ? Math.min(Math.max(difference / totalVotes, 0.1), 1.0) : 0.1;
+
+    // 色を決定（男性が優勢なら青、女性が優勢なら赤）
     if (male_votes > female_votes) {
-      return "rgba(0, 0, 255, 0.1)"; // 青（男性が優勢）
+      return `rgba(0, 0, 255, ${intensity})`; // 青（男性が優勢）
     } else if (female_votes > male_votes) {
-      return "rgba(255, 0, 0, 0.1)"; // 赤（女性が優勢）
+      return `rgba(255, 0, 0, ${intensity})`; // 赤（女性が優勢）
     } else {
       return "rgba(200, 200, 200, 0.1)"; // グレー（同数の場合）
+    }
+  };
+
+  // 文字色を決定する関数
+  const getTextColor = (votesSummary: { male_votes: number; female_votes: number }) => {
+    const { male_votes, female_votes } = votesSummary;
+
+    // 差を計算
+    const totalVotes = male_votes + female_votes;
+    const difference = Math.abs(male_votes - female_votes);
+
+    // 差の割合を計算（0.1 以上 1.0 以下に制限）
+    const intensity = totalVotes > 0 ? Math.min(Math.max(difference / totalVotes, 0.3), 1.0) : 0.1;
+
+    // 色を決定（男性が優勢なら青、女性が優勢なら赤）
+    if (male_votes > female_votes) {
+      return `rgba(0, 0, 255, ${intensity})`; // 青（男性が優勢）
+    } else if (female_votes > male_votes) {
+      return `rgba(255, 0, 0, ${intensity})`; // 赤（女性が優勢）
+    } else {
+      return "rgba(100, 100, 100, 1)"; // グレー（同数の場合）
     }
   };
 
@@ -56,12 +85,6 @@ const WeekPopularTopic = () => {
         weekPopularThreads.map((thread, index) => (
           <div
             key={index}
-            style={{
-              backgroundColor: getBackgroundColor(thread.votes_summary), // 背景色を動的に設定
-              padding: "10px",
-              marginBottom: "10px",
-              borderRadius: "5px",
-            }}
           >
             <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
               <div className={styles.threadConfig}>
@@ -75,7 +98,14 @@ const WeekPopularTopic = () => {
                       {createSinceDate(new Date(thread.created_at))}
                     </div>
                   </div>
-                  <div className={styles.threadTitle}>{thread.thread_title}</div>
+                  <div
+                    className={styles.threadTitle}
+                    style={{
+                      color: getTextColor(thread.votes_summary), // 文字色を動的に設定
+                    }}
+                  >
+                    {thread.thread_title}
+                  </div>
                 </div>
               </div>
             </Link>
