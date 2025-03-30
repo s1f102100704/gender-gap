@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRedirectIfNoGender } from "./useRedirectIfNoGender";
 
 export const useGenderLogin = () => {
     const navigate = useNavigate(); // useNavigate フックを使用
@@ -14,12 +15,7 @@ export const useGenderLogin = () => {
 
     const isGenderSet = Boolean(gender);
 
-    // 性別が未設定の場合にリダイレクト
-    useEffect(() => {
-        if (!gender) {
-            navigate("/");
-        }
-    }, [gender, navigate]);
+    useRedirectIfNoGender(gender);
 
     // 性別が選択されたときにローカルストレージを更新
     useEffect(() => {

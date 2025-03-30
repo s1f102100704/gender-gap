@@ -2,11 +2,12 @@ module Api
     module V1
         class PostsController < ApplicationController
             def index
-                content = Post.where(discussion_thread_id: params[:discussion_thread_id])
-                if content
-                    render_json_response(content)
+                content = PostsQuery.fetch_by_discussion_thread(params[:discussion_thread_id])
+        
+                if content.present?
+                  render json: content, status: :ok
                 else
-                    render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
+                  render json: { error: "Post not found for this discussion_thread_id" }, status: :not_found
                 end
             end
             def show
