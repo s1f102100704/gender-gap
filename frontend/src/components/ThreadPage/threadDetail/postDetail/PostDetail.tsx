@@ -13,8 +13,6 @@ const fetchPostsComments = async (threadId: string) => {
     const response = await axios.get(
       `${POSTS_API_URL}?discussion_thread_id=${threadId}`
     );
-
-    console.log("fetchPostsComments", response.data);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -23,8 +21,8 @@ const fetchPostsComments = async (threadId: string) => {
 };
 
 const PostDetail = (props: ThreadsProps) => {
-  const { positiveVotesCount, calculateFontSize, calculateFontWeight } =
-    usePostCalculate(); // フックから関数を取得
+  const { positiveVotesCount, calculateFontSize, calculateFontWeight, getTextColor } =
+    usePostCalculate();
   const [posts, setPosts] = useState<ThreadsPosts[]>([]);
   const { threadId } = props;
 
@@ -33,6 +31,7 @@ const PostDetail = (props: ThreadsProps) => {
   }, [threadId]);
 
   if (!posts) return <p>Loading...</p>;
+
 
   return (
     <div>
@@ -49,8 +48,9 @@ const PostDetail = (props: ThreadsProps) => {
             </div>
             <p
               style={{
-                fontSize: calculateFontSize(votesCount), // フォントサイズを計算
-                fontWeight: calculateFontWeight(votesCount), // フォントの太さを計算
+                fontSize: calculateFontSize(votesCount),
+                fontWeight: calculateFontWeight(votesCount),
+                color: getTextColor(post),
               }}
             >
               {post.content}

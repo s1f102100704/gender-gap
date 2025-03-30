@@ -26,12 +26,71 @@ class DiscussionThread < ApplicationRecord
 
   # 人気のスレッドを取得（直近1日のコメント数が多い順）
   def self.fetch_popular
-    DiscussionThreadQuery.new.popular
+    threads = DiscussionThreadQuery.new.popular # 人気のスレッドを取得
+    Rails.logger.info("Fetched popular threads: #{threads.inspect}")
+
+    threads.map do |thread|
+      male_votes = 0
+      female_votes = 0
+
+      # 各スレッドに関連するポストと「いいね」を集計
+      thread.posts.includes(:votes).each do |post|
+        if post.gender == 1 # 男性のポスト
+          male_votes += post.votes.where(gender: 1).count
+        elsif post.gender == 2 # 女性のポスト
+          female_votes += post.votes.where(gender: 2).count
+        end
+      end
+
+      # スレッド情報と集計結果を返す
+      {
+        id: thread.id,
+        thread_title: thread.title,
+        created_at: thread.created_at,
+        updated_at: thread.updated_at,
+        comments_count: thread.posts.count,
+        votes_summary: {
+          male_votes: male_votes,
+          female_votes: female_votes
+        }
+      }
+    end
   end
 
   # 人気のスレッドを取得（直近1週間のコメント数が多い順）
   def self.fetch_week_popular
-    DiscussionThreadQuery.new.weekPopular
+    threads = DiscussionThreadQuery.new.weekPopular # 直近1週間の人気スレッドを取得
+    Rails.logger.info("Fetched weekly popular threads: #{threads.inspect}")
+
+    threads.map do |thread|
+      male_votes = 0
+      female_votes = 0
+
+      # 各スレッドに関連するポストと「いいね」を集計
+      posts = thread.posts.includes(:votes) # 関連するポストと「いいね」を取得
+      Rails.logger.info("Posts for thread #{thread.id}: #{posts.inspect}")
+
+      posts.each do |post|
+        if post.gender == 1 # 男性のポスト
+          male_votes += post.votes.where(gender: 1).count
+        elsif post.gender == 2 # 女性のポスト
+          female_votes += post.votes.where(gender: 2).count
+        end
+      end
+
+      # スレッド情報と集計結果を返す
+      {
+        id: thread.id,
+        thread_title: thread.thread_title,
+        created_at: thread.created_at,
+        updated_at: thread.updated_at,
+        comments_count: thread.posts.count,
+        votes_summary: {
+          male_votes: male_votes,
+          female_votes: female_votes
+        }
+      }
+    end
   end
 
   # ID からスレッドを取得（例外処理は Controller 側で行う）

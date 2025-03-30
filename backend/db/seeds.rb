@@ -2,18 +2,18 @@
 thread_titles = Array.new(30) { |i| "Discussion Thread #{i + 1}" }
 
 threads = thread_titles.map do |title|
-  DiscussionThread.find_or_create_by!(thread_title: title)
+  DiscussionThread.find_or_create_by(thread_title: title)
 end
 
 # ユーザーデータを増やす（10ユーザー生成 + 管理ユーザー追加）
 users = []
 10.times do |i|
   ip_address = "192.168.1.#{i + 1}" # 固定のIPアドレスを使用
-  users << User.find_or_create_by!(ip_address: ip_address)
+  users << User.find_or_create_by(ip_address: ip_address)
 end
 
 # 管理ユーザー（admin@gmail.com）を追加
-admin = Admin.find_or_create_by!(email: "admin@gmail.com") do |user|
+admin = Admin.find_or_create_by(email: "admin@gmail.com") do |user|
   user.password_digest = "$2a$12$clh1UWDuf6ExVNudPb.FDOyfV00/OQsArbvtwBFLgLK3toB5BU4Ba"
 end
 
@@ -23,7 +23,7 @@ end
   user = users.sample
   gender = [1, 2].sample
 
-  Post.find_or_create_by!(
+  Post.find_or_create_by(
     discussion_thread: thread,
     user_id: user.id,
     gender: gender,
@@ -39,10 +39,8 @@ posts.each do |post|
   rand(1..300).times do
     user = users.sample
     gender = [1, 2].sample
-
-    # 重複を防ぐために find_or_create_by! を使用
-    Vote.find_or_create_by!(
-
+    # 重複を防ぐために find_or_create_by を使用
+    Vote.find_or_create_by(
       post_id: post.id,
       user_id: user.id
     ) do |vote|
@@ -54,7 +52,7 @@ end
 
 # おすすめスレッドを20件挿入（ランダムに選出）
 threads.sample(20).each do |thread|
-  RecommendedThread.find_or_create_by!(discussion_thread: thread) do |recommended_thread|
+  RecommendedThread.find_or_create_by(discussion_thread: thread) do |recommended_thread|
     recommended_thread.recommended_at = Time.current
   end
 end
@@ -73,7 +71,7 @@ posts.sample(15).each do |post|
   comment = report_reason_options[reason_code.to_sym]
 
   unless Report.exists?(post_id: post.id)
-    Report.create!(
+    Report.create(
       post_id: post.id,
       reason_code: reason_code,
       comment: comment
@@ -81,4 +79,4 @@ posts.sample(15).each do |post|
   end
 end
 
-puts "✅ Seed data created successfully!"
+puts "✅ Seed data created successfully"
