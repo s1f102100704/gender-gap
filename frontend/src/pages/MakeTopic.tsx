@@ -8,27 +8,22 @@ import ImgUploadForm from "../components/CreateForm/ImgUploadForm";
 import usePutImageS3 from "../hook/makeTopic/usePutImageS3";
 
 const MakeTopic = () => {
-
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
   const { getValidGender } = useGenderLogin();
-  const {
-    threadContext,
-    setThreadContext,
-  } = usePostState();
-  const {putImage,image_key,setSelectedFile} = usePutImageS3()
+  const { threadContext, setThreadContext } = usePostState();
+  const { putImage, setSelectedFile } = usePutImageS3();
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setThreadTitle("");
-    putImage()
+    const imageKey = await putImage();
 
-  
     await threadFormSubmit(
       event,
       setThreadContext,
       threadContext,
       getValidGender(),
-      image_key,
+      imageKey
     );
   };
   return (
@@ -46,7 +41,11 @@ const MakeTopic = () => {
                 {/* イメージ追加 */}
                 <div className={styles.image}>
                   <div className={styles.topicImg}></div>
-                  <div className={styles.addImage}><ImgUploadForm onFileSelect={(file) => setSelectedFile(file)} /></div>
+                  <div className={styles.addImage}>
+                    <ImgUploadForm
+                      onFileSelect={(file) => setSelectedFile(file)}
+                    />
+                  </div>
                 </div>
                 {/* フォーム側 */}
                 <div className={styles.other}>

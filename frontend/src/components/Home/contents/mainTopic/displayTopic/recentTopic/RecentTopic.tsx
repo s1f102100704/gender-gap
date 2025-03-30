@@ -15,7 +15,6 @@ const RecentTopic = () => {
       image_key: string;
     }[]
   >([]);
-  console.log(recentThreads);
   const { sinceDate } = useCreatedAt();
   const createSinceDate = (fullDate: Date) => {
     return sinceDate(fullDate);
@@ -39,7 +38,7 @@ const RecentTopic = () => {
           <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
             <div className={styles.threadConfig}>
               <div className={styles.threadImg}>
-                <ThreadAndPostImage imageKey = {thread.image_key}/>
+                <ThreadAndPostImage imageKey={thread.image_key} />
               </div>
               <div>
                 <div className={styles.threadHeader}>
