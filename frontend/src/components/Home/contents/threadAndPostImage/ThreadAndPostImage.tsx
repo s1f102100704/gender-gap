@@ -6,7 +6,7 @@ import {
   setCachedImageUrl,
 } from "../../../../utils/imageCache";
 type Props = {
-  imageKey: string;
+  imageKey: string | null;
 };
 const ThreadAndPostImage = ({ imageKey }: Props) => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);

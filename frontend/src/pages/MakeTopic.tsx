@@ -35,7 +35,6 @@ const MakeTopic = () => {
           <div className={styles.entryWrap}>
             <div className={styles.h1}>トピックを投稿する</div>
             <div className={styles.formFlow}>img</div>
-
             <form className={styles.form} onSubmit={threadSubmit}>
               <div className={styles.inForm}>
                 {/* イメージ追加 */}

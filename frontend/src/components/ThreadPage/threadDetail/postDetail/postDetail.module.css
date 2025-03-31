@@ -21,3 +21,10 @@ p {
   color: var(--text-color);
   margin: 10px 0;
 }
+
+.image {
+  width: auto;
+  max-width: 400px;
+  height: auto;
+  max-height: 500px;
+}

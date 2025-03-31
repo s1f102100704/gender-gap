@@ -7,6 +7,7 @@ import VoteBar from "./VoteBar/VoteBar";
 import PostMenu from "./postMenu/PostMenu";
 import { ThreadsPosts, ThreadsProps } from "../../../../types/post";
 import { usePostCalculate } from "../../../../hook/threadDetail/usePostCalculate";
+import ThreadAndPostImage from "../../../Home/contents/threadAndPostImage/ThreadAndPostImage";
 
 const fetchPostsComments = async (threadId: string) => {
   try {
@@ -21,8 +22,12 @@ const fetchPostsComments = async (threadId: string) => {
 };
 
 const PostDetail = (props: ThreadsProps) => {
-  const { positiveVotesCount, calculateFontSize, calculateFontWeight, getTextColor } =
-    usePostCalculate();
+  const {
+    positiveVotesCount,
+    calculateFontSize,
+    calculateFontWeight,
+    getTextColor,
+  } = usePostCalculate();
   const [posts, setPosts] = useState<ThreadsPosts[]>([]);
   const { threadId } = props;
 
@@ -31,7 +36,6 @@ const PostDetail = (props: ThreadsProps) => {
   }, [threadId]);
 
   if (!posts) return <p>Loading...</p>;
-
 
   return (
     <div>
@@ -54,6 +58,15 @@ const PostDetail = (props: ThreadsProps) => {
               }}
             >
               {post.content}
+            </p>
+            <p>
+              <div className={styles.image}>
+                {post.image_key ? (
+                  <ThreadAndPostImage imageKey={post.image_key} />
+                ) : (
+                  ""
+                )}
+              </div>
             </p>
             <VoteBar post_id={post.id} />
           </div>
