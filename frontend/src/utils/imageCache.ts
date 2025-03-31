@@ -28,7 +28,7 @@ export const getCachedImageUrl = (key: string): string | null => {
 export const setCachedImageUrl = (
   key: string,
   url: string,
-  ttlMs = 5 * 60 * 1000
+  ttlMs = 144 * 60 * 1000
 ) => {
   const cache = loadCache();
   cache[key] = {
