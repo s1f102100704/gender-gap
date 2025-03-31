@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { GET_PRESIGNED_API_URL } from "../../../../config";
 import styles from "./threadAndoPostImage.module.css";
+import {
+  getCachedImageUrl,
+  setCachedImageUrl,
+} from "../../../../utils/imageCache";
 type Props = {
   imageKey: string;
 };
@@ -11,10 +15,13 @@ const ThreadAndPostImage = ({ imageKey }: Props) => {
 
   useEffect(() => {
     if (!imageKey) return;
-
+    const cached = getCachedImageUrl(imageKey);
+    if (cached) {
+      setImageUrl(cached);
+      return;
+    }
     const fetchImageUrl = async () => {
       try {
-        console.log("📦 imageKey:", imageKey);
         const res = await fetch(
           `${presinged_api_url}?key=${encodeURIComponent(imageKey)}`
         );
@@ -24,8 +31,10 @@ const ThreadAndPostImage = ({ imageKey }: Props) => {
         }
 
         const json = await res.json();
-        console.log("🎯 取得したURL:", json.data.url);
-        setImageUrl(json.data.url);
+        const url = json.data.url;
+        setImageUrl(url);
+
+        setCachedImageUrl(imageKey, url);
         setError(null);
       } catch (err) {
         console.error("❌ presigned URL取得失敗:", err);
