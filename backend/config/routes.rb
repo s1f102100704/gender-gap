@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   mount Sidekiq::Web => "/sidekiq"
-
+  get "/health", to: ->(_) { [200, {}, ["OK"]] }
   namespace :api do
     namespace :v1 do
       resources :users, only: [:index, :show, :create]

@@ -3,54 +3,27 @@ import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./makeTopic.module.css";
 import useThreadFormToDB from "../hook/makeTopic/useThreadFormToDB";
 import { useGenderLogin } from "../hook/gender/useGenderLogin";
-import React, { useState } from "react";
 import usePostState from "../hook/createPost/usePostState";
 import ImgUploadForm from "../components/CreateForm/ImgUploadForm";
-import { PRESIGNED_URL_API_URL, } from "../config";
+import usePutImageS3 from "../hook/makeTopic/usePutImageS3";
 
 const MakeTopic = () => {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { threadFormSubmit, loading, error, threadTitle, setThreadTitle } =
     useThreadFormToDB();
   const { getValidGender } = useGenderLogin();
-  const {
-    threadContext,
-    setThreadContext,
-  } = usePostState();
-
+  const { threadContext, setThreadContext } = usePostState();
+  const { putImage, setSelectedFile } = usePutImageS3();
   const threadSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setThreadTitle("");
+    const imageKey = await putImage();
 
-    let image_key = null;
-    
-
-    if (selectedFile) {
-      const presignedApiUrl = `${PRESIGNED_URL_API_URL}?content_type=${encodeURIComponent(selectedFile.type)}`;
-      const res = await fetch(presignedApiUrl);
-      const json   = await res.json();
-      const { url, key } = json.data;
-  
-      await fetch(url, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': selectedFile.type,
-        },
-        body: selectedFile,
-      });
-  
-      // const bucket = S3_BUCKET_NAME;
-      // const region = S3_REGEION;
-      // imageUrl = `https://${bucket}.s3.${region}.amazonaws.com/${key}`;
-      image_key = key;
-    }
-  
     await threadFormSubmit(
       event,
       setThreadContext,
       threadContext,
       getValidGender(),
-      image_key,
+      imageKey
     );
   };
   return (
@@ -68,7 +41,11 @@ const MakeTopic = () => {
                 {/* イメージ追加 */}
                 <div className={styles.image}>
                   <div className={styles.topicImg}></div>
-                  <div className={styles.addImage}><ImgUploadForm onFileSelect={(file) => setSelectedFile(file)} /></div>
+                  <div className={styles.addImage}>
+                    <ImgUploadForm
+                      onFileSelect={(file) => setSelectedFile(file)}
+                    />
+                  </div>
                 </div>
                 {/* フォーム側 */}
                 <div className={styles.other}>

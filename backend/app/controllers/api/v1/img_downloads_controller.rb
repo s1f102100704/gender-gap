@@ -11,7 +11,7 @@ class Api::V1::ImgDownloadsController < ApplicationController
     )
     bucket = s3.bucket(ENV['AWS_BUCKET_NAME'])
 
-    url = bucket.object(key).presigned_url(:get, expires_in: 300) # 5分間だけ有効
+    url = bucket.object(key).presigned_url(:get, expires_in: 86400) 
 
     render_json_response({ url: url }, status: :ok)
   end

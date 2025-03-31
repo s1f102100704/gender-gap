@@ -18,7 +18,7 @@ class Api::V1::UploadsController < ApplicationController
     url = bucket.object(key).presigned_url(:put, {
       content_type: content_type,
       acl: 'private', 
-      expires_in: 300
+      expires_in: 86400
     })
 
     render_json_response({ url: url, key: key },status: :ok)
