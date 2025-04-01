@@ -3,15 +3,10 @@ import PostDetail from "./postDetail/PostDetail";
 import useGetThreadInfo from "../../../hook/threadDetail/useGetThreadInfo";
 import YYDDMM from "./YYDDMM/YYDDMM";
 import CreatePostForm from "./createPostForm/CreatePostForm";
-import { useLocation } from "react-router-dom";
 import ThreadAndPostImage from "../../Home/contents/threadAndPostImage/ThreadAndPostImage";
 import { useRef } from "react";
 const ThreadDetail = () => {
-  const location = useLocation();
-
-  const threadInfo = location.state;
-  const threadId = threadInfo.id;
-  const { threadTitle, dateInfo, threadImage } = useGetThreadInfo();
+  const { threadTitle, threadId, dateInfo, threadImage } = useGetThreadInfo();
 
   const formRef = useRef<HTMLDivElement>(null);
 

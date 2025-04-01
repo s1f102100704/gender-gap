@@ -28,6 +28,7 @@ const PostDetail = (props: ThreadsProps) => {
     calculateFontWeight,
     getTextColor,
   } = usePostCalculate();
+  // const [replyToId, setReplyToId] = useState<string | null>(null);
   const [posts, setPosts] = useState<ThreadsPosts[]>([]);
   const { threadId } = props;
 
@@ -48,7 +49,7 @@ const PostDetail = (props: ThreadsProps) => {
               <div>{index + 1}.&nbsp;</div>
               <div>匿名:&nbsp;{post.gender === 1 ? "男" : "女"}&nbsp;</div>
               <YYDDMM dateInfo={new Date(post.created_at)} />
-              <PostMenu postId={post.id} />
+              <PostMenu post={post} index={index} />
             </div>
             <p
               style={{
@@ -59,15 +60,14 @@ const PostDetail = (props: ThreadsProps) => {
             >
               {post.content}
             </p>
-            <p>
-              <div className={styles.image}>
-                {post.image_key ? (
-                  <ThreadAndPostImage imageKey={post.image_key} />
-                ) : (
-                  ""
-                )}
-              </div>
-            </p>
+
+            <div className={styles.image}>
+              {post.image_key ? (
+                <ThreadAndPostImage imageKey={post.image_key} />
+              ) : (
+                ""
+              )}
+            </div>
             <VoteBar post_id={post.id} />
           </div>
         );
