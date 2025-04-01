@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :discussion_threads_recommendtopic, only: [:index]
 
       resources :posts, only: [:index, :show, :create], defaults: { format: :json } do
+        resources :replies, only: [:create], controller: 'replies'
         resources :votes, only: [:create]
         resources :votes_status, only: [:index]
       end
