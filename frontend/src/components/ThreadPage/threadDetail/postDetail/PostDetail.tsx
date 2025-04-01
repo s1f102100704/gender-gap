@@ -5,9 +5,10 @@ import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
 import VoteBar from "./VoteBar/VoteBar";
 import PostMenu from "./postMenu/PostMenu";
-import { ThreadsPosts, ThreadsProps } from "../../../../types/post";
+import { ThreadsPosts } from "../../../../types/post";
 import { usePostCalculate } from "../../../../hook/threadDetail/usePostCalculate";
 import ThreadAndPostImage from "../../../Home/contents/threadAndPostImage/ThreadAndPostImage";
+import { Thread } from "../../../../types/thread";
 
 const fetchPostsComments = async (threadId: string) => {
   try {
@@ -21,17 +22,19 @@ const fetchPostsComments = async (threadId: string) => {
   }
 };
 
-const PostDetail = (props: ThreadsProps) => {
+interface Props {
+  threadInfo: Thread;
+}
+const PostDetail = (props: Props) => {
   const {
     positiveVotesCount,
     calculateFontSize,
     calculateFontWeight,
     getTextColor,
   } = usePostCalculate();
-  // const [replyToId, setReplyToId] = useState<string | null>(null);
   const [posts, setPosts] = useState<ThreadsPosts[]>([]);
-  const { threadId } = props;
-
+  const { threadInfo } = props;
+  const threadId = threadInfo.id;
   useEffect(() => {
     fetchPostsComments(threadId).then(setPosts);
   }, [threadId]);
@@ -49,7 +52,7 @@ const PostDetail = (props: ThreadsProps) => {
               <div>{index + 1}.&nbsp;</div>
               <div>匿名:&nbsp;{post.gender === 1 ? "男" : "女"}&nbsp;</div>
               <YYDDMM dateInfo={new Date(post.created_at)} />
-              <PostMenu post={post} index={index} />
+              <PostMenu post={post} index={index} thread={threadInfo} />
             </div>
             <p
               style={{

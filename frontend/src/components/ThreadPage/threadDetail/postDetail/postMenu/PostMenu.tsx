@@ -5,12 +5,14 @@ import { useReport } from "../../../../../hook/report/useReport";
 import { ReportReasonCode } from "../../../../../constants/reportReasons";
 import { Link } from "react-router-dom";
 import { ThreadsPosts } from "../../../../../types/post";
+import { Thread } from "../../../../../types/thread";
 interface Props {
   post: ThreadsPosts;
   index: number;
+  thread: Thread;
 }
 
-const PostMenu = ({ post, index }: Props) => {
+const PostMenu = ({ post, index, thread }: Props) => {
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
@@ -52,7 +54,7 @@ const PostMenu = ({ post, index }: Props) => {
           <Link
             key={post.id}
             to={`/post/reply/${post.id}`}
-            state={{ post, index }}
+            state={{ post, index, thread }}
           >
             <button className={styles.replyButton}>↩️返信する</button>
           </Link>

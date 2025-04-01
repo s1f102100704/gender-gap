@@ -3,6 +3,7 @@ import { Thread } from "../../types/thread";
 import { ThreadsPosts } from "../../types/post";
 
 interface useGetThreadInfoReturn {
+  threadInfo: Thread;
   threadTitle: string;
   threadId: string;
   dateInfo: Date;
@@ -16,33 +17,38 @@ const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const threadCreatedAt = threadInfo.created_at;
   const dateInfo = new Date(threadCreatedAt);
   const threadId: string = threadInfo.id;
-  return { threadTitle, threadId, dateInfo, threadImage };
+  return { threadInfo, threadTitle, threadId, dateInfo, threadImage };
+};
+
+interface useGetThreadStateReturn {
+  threadTitle: string;
+  dateInfo: Date;
+  threadImage: string;
+}
+
+export const useGetThreadState = (thread: Thread): useGetThreadStateReturn => {
+  const threadTitle = thread.thread_title;
+  const threadImage = thread.image_key;
+  const threadCreatedAt = thread.created_at;
+  const dateInfo = new Date(threadCreatedAt);
+  return { threadTitle, dateInfo, threadImage };
 };
 
 interface useGetPostInfoReturn {
-  post: ThreadsPosts;
   postContent: string;
   postId: string;
-  dateInfo: Date;
+  postDateInfo: Date;
   postImage: string | null;
   gender: number;
-  index: number;
 }
-export const useGetPostInfo = (): useGetPostInfoReturn => {
-  const location = useLocation();
-  console.log(location);
-  const { post, index } = location.state as {
-    post: ThreadsPosts;
-    index: number;
-  };
-  console.log(post);
+export const useGetPostInfo = (post: ThreadsPosts): useGetPostInfoReturn => {
   const postContent = post.content;
   const postId = post.id;
   const postImage = post.image_key;
   const gender = post.gender;
   const postCreatedAt = post.created_at;
-  const dateInfo = new Date(postCreatedAt);
+  const postDateInfo = new Date(postCreatedAt);
 
-  return { post, postContent, postId, dateInfo, postImage, gender, index };
+  return { postContent, postId, postDateInfo, postImage, gender };
 };
 export default useGetThreadInfo;

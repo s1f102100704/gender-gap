@@ -6,7 +6,8 @@ import CreatePostForm from "./createPostForm/CreatePostForm";
 import ThreadAndPostImage from "../../Home/contents/threadAndPostImage/ThreadAndPostImage";
 import { useRef } from "react";
 const ThreadDetail = () => {
-  const { threadTitle, threadId, dateInfo, threadImage } = useGetThreadInfo();
+  const { threadInfo, threadTitle, threadId, dateInfo, threadImage } =
+    useGetThreadInfo();
 
   const formRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +29,7 @@ const ThreadDetail = () => {
           コメントを投稿
         </button>
       </div>
-      <PostDetail threadId={threadId} />
+      <PostDetail threadInfo={threadInfo} />
       <div ref={formRef}>
         <CreatePostForm threadId={threadId} />
       </div>

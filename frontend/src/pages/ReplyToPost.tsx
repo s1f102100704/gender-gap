@@ -1,12 +1,18 @@
 import Header from "../components/Home/header/Header";
 import KaitenSushi from "../components/Home/kaitenSushi/KaitenSushi";
 import styles from "./replyToPost.module.css";
-import { useGetPostInfo } from "../hook/threadDetail/useGetThreadInfo";
+import {
+  useGetPostInfo,
+  useGetThreadState,
+} from "../hook/threadDetail/useGetThreadInfo";
 import ThreadAndPostImage from "../components/Home/contents/threadAndPostImage/ThreadAndPostImage";
 import YYDDMM from "../components/ThreadPage/threadDetail/YYDDMM/YYDDMM";
-import PostMenu from "../components/ThreadPage/threadDetail/postDetail/postMenu/PostMenu";
 import VoteBar from "../components/ThreadPage/threadDetail/postDetail/VoteBar/VoteBar";
 import { usePostCalculate } from "../hook/threadDetail/usePostCalculate";
+import { useLocation } from "react-router-dom";
+import { ThreadsPosts } from "../types/post";
+import { Thread } from "../types/thread";
+import CreatePostForm from "../components/ThreadPage/threadDetail/createPostForm/CreatePostForm";
 
 const ReplyToPost = () => {
   const {
@@ -15,36 +21,54 @@ const ReplyToPost = () => {
     calculateFontWeight,
     getTextColor,
   } = usePostCalculate();
-  const { post, postContent, postId, dateInfo, postImage, gender, index } =
-    useGetPostInfo();
+  const location = useLocation();
+  const { thread, post, index } = location.state as {
+    thread: Thread;
+    post: ThreadsPosts;
+    index: number;
+  };
+  const { threadTitle, dateInfo, threadImage } = useGetThreadState(thread);
+  const { postContent, postId, postDateInfo, postImage, gender } =
+    useGetPostInfo(post);
   const votesCount = positiveVotesCount(post);
   return (
     <div className={styles.body}>
       <Header />
       <KaitenSushi />
       <div className={styles.contents}>
-        <div key={index} className={styles.postConfig}>
-          <div className={styles.postHeader}>
-            <div>{index + 1}.&nbsp;</div>
-            <div>匿名:&nbsp;{gender === 1 ? "男" : "女"}&nbsp;</div>
-            <YYDDMM dateInfo={new Date(dateInfo)} />
-            <PostMenu post={post} index={index} />
+        <div className={styles.threadDetail}>
+          <div className={styles.threadInfo}>
+            <div className={styles.img}>
+              <ThreadAndPostImage imageKey={threadImage} />
+            </div>
+            <div className={styles.textInfo}>
+              <div>{threadTitle}</div>
+              <YYDDMM dateInfo={dateInfo} />
+            </div>
           </div>
-          <p
-            style={{
-              fontSize: calculateFontSize(votesCount),
-              fontWeight: calculateFontWeight(votesCount),
-              color: getTextColor(post),
-            }}
-          >
-            {postContent}
-          </p>
+          <div key={index} className={styles.postConfig}>
+            <div className={styles.postHeader}>
+              <div>{index + 1}.&nbsp;</div>
+              <div>匿名:&nbsp;{gender === 1 ? "男" : "女"}&nbsp;</div>
+              <YYDDMM dateInfo={new Date(postDateInfo)} />
+            </div>
+            <p
+              style={{
+                fontSize: calculateFontSize(votesCount),
+                fontWeight: calculateFontWeight(votesCount),
+                color: getTextColor(post),
+              }}
+            >
+              {postContent}
+            </p>
 
-          <div className={styles.image}>
-            {postImage ? <ThreadAndPostImage imageKey={postImage} /> : ""}
+            <div className={styles.image}>
+              {postImage ? <ThreadAndPostImage imageKey={postImage} /> : ""}
+            </div>
+
+            <VoteBar post_id={postId} />
           </div>
-
-          <VoteBar post_id={postId} />
+          <CreatePostForm threadId={thread.id} />
         </div>
       </div>
     </div>
