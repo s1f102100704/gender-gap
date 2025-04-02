@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { POSTS_API_URL } from "../../../../config";
 import styles from "./postDetail.module.css";
 import YYDDMM from "../YYDDMM/YYDDMM";
@@ -39,6 +39,20 @@ const PostDetail = (props: Props) => {
     fetchPostsComments(threadId).then(setPosts);
   }, [threadId]);
 
+  const commentRef = useRef<HTMLDivElement | null>(null);
+  const isFirstRender = useRef(true);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return; // 初回はスキップ
+    }
+    if (commentRef.current) {
+      commentRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [posts]);
   if (!posts) return <p>Loading...</p>;
 
   return (
@@ -47,7 +61,11 @@ const PostDetail = (props: Props) => {
         const votesCount = positiveVotesCount(post);
 
         return (
-          <div key={index} className={styles.postConfig}>
+          <div
+            key={index}
+            className={styles.postConfig}
+            ref={index === posts.length - 1 ? commentRef : null}
+          >
             <div className={styles.postHeader}>
               <div>{index + 1}.&nbsp;</div>
               <div>匿名:&nbsp;{post.gender === 1 ? "男" : "女"}&nbsp;</div>
