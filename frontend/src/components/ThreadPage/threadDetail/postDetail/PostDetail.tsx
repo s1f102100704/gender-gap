@@ -9,6 +9,7 @@ import { ThreadsPosts } from "../../../../types/post";
 import { usePostCalculate } from "../../../../hook/threadDetail/usePostCalculate";
 import ThreadAndPostImage from "../../../Home/contents/threadAndPostImage/ThreadAndPostImage";
 import { Thread } from "../../../../types/thread";
+import { useLocation } from "react-router-dom";
 
 const fetchPostsComments = async (threadId: string) => {
   try {
@@ -40,19 +41,18 @@ const PostDetail = (props: Props) => {
   }, [threadId]);
 
   const commentRef = useRef<HTMLDivElement | null>(null);
-  const isFirstRender = useRef(true);
+  const location = useLocation();
+  const fromPost = location.state?.fromPost ?? false;
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return; // 初回はスキップ
-    }
+    if (!fromPost) return; // 投稿から来た場合だけスクロール
+
     if (commentRef.current) {
       commentRef.current.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
     }
-  }, [posts]);
+  }, [posts, fromPost]);
   if (!posts) return <p>Loading...</p>;
 
   return (

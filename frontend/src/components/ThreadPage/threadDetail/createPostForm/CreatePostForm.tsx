@@ -50,9 +50,12 @@ const CreatePostForm = (props: Props) => {
     );
 
     if (replyToPostId) {
-      navigate(`/threads/${thread.id}`, { state: thread });
+      navigate(`/threads/${thread.id}`, { state: { thread, fromPost: true } });
     } else {
-      navigate(0);
+      navigate(`/threads/${thread.id}`, {
+        state: { thread, fromPost: true },
+        replace: true,
+      });
     }
 
     setThreadContext("");
