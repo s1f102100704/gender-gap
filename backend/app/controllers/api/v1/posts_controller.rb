@@ -29,7 +29,7 @@ module Api
 
             private
             def content_params
-                params.require(:post).permit(:content, :discussion_thread_id, :gender, :image_key)
+                params.require(:post).permit(:content, :discussion_thread_id, :gender, :image_key, :reply_to)
             end
         end
     end

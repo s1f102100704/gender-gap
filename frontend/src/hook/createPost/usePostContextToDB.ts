@@ -5,7 +5,8 @@ interface usePostContextToDBReturn {
   threadContextSubmit: (
     event: React.FormEvent,
     discussion_thread_id: string,
-    image_key?: string | null
+    image_key?: string | null,
+    replyToPostId?: string
   ) => Promise<void>;
 }
 interface Props {
@@ -17,14 +18,21 @@ const usePostContextToDB = (props: Props): usePostContextToDBReturn => {
   const threadContextSubmit = async (
     event: React.FormEvent,
     discussion_thread_id: string,
-    image_key?: string | null
+    image_key?: string | null,
+    replyToPostId?: string
   ): Promise<void> => {
     event.preventDefault();
     const content = threadContext;
     console.log("image_key 1:", image_key);
     try {
       const response = await axios.post(POSTS_API_URL, {
-        post: { content, discussion_thread_id, gender, image_key },
+        post: {
+          content,
+          discussion_thread_id,
+          gender,
+          image_key,
+          reply_to: replyToPostId ?? null,
+        },
       });
       console.log("Success to post content:", response.data);
     } catch (err) {

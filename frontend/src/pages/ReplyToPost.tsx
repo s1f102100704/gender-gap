@@ -68,7 +68,7 @@ const ReplyToPost = () => {
 
             <VoteBar post_id={postId} />
           </div>
-          <CreatePostForm threadId={thread.id} />
+          <CreatePostForm threadId={thread.id} post={post} replyIndex={index} />
         </div>
       </div>
     </div>

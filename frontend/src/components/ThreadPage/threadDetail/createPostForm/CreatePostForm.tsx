@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import usePostContextToDB from "../../../../hook/createPost/usePostContextToDB";
 import usePostState from "../../../../hook/createPost/usePostState";
 import styles from "./createPostForm.module.css";
 import { useGenderLogin } from "../../../../hook/gender/useGenderLogin";
 import ImgUploadForm from "../../../CreateForm/ImgUploadForm";
 import usePutImageS3 from "../../../../hook/makeTopic/usePutImageS3";
+import { ThreadsPosts } from "../../../../types/post";
 interface Props {
   threadId: string;
+  post?: ThreadsPosts;
+  replyIndex?: number;
 }
 const CreatePostForm = (props: Props) => {
   const { getValidGender } = useGenderLogin();
@@ -23,9 +26,30 @@ const CreatePostForm = (props: Props) => {
     event.preventDefault();
     const imageKey = await putImage();
 
-    await threadContextSubmit(event, threadId, imageKey);
-  };
+    const match = threadContext.match(/>>(\d+)/);
+    let replyToPostId: string | null = null;
 
+    if (
+      match &&
+      props.replyIndex &&
+      props.post?.id &&
+      parseInt(match[1], 10) === props.replyIndex
+    ) {
+      replyToPostId = props.post.id;
+    }
+
+    await threadContextSubmit(
+      event,
+      threadId,
+      imageKey,
+      replyToPostId ?? undefined
+    );
+  };
+  useEffect(() => {
+    if (props.replyIndex) {
+      setThreadContext(`>>${props.replyIndex} `); // 半角スペース入れておくと自然
+    }
+  }, [props.replyIndex, setThreadContext]);
   return (
     <div>
       <form className={styles.form} onSubmit={postSubmit}>
