@@ -5,7 +5,7 @@ import { ThreadsPosts } from "../../types/post";
 interface useGetThreadInfoReturn {
   threadInfo: Thread;
   threadTitle: string;
-  threadId: string;
+  // threadId: string;
   dateInfo: Date;
   threadImage: string;
 }
@@ -16,8 +16,8 @@ const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const threadImage = threadInfo.image_key;
   const threadCreatedAt = threadInfo.created_at;
   const dateInfo = new Date(threadCreatedAt);
-  const threadId: string = threadInfo.id;
-  return { threadInfo, threadTitle, threadId, dateInfo, threadImage };
+  // const threadId: string = threadInfo.id;
+  return { threadInfo, threadTitle, dateInfo, threadImage };
 };
 
 interface useGetThreadStateReturn {

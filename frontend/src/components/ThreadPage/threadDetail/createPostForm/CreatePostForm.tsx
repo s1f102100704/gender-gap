@@ -6,8 +6,10 @@ import { useGenderLogin } from "../../../../hook/gender/useGenderLogin";
 import ImgUploadForm from "../../../CreateForm/ImgUploadForm";
 import usePutImageS3 from "../../../../hook/makeTopic/usePutImageS3";
 import { ThreadsPosts } from "../../../../types/post";
+import { Thread } from "../../../../types/thread";
+import { useNavigate } from "react-router-dom";
 interface Props {
-  threadId: string;
+  thread: Thread;
   post?: ThreadsPosts;
   replyIndex?: number;
 }
@@ -15,12 +17,14 @@ const CreatePostForm = (props: Props) => {
   const { getValidGender } = useGenderLogin();
   const { threadContext, setThreadContext } = usePostState();
   const { putImage, setSelectedFile } = usePutImageS3();
-  const { threadId } = props;
+  const { thread } = props;
 
   const { threadContextSubmit } = usePostContextToDB({
     threadContext,
     gender: getValidGender(),
   });
+
+  const navigate = useNavigate();
 
   const postSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -40,14 +44,22 @@ const CreatePostForm = (props: Props) => {
 
     await threadContextSubmit(
       event,
-      threadId,
+      thread.id,
       imageKey,
       replyToPostId ?? undefined
     );
+
+    if (replyToPostId) {
+      navigate(`/threads/${thread.id}`, { state: thread });
+    } else {
+      navigate(0);
+    }
+
+    setThreadContext("");
   };
   useEffect(() => {
     if (props.replyIndex) {
-      setThreadContext(`>>${props.replyIndex} `); // 半角スペース入れておくと自然
+      setThreadContext(`>>${props.replyIndex} `);
     }
   }, [props.replyIndex, setThreadContext]);
   return (
@@ -65,10 +77,10 @@ const CreatePostForm = (props: Props) => {
         </div>
         <div>
           <ImgUploadForm onFileSelect={(file) => setSelectedFile(file)} />
-        </div>
+        </div>{" "}
         <button type="submit" className={styles.submitComment}>
           <p>コメントを投稿する</p>
-        </button>
+        </button>{" "}
       </form>
     </div>
   );

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_04_01_120526) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_02_154630) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,7 +36,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_120526) do
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.string "image_key"
-    t.uuid "reply_to"
+    t.uuid "reply_to_id"
+    t.index ["reply_to_id"], name: "index_posts_on_reply_to_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -83,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_04_01_120526) do
   end
 
   add_foreign_key "posts", "discussion_threads"
+  add_foreign_key "posts", "posts", column: "reply_to_id"
   add_foreign_key "posts", "users"
   add_foreign_key "recommended_threads", "discussion_threads", on_delete: :cascade
   add_foreign_key "reports", "posts"

@@ -31,7 +31,7 @@ const usePostContextToDB = (props: Props): usePostContextToDBReturn => {
           discussion_thread_id,
           gender,
           image_key,
-          reply_to: replyToPostId ?? null,
+          reply_to_id: replyToPostId ?? null,
         },
       });
       console.log("Success to post content:", response.data);
