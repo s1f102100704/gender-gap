@@ -17,11 +17,11 @@ services:
     depends_on:
       - db
       - redis
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+    #   interval: 10s
+    #   timeout: 5s
+    #   retries: 3
   sidekiq:
     build: ./backend
     container_name: sidekiq
