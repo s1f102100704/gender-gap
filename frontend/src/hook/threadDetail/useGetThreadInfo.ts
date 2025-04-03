@@ -11,7 +11,6 @@ interface useGetThreadInfoReturn {
 }
 const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const location = useLocation();
-  console.log("location", location.state);
   const threadInfo: Thread = location.state.thread;
   const threadTitle = threadInfo.thread_title;
   const threadImage = threadInfo.image_key;
