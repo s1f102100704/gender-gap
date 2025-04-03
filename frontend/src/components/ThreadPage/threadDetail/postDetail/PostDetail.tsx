@@ -10,6 +10,7 @@ import { usePostCalculate } from "../../../../hook/threadDetail/usePostCalculate
 import ThreadAndPostImage from "../../../Home/contents/threadAndPostImage/ThreadAndPostImage";
 import { Thread } from "../../../../types/thread";
 import { useLocation } from "react-router-dom";
+import ReplyPreview from "./replyPreview/ReplyPreview";
 
 const fetchPostsComments = async (threadId: string) => {
   try {
@@ -27,6 +28,8 @@ interface Props {
   threadInfo: Thread;
 }
 const PostDetail = (props: Props) => {
+  const [hoveredPost, setHoveredPost] = useState<ThreadsPosts | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const {
     positiveVotesCount,
     calculateFontSize,
@@ -34,6 +37,49 @@ const PostDetail = (props: Props) => {
     getTextColor,
   } = usePostCalculate();
   const [posts, setPosts] = useState<ThreadsPosts[]>([]);
+
+  const formatPostContent = (content: string, postIndex: number) => {
+    return content.split(/(>>\d+)/g).map((part, i) => {
+      const match = part.match(/^>>(\d+)$/);
+      if (match) {
+        const targetIndex = parseInt(match[1], 10) - 1;
+        const targetPost = posts[targetIndex];
+        if (!targetPost) return part;
+
+        return (
+          <span
+            key={i}
+            tabIndex={0}
+            onFocus={() => {
+              setHoveredPost(targetPost);
+              setHoveredIndex(postIndex);
+            }}
+            onMouseEnter={() => {
+              setHoveredPost(targetPost);
+              setHoveredIndex(postIndex);
+            }}
+            onBlur={() => {
+              setHoveredPost(null);
+              setHoveredIndex(null);
+            }}
+            onMouseLeave={() => {
+              setHoveredPost(null);
+              setHoveredIndex(null);
+            }}
+            style={{
+              color: "blue",
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+          >
+            {part}
+          </span>
+        );
+      }
+      return part;
+    });
+  };
+
   const { threadInfo } = props;
   const threadId = threadInfo.id;
   useEffect(() => {
@@ -79,7 +125,7 @@ const PostDetail = (props: Props) => {
                 color: getTextColor(post),
               }}
             >
-              {post.content}
+              {formatPostContent(post.content, index)}
             </p>
 
             <div className={styles.image}>
@@ -90,6 +136,10 @@ const PostDetail = (props: Props) => {
               )}
             </div>
             <VoteBar post_id={post.id} />
+
+            {hoveredPost && hoveredIndex === index && (
+              <ReplyPreview post={hoveredPost} />
+            )}
           </div>
         );
       })}

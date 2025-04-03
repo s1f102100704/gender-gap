@@ -1,4 +1,4 @@
-import styles from "./ReplyPreview.module.css";
+import styles from "./replyPreview.module.css";
 import { ThreadsPosts } from "../../../../../types/post";
 import YYDDMM from "../../YYDDMM/YYDDMM";
 import ThreadAndPostImage from "../../../../Home/contents/threadAndPostImage/ThreadAndPostImage";
