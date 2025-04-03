@@ -1,0 +1,16 @@
+# 隠しディレクトリ
+.docker
+.git
+node_modules
+
+# Dockerのソケット・ランタイム
+**/*.sock
+**/docker*
+**/run/docker*
+**/.docker
+
+# その他不要そうなもの
+*.log
+*.pid
+tmp/
+log/
