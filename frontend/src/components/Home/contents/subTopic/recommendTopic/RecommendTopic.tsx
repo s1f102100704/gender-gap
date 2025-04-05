@@ -30,7 +30,11 @@ const RecommendTopic = () => {
       {recommendThreads.length > 0 ? (
         recommendThreads.map((thread, index) => (
           <div key={index}>
-            <Link key={thread.id} to={`threads/${thread.id}`} state={thread}>
+            <Link
+              key={thread.id}
+              to={`threads/${thread.id}`}
+              state={{ thread }}
+            >
               <div className={styles.threadConfig}>
                 <div className={styles.threadImg}>
                   <ThreadAndPostImage imageKey={thread.image_key} />

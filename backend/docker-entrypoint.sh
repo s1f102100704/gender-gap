@@ -1,11 +1,15 @@
 #!/bin/bash
 set -e
 
-# マイグレーションを実行
-bin/rails db:migrate
+# PIDファイルが残っていたら削除
+rm -f tmp/pids/server.pid
 
-# データをシード
-bin/rails db:seed
+# DBが使えるようになるまで待つ
+echo "Waiting for database to be ready..."
+until bin/rails db:migrate; do
+  echo "Database unavailable, retrying in 2s..."
+  sleep 2
+done
 
-# Railsサーバーを起動
+echo "✅ Database ready. Starting server..."
 exec "$@"

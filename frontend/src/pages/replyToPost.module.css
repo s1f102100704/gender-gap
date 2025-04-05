@@ -1,3 +1,15 @@
+.body {
+  display: flex;
+  /* align-items: flex-start; */
+  flex-direction: column;
+  margin: 0;
+}
+
+.contents {
+  margin: 0 auto;
+  width: 1040px;
+}
+
 .threadDetail {
   float: left;
   width: 680px;
@@ -62,4 +74,35 @@
 .createCommentBtn:active {
   background-color: #4ac067; /* 少し濃いグリーン */
   transform: scale(1);
+}
+
+.postConfig {
+  min-height: 80px;
+  /* margin-bottom: 20px; */
+  padding: 10px 20px;
+
+  background-color: white;
+  /* border-radius: var(--border-radius); */
+}
+
+.postHeader {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-color);
+  gap: 5px;
+}
+
+p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-color);
+  margin: 10px 0;
+}
+
+.image {
+  width: auto;
+  max-width: 400px;
+  height: auto;
+  max-height: 500px;
 }

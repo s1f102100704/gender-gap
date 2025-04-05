@@ -1,5 +1,5 @@
 export interface Thread {
-  id?: string;
+  id: string;
   thread_title: string;
   created_at: number;
   comments_count: number;

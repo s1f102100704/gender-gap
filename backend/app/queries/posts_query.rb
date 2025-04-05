@@ -21,6 +21,7 @@ class PostsQuery
             gender: post.gender,
             votes: post.votes.map { |vote| { id: vote.id, gender: vote.gender, vote_type: vote.vote_type } },
             created_at: post.created_at,
+            image_key: post.image_key,
           }
         end
   end

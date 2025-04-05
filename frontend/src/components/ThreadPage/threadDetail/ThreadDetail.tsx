@@ -3,15 +3,16 @@ import PostDetail from "./postDetail/PostDetail";
 import useGetThreadInfo from "../../../hook/threadDetail/useGetThreadInfo";
 import YYDDMM from "./YYDDMM/YYDDMM";
 import CreatePostForm from "./createPostForm/CreatePostForm";
-import { useLocation } from "react-router-dom";
 import ThreadAndPostImage from "../../Home/contents/threadAndPostImage/ThreadAndPostImage";
+import { useRef } from "react";
 const ThreadDetail = () => {
-  const location = useLocation();
+  const { threadInfo, threadTitle, dateInfo, threadImage } = useGetThreadInfo();
 
-  const threadInfo = location.state;
-  const threadId = threadInfo.id;
+  const formRef = useRef<HTMLDivElement>(null);
 
-  const { threadTitle, dateInfo, threadImage } = useGetThreadInfo();
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: "auto" });
+  };
 
   return (
     <div className={styles.threadDetail}>
@@ -23,10 +24,14 @@ const ThreadDetail = () => {
           <div>{threadTitle}</div>
           <YYDDMM dateInfo={dateInfo} />
         </div>
-        <div className={styles.createCommentBtn}>コメントを投稿</div>
+        <button className={styles.createCommentBtn} onClick={scrollToForm}>
+          コメントを投稿
+        </button>
       </div>
-      <PostDetail threadId={threadId} />
-      <CreatePostForm threadId={threadId} />
+      <PostDetail threadInfo={threadInfo} />
+      <div ref={formRef}>
+        <CreatePostForm thread={threadInfo} />
+      </div>
     </div>
   );
 };
