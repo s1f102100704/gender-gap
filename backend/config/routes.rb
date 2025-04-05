@@ -39,5 +39,6 @@ Rails.application.routes.draw do
       get 'presigned_url', to: 'uploads#presigned_url'
       get 'img_download_url', to: 'img_downloads#presigned_url'
     end
+    root to: ->(_) { [200, {}, ['OK']] }
   end
 end
