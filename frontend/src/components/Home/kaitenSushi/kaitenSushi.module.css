@@ -1,11 +1,50 @@
 .kaiten {
   width: 100%;
+  overflow: hidden;
+  margin:22px;
+}
+
+.spin{
+  display: flex;
+  width: max-content;
+  animation: scrollLoop 50s linear infinite;
+  animation-play-state:running;
+}
+
+.kaiten:hover .spin {
+  animation-play-state: paused;
+}
+.sushi {
+  display: flex;
+}
+
+.sushi li {
+  list-style: none;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  color: #4e4e4e;
+  margin-right: 170px;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes scrollLoop {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.kaitenzushi { 
+  width: 100%;
   background-color: white;
   height: 44px;
   margin-bottom: 20px;
 }
 
-.sushi {
-  width: 1000px;
-  margin: 0 auto;
+.conter {
+  display: flex;
+  align-items: center;
 }
