@@ -3,9 +3,8 @@
 .git
 node_modules
 
-# Dockerのソケット・ランタイム
+# Dockerのソケット・ランタイム（←強すぎる除外をやめる）
 **/*.sock
-**/docker*
 **/run/docker*
 **/.docker
 

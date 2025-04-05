@@ -33,3 +33,6 @@
 /config/master.key
 /vendor/bundle/
 .env
+
+/config/credentials/production.key
+*.key

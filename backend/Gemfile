@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 
-
 ruby "3.4.1"
 
 gem "rails", "~> 7.1.5", ">= 7.1.5.1"
@@ -9,34 +8,23 @@ gem "bcrypt"
 gem "jwt"
 gem "rack-cors"
 gem "active_model_serializers"
-gem "pg"  # PostgreSQL のアダプタ
-gem 'nokogiri', '~> 1.16.2'
-
-
-# JSON API の構築
+gem "pg"
+gem "nokogiri", "~> 1.16.2"
 gem "jbuilder"
-
-# 画像処理（ActiveStorage 用）
 gem "image_processing", "~> 1.2"
-
-# キャッシュ最適化
 gem "bootsnap", require: false
+gem "sidekiq"
+gem "redis"
+gem "sidekiq-cron"
+gem "aws-sdk-s3", "~> 1.130"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw]
+  gem "rspec-rails", "~> 7.1"
 end
 
 group :development do
   # gem "spring"
 end
 
-# Windows 向け
 gem "tzinfo-data", platforms: %i[mswin mswin64 mingw x64_mingw jruby]
-
-gem "rspec-rails", "~> 7.1"
-
-gem 'sidekiq'
-gem 'redis'
-gem 'sidekiq-cron'
-
-gem 'aws-sdk-s3', '~> 1.130'
