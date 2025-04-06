@@ -39,7 +39,7 @@ const ReplyToPost = () => {
         <div className={styles.threadDetail}>
           <div className={styles.threadInfo}>
             <div className={styles.img}>
-              <ThreadAndPostImage imageKey={threadImage} />
+              <ThreadAndPostImage imageKey={threadImage ?? null} />
             </div>
             <div className={styles.textInfo}>
               <div>{threadTitle}</div>
