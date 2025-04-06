@@ -28,8 +28,8 @@ RUN mkdir -p tmp/pids log storage db && \
     chown -R rails:rails tmp log storage db
 
 # Entrypoint script
-COPY docker-entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/docker-entrypoint.sh
+COPY docker-entrypoint.prod.sh /usr/bin/
+RUN chmod +x /usr/bin/docker-entrypoint.pord.sh
 
 # 非rootユーザーに切り替え
 USER rails
@@ -37,5 +37,5 @@ USER rails
 # 本番用ポート開放
 EXPOSE 3000
 
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.prod.sh"]
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]

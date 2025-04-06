@@ -13,8 +13,12 @@ production:
 
 development:
   <<: *default
-  database: gender_gap_development
+  database: gender_gap_db
   username: postgres
   password: password
-  host: localhost
+  host: gender-gap-db
   port: 5432
+
+test:
+  <<: *default
+  database: gender-gap-db-test

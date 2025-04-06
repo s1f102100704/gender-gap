@@ -5,7 +5,9 @@ services:
     ports:
       - "6379:6379"
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
     container_name: rails_api
     command: ["bin/rails", "server", "-b", "0.0.0.0"]
     ports:
@@ -23,7 +25,9 @@ services:
     #   timeout: 5s
     #   retries: 3
   sidekiq:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
     container_name: sidekiq
     command: bash -c "sleep 5 && bundle exec sidekiq"
     volumes:
@@ -50,6 +54,8 @@ services:
     image: postgres:17
     container_name: gender-gap-db
     restart: always
+    env_file:
+      - ./backend/.env
     environment:
       POSTGRES_DB: gender-gap-db
       POSTGRES_USER: postgres
