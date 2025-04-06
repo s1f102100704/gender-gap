@@ -1,5 +1,5 @@
 import styles from "./kaitenSushi.module.css";
-import icon from "../../../assets/icon.svg"
+import icon from '@assets/icon.svg';
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Thread } from "../../../types/thread";
