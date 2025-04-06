@@ -52,7 +52,9 @@ posts.each do |post|
 end
 
 # おすすめスレッドを20件挿入（ランダムに選出）
-threads.sample(20).each do |thread|
+valid_threads = threads.select { |t| t.posts.any? }
+
+valid_threads.sample([valid_threads.size, 20].min).each do |thread|
   RecommendedThread.find_or_create_by(discussion_thread: thread) do |recommended_thread|
     recommended_thread.recommended_at = Time.current
   end
