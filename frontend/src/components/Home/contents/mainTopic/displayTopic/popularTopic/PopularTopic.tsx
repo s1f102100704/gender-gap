@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DISCUSSION_THREAD_POPULAR_API_URL } from "../../../../../../../src/config";
+import { DISCUSSION_THREAD_POPULAR_API_URL } from "@src/config";
 import styles from "./popularTopic.module.css";
 import { Link } from "react-router-dom";
 import useCreatedAt from "../../../../../../hook/makeTopic/useCreatedAt";

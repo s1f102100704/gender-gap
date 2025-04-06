@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useCallback } from "react";
 import { useGenderLogin } from "../gender/useGenderLogin";
-import { API_BASE_URL } from "src/config";
+import { API_BASE_URL } from "@src/config";
 
 const usePostVoteCounts = (post_id: string) => {
   const { getValidGender } = useGenderLogin();
