@@ -1,22 +1,24 @@
-
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  username: <%= ENV["PGUSER"] %>
+  password: <%= ENV["PGPASSWORD"] %>
+  host: <%= ENV["PGHOST"] %>
+  port: <%= ENV["PGPORT"] || 5432 %>
 
+production:
+  <<: *default
+  database: <%= ENV["PGDATABASE"] %>
+
+development:
+  <<: *default
+  database: gender_gap_db
   username: postgres
   password: password
   host: gender-gap-db
   port: 5432
 
-development:
-  <<: *default
-  database: gender-gap-db
-
 test:
   <<: *default
   database: gender-gap-db-test
-
-production:
-  <<: *default
-  database: gender-gap-db-prod

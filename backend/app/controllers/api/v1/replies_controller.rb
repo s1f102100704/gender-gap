@@ -1,4 +1,4 @@
-class RepliesController < ApplicationController
+class Api::V1::RepliesController < ApplicationController
   def create
     parent_post = Post.find(params[:post_id])
     reply = parent_post.replies.build(reply_params)
