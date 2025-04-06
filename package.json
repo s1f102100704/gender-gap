@@ -8,6 +8,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/node": "^22.14.0",
     "prettier": "^3.5.3"
   }
 }

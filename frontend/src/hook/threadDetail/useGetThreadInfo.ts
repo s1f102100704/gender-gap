@@ -7,7 +7,7 @@ interface useGetThreadInfoReturn {
   threadTitle: string;
   // threadId: string;
   dateInfo: Date;
-  threadImage: string;
+  threadImage: string | undefined;
 }
 const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const useGetThreadInfo = (): useGetThreadInfoReturn => {
 interface useGetThreadStateReturn {
   threadTitle: string;
   dateInfo: Date;
-  threadImage: string;
+  threadImage: string | undefined;
 }
 
 export const useGetThreadState = (thread: Thread): useGetThreadStateReturn => {

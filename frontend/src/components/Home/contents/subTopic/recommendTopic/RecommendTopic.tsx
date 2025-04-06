@@ -38,7 +38,7 @@ const RecommendTopic = () => {
             >
               <div className={styles.threadConfig}>
                 <div className={styles.threadImg}>
-                  <ThreadAndPostImage imageKey={thread.image_key} />
+                  <ThreadAndPostImage imageKey={thread.image_key ?? null} />
                 </div>
                 <div>
                   <div className={styles.threadHeader}>
