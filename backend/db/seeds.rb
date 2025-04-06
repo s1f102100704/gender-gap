@@ -27,7 +27,8 @@ end
     discussion_thread: thread,
     user_id: user.id,
     gender: gender,
-    content: "This is post #{i + 1} in #{thread.thread_title}."
+    content: "This is post #{i + 1} in #{thread.thread_title}.",
+    reply_to_id: nil
   )
 end
 
