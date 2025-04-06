@@ -78,6 +78,8 @@ const useVoteDisplay = (props: Props) => {
     badVotes,
     upvoteRatio,
     downvoteRatio,
+    clickedGoodVotes,
+    clickedBadVotes,
   };
 };
 

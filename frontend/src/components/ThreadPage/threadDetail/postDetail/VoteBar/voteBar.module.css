@@ -65,3 +65,11 @@
 .downvoteBar {
   background-color: #b8a6a0; /* 柔らかいグレイッシュベージュ */
 }
+
+.clickedUpvoteBar{
+  background-color: #6e7bf3;
+}
+
+.clickedDownvoteBar{
+  background-color: #f55b56;
+}

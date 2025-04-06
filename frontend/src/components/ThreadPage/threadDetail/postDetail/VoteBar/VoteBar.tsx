@@ -16,6 +16,8 @@ const VoteBar = ({ post_id }: VoteProps) => {
     badVotes,
     upvoteRatio,
     downvoteRatio,
+    clickedGoodVotes,
+    clickedBadVotes,
   } = useVoteDisplay({ postVotes, post_id });
   useEffect(() => {
     const fetchVotes = async () => {
@@ -41,12 +43,11 @@ const VoteBar = ({ post_id }: VoteProps) => {
       <div>{goodVotes}</div>
       <div className={styles.voteBarContainer}>
         <div className={styles.voteBar}>
-          <div
-            className={styles.upvoteBar}
+          <div className={clickedGoodVotes ? styles.clickedUpvoteBar : styles.upvoteBar} 
             style={{ width: `${upvoteRatio}%` }}
           ></div>
           <div
-            className={styles.downvoteBar}
+            className={clickedBadVotes ? styles.clickedDownvoteBar : styles.downvoteBar}
             style={{ width: `${downvoteRatio}%` }}
           ></div>
         </div>
