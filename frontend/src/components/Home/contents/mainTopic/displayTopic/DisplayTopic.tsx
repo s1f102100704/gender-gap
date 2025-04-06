@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./displayTopic.module.css";
 import RecentTopic from "./recentTopic/RecentTopic";
 import PopularTopic from "./popularTopic/PopularTopic";

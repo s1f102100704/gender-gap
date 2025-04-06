@@ -1,5 +1,3 @@
-import React from "react";
-
 export const parseAnchors = (
   text: string,
   onAnchorClick: (postNumber: number) => void
