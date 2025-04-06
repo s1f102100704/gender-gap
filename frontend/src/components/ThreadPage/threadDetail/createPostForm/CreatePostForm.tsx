@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import usePostContextToDB from "../../../../hook/createPost/usePostContextToDB";
 import usePostState from "../../../../hook/createPost/usePostState";
 import styles from "./createPostForm.module.css";
