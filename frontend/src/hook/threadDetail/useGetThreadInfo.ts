@@ -1,23 +1,53 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Thread } from "../../types/thread";
 import { ThreadsPosts } from "../../types/post";
+import { useEffect, useState } from "react";
+import { DISCUSSION_API_URL } from "@src/config";
+import axios from "axios";
 
 interface useGetThreadInfoReturn {
   threadInfo: Thread;
   threadTitle: string;
-  // threadId: string;
   dateInfo: Date;
   threadImage: string | undefined;
 }
 const useGetThreadInfo = (): useGetThreadInfoReturn => {
   const location = useLocation();
-  const threadInfo: Thread = location.state.thread;
-  const threadTitle = threadInfo.thread_title;
-  const threadImage = threadInfo.image_key;
-  const threadCreatedAt = threadInfo.created_at;
-  const dateInfo = new Date(threadCreatedAt);
-  // const threadId: string = threadInfo.id;
-  return { threadInfo, threadTitle, dateInfo, threadImage };
+  const { id } = useParams<{ id: string }>();
+  const [threadInfo, setThreadInfo] = useState<Thread | null>(
+    location.state?.thread ?? null
+  );
+  useEffect(() => {
+    if (!threadInfo && id) {
+      axios
+        .get(`${DISCUSSION_API_URL}/${id}`)
+        .then((res) => setThreadInfo(res.data.data))
+        .catch((err) => {
+          console.error("スレッド取得失敗:", err);
+        });
+    }
+  }, [threadInfo, id]);
+  if (!threadInfo) {
+    return {
+      threadInfo: {
+        id: id ?? "",
+        thread_title: "読み込み中...",
+        created_at: 0,
+        image_key: undefined,
+      },
+      threadTitle: "読み込み中...",
+      dateInfo: new Date(),
+      threadImage: undefined,
+    };
+  }
+
+  const { thread_title, created_at, image_key } = threadInfo;
+  return {
+    threadInfo,
+    threadTitle: thread_title,
+    dateInfo: new Date(created_at),
+    threadImage: image_key,
+  };
 };
 
 interface useGetThreadStateReturn {
