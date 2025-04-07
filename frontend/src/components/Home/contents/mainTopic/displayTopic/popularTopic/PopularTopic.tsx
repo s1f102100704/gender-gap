@@ -19,6 +19,7 @@ const PopularTopic = () => {
     const fetchThreadsTitle = async () => {
       try {
         const response = await axios.get(DISCUSSION_THREAD_POPULAR_API_URL, {});
+        console.log("recentTopic:", response.data.data);
         setPopularThreads(response.data.data);
       } catch (err) {
         console.log(err);
@@ -29,7 +30,7 @@ const PopularTopic = () => {
 
   return (
     <>
-      {popularThreads.length > 0 ? (
+      {Array.isArray(popularThreads) && popularThreads.length > 0 ? (
         popularThreads.map((thread, index) => (
           <div key={index}>
             <Link

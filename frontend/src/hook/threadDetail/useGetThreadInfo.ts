@@ -57,6 +57,7 @@ interface useGetThreadStateReturn {
 }
 
 export const useGetThreadState = (thread: Thread): useGetThreadStateReturn => {
+  // const { id } = useParams<{ id: string }>();
   const threadTitle = thread.thread_title;
   const threadImage = thread.image_key;
   const threadCreatedAt = thread.created_at;

@@ -17,6 +17,7 @@ const RecentTopic = () => {
       try {
         const response = await axios.get(DISCUSSION_THREAD_RECENT_API_URL, {});
         const threadTitle = response.data.data;
+        console.log("recentTopic:", response.data.data);
         setRecentThreads(threadTitle);
       } catch (err) {
         console.log(err);
@@ -26,29 +27,39 @@ const RecentTopic = () => {
   }, []);
   return (
     <>
-      {recentThreads.map((thread, index) => (
-        <div key={index}>
-          <Link key={thread.id} to={`threads/${thread.id}`} state={{ thread }}>
-            <div className={styles.threadConfig}>
-              <div className={styles.threadImg}>
-                <ThreadAndPostImage imageKey={thread.image_key ?? null} />
-              </div>
-              <div>
-                <div className={styles.threadHeader}>
-                  <div className={styles.countComments}>
-                    {thread.comments_count}コメント
+      {Array.isArray(recentThreads) && recentThreads.length > 0 ? (
+        recentThreads.map((thread, index) => (
+          <div key={index}>
+            <Link
+              key={thread.id}
+              to={`threads/${thread.id}`}
+              state={{ thread }}
+            >
+              <div className={styles.threadConfig}>
+                <div className={styles.threadImg}>
+                  <ThreadAndPostImage imageKey={thread.image_key ?? null} />
+                </div>
+                <div>
+                  <div className={styles.threadHeader}>
+                    <div className={styles.countComments}>
+                      {thread.comments_count}コメント
+                    </div>
+                    <div className={styles.dateTime}>
+                      {" "}
+                      {createSinceDate(new Date(thread.created_at))}
+                    </div>
                   </div>
-                  <div className={styles.dateTime}>
-                    {" "}
-                    {createSinceDate(new Date(thread.created_at))}
+                  <div className={styles.threadTitle}>
+                    {thread.thread_title}
                   </div>
                 </div>
-                <div className={styles.threadTitle}>{thread.thread_title}</div>
               </div>
-            </div>
-          </Link>
-        </div>
-      ))}
+            </Link>
+          </div>
+        ))
+      ) : (
+        <div>Loading...</div>
+      )}
     </>
   );
 };
