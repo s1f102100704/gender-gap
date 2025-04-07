@@ -26,32 +26,32 @@ const WeekPopularTopic = () => {
     return sinceDate(fullDate);
   };
 
-  // 背景色を決定する関数
-  const getBackgroundColor = (votesSummary: {
-    male_votes: number;
-    female_votes: number;
-  }) => {
-    const { male_votes, female_votes } = votesSummary;
+  // // 背景色を決定する関数
+  // const getBackgroundColor = (votesSummary: {
+  //   male_votes: number;
+  //   female_votes: number;
+  // }) => {
+  //   const { male_votes, female_votes } = votesSummary;
 
-    // 差を計算
-    const totalVotes = male_votes + female_votes;
-    const difference = Math.abs(male_votes - female_votes);
+  //   // 差を計算
+  //   const totalVotes = male_votes + female_votes;
+  //   const difference = Math.abs(male_votes - female_votes);
 
-    // 差の割合を計算（0.1 以上 1.0 以下に制限）
-    const intensity =
-      totalVotes > 0
-        ? Math.min(Math.max(difference / totalVotes, 0.1), 1.0)
-        : 0.1;
+  //   // 差の割合を計算（0.1 以上 1.0 以下に制限）
+  //   const intensity =
+  //     totalVotes > 0
+  //       ? Math.min(Math.max(difference / totalVotes, 0.1), 1.0)
+  //       : 0.1;
 
-    // 色を決定（男性が優勢なら青、女性が優勢なら赤）
-    if (male_votes > female_votes) {
-      return `rgba(0, 0, 255, ${intensity})`; // 青（男性が優勢）
-    } else if (female_votes > male_votes) {
-      return `rgba(255, 0, 0, ${intensity})`; // 赤（女性が優勢）
-    } else {
-      return "rgba(200, 200, 200, 0.1)"; // グレー（同数の場合）
-    }
-  };
+  //   // 色を決定（男性が優勢なら青、女性が優勢なら赤）
+  //   if (male_votes > female_votes) {
+  //     return `rgba(0, 0, 255, ${intensity})`; // 青（男性が優勢）
+  //   } else if (female_votes > male_votes) {
+  //     return `rgba(255, 0, 0, ${intensity})`; // 赤（女性が優勢）
+  //   } else {
+  //     return "rgba(200, 200, 200, 0.1)"; // グレー（同数の場合）
+  //   }
+  // };
 
   // 文字色を決定する関数
   const getTextColor = (votesSummary: {
@@ -98,7 +98,7 @@ const WeekPopularTopic = () => {
 
   return (
     <>
-      {weekPopularThreads.length > 0 ? (
+      {Array.isArray(weekPopularThreads) && weekPopularThreads.length > 0 ? (
         weekPopularThreads.map((thread, index) => (
           <div key={index}>
             <Link
