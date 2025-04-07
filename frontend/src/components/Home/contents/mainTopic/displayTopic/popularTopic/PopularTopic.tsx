@@ -18,7 +18,11 @@ const PopularTopic = () => {
   useEffect(() => {
     const fetchThreadsTitle = async () => {
       try {
-        const response = await axios.get(DISCUSSION_THREAD_POPULAR_API_URL, {});
+        const response = await axios.get(DISCUSSION_THREAD_POPULAR_API_URL, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
         console.log("recentTopic:", response.data.data);
         setPopularThreads(response.data.data);
       } catch (err) {

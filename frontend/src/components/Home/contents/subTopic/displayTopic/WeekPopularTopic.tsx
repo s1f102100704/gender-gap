@@ -85,7 +85,11 @@ const WeekPopularTopic = () => {
       try {
         const response = await axios.get(
           DISCUSSION_THREAD_WEEK_POPULAR_API_URL,
-          {}
+          {
+            headers: {
+              Accept: "application/json",
+            },
+          }
         );
         console.log(response.data.data);
         setWeekPopularThreads(response.data.data);
