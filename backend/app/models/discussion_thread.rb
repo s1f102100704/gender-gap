@@ -45,7 +45,7 @@ class DiscussionThread < ApplicationRecord
       # スレッド情報と集計結果を返す
       {
         id: thread.id,
-        thread_title: thread.title,
+        thread_title: thread.thread_title,
         created_at: thread.created_at,
         updated_at: thread.updated_at,
         comments_count: thread.posts.count,
