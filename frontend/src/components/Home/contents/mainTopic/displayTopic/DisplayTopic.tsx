@@ -10,7 +10,12 @@ const DisplayTopic: React.FC<props> = (props) => {
   return (
     <>
       <div className={styles.displayTopic}>
-        {selectedTopic == "popular" ? <PopularTopic /> : <RecentTopic />}
+        <div style={{ display: selectedTopic === "popular" ? "block" : "none" }}>
+          <PopularTopic />
+        </div>
+        <div style={{ display: selectedTopic === "recent" ? "block" : "none" }}>
+          <RecentTopic />
+        </div>
       </div>
     </>
   );
