@@ -15,7 +15,12 @@ import ReplyPreview from "./replyPreview/ReplyPreview";
 const fetchPostsComments = async (threadId: string) => {
   try {
     const response = await axios.get(
-      `${POSTS_API_URL}?discussion_thread_id=${threadId}`
+      `${POSTS_API_URL}?discussion_thread_id=${threadId}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
     );
     return response.data;
   } catch (err) {

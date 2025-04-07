@@ -15,7 +15,11 @@ const RecentTopic = () => {
   useEffect(() => {
     const fetchThreadsTitle = async () => {
       try {
-        const response = await axios.get(DISCUSSION_THREAD_RECENT_API_URL, {});
+        const response = await axios.get(DISCUSSION_THREAD_RECENT_API_URL, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
         const threadTitle = response.data.data;
         console.log("recentTopic:", response.data.data);
         setRecentThreads(threadTitle);

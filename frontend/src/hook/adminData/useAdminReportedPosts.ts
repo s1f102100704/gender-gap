@@ -13,7 +13,11 @@ export const useAdminReportedPosts = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get(ADMIN_POSTS_REPORT_API_URL);
+      const response = await axios.get(ADMIN_POSTS_REPORT_API_URL, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
       setReportedPosts(response.data.data);
     } catch (error) {
       console.error("通報投稿の取得に失敗", error);

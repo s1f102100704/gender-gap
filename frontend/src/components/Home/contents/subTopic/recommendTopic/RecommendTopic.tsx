@@ -16,7 +16,11 @@ const RecommendTopic = () => {
   useEffect(() => {
     const fetchThreadsTitle = async () => {
       try {
-        const response = await axios.get(DISCUSSION_RECOMMEND_API_URL, {});
+        const response = await axios.get(DISCUSSION_RECOMMEND_API_URL, {
+          headers: {
+            Accept: "application/json",
+          },
+        });
         console.log("response:", response);
         setrecommendThreads(response.data.data);
       } catch (err) {

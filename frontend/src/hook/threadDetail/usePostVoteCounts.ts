@@ -24,7 +24,11 @@ const usePostVoteCounts = (post_id: string) => {
   const getVotes = useCallback(async () => {
     const votesStatusUrl = `${API_BASE_URL}/api/v1/posts/${post_id}/votes_status`;
     try {
-      const response = await axios.get(votesStatusUrl);
+      const response = await axios.get(votesStatusUrl, {
+        headers: {
+          Accept: "application/json",
+        },
+      });
       return response.data.votes;
     } catch (err) {
       console.log(err);
