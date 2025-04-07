@@ -28,7 +28,7 @@ const RecommendTopic = () => {
 
   return (
     <>
-      {recommendThreads.length > 0 ? (
+      {Array.isArray(recommendThreads) && recommendThreads.length > 0 ? (
         recommendThreads.map((thread, index) => (
           <div key={index}>
             <Link
