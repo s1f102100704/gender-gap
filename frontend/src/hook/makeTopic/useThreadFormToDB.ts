@@ -32,7 +32,6 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
   });
   const navigate = useNavigate();
 
-
   const threadFormSubmit = async (
     event: React.FormEvent,
     setThreadContext: (value: string) => void,
@@ -46,15 +45,17 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
     const thread_title = threadTitle;
     const content = threadContext;
     const created_at = threadInfo.created_at;
+    console.log("スレッド送信時のthreadTitle", threadTitle);
     const payload = {
-      discussion_thread: { thread_title, created_at ,image_key},
-      post: { content: content, gender: gender,image_key: image_key ||null },
+      discussion_thread: { thread_title, created_at, image_key },
+      post: { content: content, gender: gender, image_key: image_key || null },
     };
 
     try {
       const response = await axios.post(DISCUSSION_API_URL, payload, {
         headers: { "Content-Type": "application/json" },
       });
+      console.log(response.data.data);
       setThreadInfo(response.data.data);
       setThreadContext("");
       setThreadTitle("");
@@ -68,6 +69,7 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
   };
   useEffect(() => {
     if (threadInfo.id) {
+      console.log("ページ遷移前のthread_title", threadInfo);
       navigate(`/threads/${threadInfo.id}`, {
         state: {
           thread_title: threadInfo.thread_title,
@@ -76,7 +78,13 @@ const useThreadFormToDB = (): useThreadFormToDBReturn => {
         },
       });
     }
-  }, [threadInfo.id, threadInfo.thread_title, threadInfo.created_at, navigate]);
+  }, [
+    threadInfo.id,
+    threadInfo.thread_title,
+    threadInfo.created_at,
+    navigate,
+    threadInfo,
+  ]);
   return {
     threadFormSubmit,
     loading,
