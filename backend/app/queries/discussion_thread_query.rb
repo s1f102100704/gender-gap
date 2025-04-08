@@ -7,6 +7,7 @@ class DiscussionThreadQuery
   
     def recent
       DiscussionThread
+        .includes(posts: :votes)
         .left_joins(:posts)
         .select('discussion_threads.*, COUNT(posts.id) AS comments_count')
         .group('discussion_threads.id, discussion_threads.created_at')
@@ -16,6 +17,7 @@ class DiscussionThreadQuery
   
     def popular
       DiscussionThread
+        .includes(posts: :votes)
         .left_joins(:posts)
         .where('posts.created_at >= ?', 1.day.ago)
         .group(:id)
@@ -26,6 +28,7 @@ class DiscussionThreadQuery
 
     def weekPopular
       DiscussionThread
+        .includes(posts: :votes)
         .left_joins(:posts)
         .where('posts.created_at >= ?', 1.week.ago)
         .group(:id)
@@ -33,5 +36,6 @@ class DiscussionThreadQuery
         .limit(@limit)
         .select("discussion_threads.*, COUNT(posts.id) AS comments_count")
     end
-  end
+end
+
    

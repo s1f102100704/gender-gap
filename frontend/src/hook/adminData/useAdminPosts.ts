@@ -1,9 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import {
-  ADMIN_POSTS_REPORT_API_URL,
-  DISCUSSION_THREAD_ADMIN_POSTS_API_URL,
-} from "../../config";
+import { DISCUSSION_THREAD_ADMIN_POSTS_API_URL } from "../../config";
 import { AdminPost } from "../../types/post";
 
 export const useAdminPosts = () => {
