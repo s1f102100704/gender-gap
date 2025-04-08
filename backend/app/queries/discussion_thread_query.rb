@@ -24,6 +24,7 @@ class DiscussionThreadQuery
         'discussion_threads.id',
         'discussion_threads.thread_title',
         'discussion_threads.created_at',
+        'discussion_threads.updated_at',
         'COUNT(posts.id) AS comments_count',
         "SUM(CASE WHEN posts.gender = 1 AND votes.gender = 1 THEN 1 ELSE 0 END) AS male_votes",
         "SUM(CASE WHEN posts.gender = 2 AND votes.gender = 2 THEN 1 ELSE 0 END) AS female_votes"
@@ -41,6 +42,7 @@ class DiscussionThreadQuery
         'discussion_threads.id',
         'discussion_threads.thread_title',
         'discussion_threads.created_at',
+        'discussion_threads.updated_at',
         'COUNT(posts.id) AS comments_count',
         "SUM(CASE WHEN posts.gender = 1 AND votes.gender = 1 THEN 1 ELSE 0 END) AS male_votes",
         "SUM(CASE WHEN posts.gender = 2 AND votes.gender = 2 THEN 1 ELSE 0 END) AS female_votes"
