@@ -17,24 +17,36 @@ class DiscussionThreadQuery
   
     def popular
       DiscussionThread
-        .includes(posts: :votes)
-        .left_joins(:posts)
-        .where('posts.created_at >= ?', 1.day.ago)
-        .group(:id)
-        .order("COUNT(posts.id) DESC")
-        .limit(@limit)
-        .select("discussion_threads.*, COUNT(posts.id) AS posts_count")
+      .joins(posts: :votes)
+      .where('posts.created_at >= ?', 1.day.ago)
+      .group('discussion_threads.id')
+      .select(
+        'discussion_threads.id',
+        'discussion_threads.thread_title',
+        'discussion_threads.created_at',
+        'COUNT(posts.id) AS comments_count',
+        "SUM(CASE WHEN posts.gender = 1 AND votes.gender = 1 THEN 1 ELSE 0 END) AS male_votes",
+        "SUM(CASE WHEN posts.gender = 2 AND votes.gender = 2 THEN 1 ELSE 0 END) AS female_votes"
+      )
+      .order('comments_count DESC')
+      .limit(@limit)
     end
 
     def weekPopular
       DiscussionThread
-        .includes(posts: :votes)
-        .left_joins(:posts)
-        .where('posts.created_at >= ?', 1.week.ago)
-        .group(:id)
-        .order("COUNT(posts.id) DESC")
-        .limit(@limit)
-        .select("discussion_threads.*, COUNT(posts.id) AS comments_count")
+      .joins(posts: :votes)
+      .where('posts.created_at >= ?', 1.week.ago)
+      .group('discussion_threads.id')
+      .select(
+        'discussion_threads.id',
+        'discussion_threads.thread_title',
+        'discussion_threads.created_at',
+        'COUNT(posts.id) AS comments_count',
+        "SUM(CASE WHEN posts.gender = 1 AND votes.gender = 1 THEN 1 ELSE 0 END) AS male_votes",
+        "SUM(CASE WHEN posts.gender = 2 AND votes.gender = 2 THEN 1 ELSE 0 END) AS female_votes"
+      )
+      .order('comments_count DESC')
+      .limit(@limit)
     end
 end
 

@@ -26,32 +26,19 @@ class DiscussionThread < ApplicationRecord
 
   # 人気のスレッドを取得（直近1日のコメント数が多い順）
   def self.fetch_popular
-    threads = DiscussionThreadQuery.new.popular # 人気のスレッドを取得
+    threads = DiscussionThreadQuery.new.popular
     Rails.logger.info("Fetched popular threads: #{threads.inspect}")
-
+  
     threads.map do |thread|
-      male_votes = 0
-      female_votes = 0
-
-      # 各スレッドに関連するポストと「いいね」を集計
-      thread.posts.includes(:votes).each do |post|
-        if post.gender == 1 # 男性のポスト
-          male_votes += post.votes.where(gender: 1).count
-        elsif post.gender == 2 # 女性のポスト
-          female_votes += post.votes.where(gender: 2).count
-        end
-      end
-
-      # スレッド情報と集計結果を返す
       {
         id: thread.id,
         thread_title: thread.thread_title,
         created_at: thread.created_at,
         updated_at: thread.updated_at,
-        comments_count: thread.posts.count,
+        comments_count: thread.attributes["comments_count"].to_i,
         votes_summary: {
-          male_votes: male_votes,
-          female_votes: female_votes
+          male_votes: thread.attributes["male_votes"].to_i,
+          female_votes: thread.attributes["female_votes"].to_i
         }
       }
     end
@@ -63,31 +50,15 @@ class DiscussionThread < ApplicationRecord
     Rails.logger.info("Fetched weekly popular threads: #{threads.inspect}")
 
     threads.map do |thread|
-      male_votes = 0
-      female_votes = 0
-
-      # 各スレッドに関連するポストと「いいね」を集計
-      posts = thread.posts.includes(:votes) # 関連するポストと「いいね」を取得
-      Rails.logger.info("Posts for thread #{thread.id}: #{posts.inspect}")
-
-      posts.each do |post|
-        if post.gender == 1 # 男性のポスト
-          male_votes += post.votes.where(gender: 1).count
-        elsif post.gender == 2 # 女性のポスト
-          female_votes += post.votes.where(gender: 2).count
-        end
-      end
-
-      # スレッド情報と集計結果を返す
       {
         id: thread.id,
         thread_title: thread.thread_title,
         created_at: thread.created_at,
         updated_at: thread.updated_at,
-        comments_count: thread.posts.count,
+        comments_count: thread.attributes["comments_count"].to_i,
         votes_summary: {
-          male_votes: male_votes,
-          female_votes: female_votes
+          male_votes: thread.attributes["male_votes"].to_i,
+          female_votes: thread.attributes["female_votes"].to_i
         }
       }
     end
