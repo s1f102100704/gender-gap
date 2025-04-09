@@ -26,22 +26,24 @@ class DiscussionThread < ApplicationRecord
 
   # 人気のスレッドを取得（直近1日のコメント数が多い順）
   def self.fetch_popular
-    threads = DiscussionThreadQuery.new.popular
-    Rails.logger.info("Fetched popular threads: #{threads.inspect}")
+    Rails.cache.fetch("popular_threads",expire_in: 10.minutes) do
+      threads = DiscussionThreadQuery.new.popular
+      Rails.logger.info("Fetched popular threads: #{threads.inspect}")
   
-    threads.map do |thread|
-      {
-        id: thread.id,
-        thread_title: thread.thread_title,
-        created_at: thread.created_at,
-        updated_at: thread.updated_at,
-        image_key: thread.try(:image_key),
-        comments_count: thread.attributes["comments_count"].to_i,
-        votes_summary: {
-          male_votes: thread.attributes["male_votes"].to_i,
-          female_votes: thread.attributes["female_votes"].to_i
+      threads.map do |thread|
+        {
+          id: thread.id,
+          thread_title: thread.thread_title,
+          created_at: thread.created_at,
+          updated_at: thread.updated_at,
+          image_key: thread.try(:image_key),
+          comments_count: thread.attributes["comments_count"].to_i,
+          votes_summary: {
+            male_votes: thread.attributes["male_votes"].to_i,
+            female_votes: thread.attributes["female_votes"].to_i
+          }
         }
-      }
+      end
     end
   end
 
