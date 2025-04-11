@@ -4,15 +4,13 @@ class Api::V1::ImgDownloadsController < ApplicationController
   def presigned_url
     key = params[:key] # S3の画像キー（例：uploads/abc123.jpg）
 
-    s3 = Aws::S3::Resource.new(
-      region: ENV['AWS_REGION'],
-      access_key_id: ENV['AWS_ACCESS_KEY_ID'],
-      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY']
-    )
-    bucket = s3.bucket(ENV['AWS_BUCKET_NAME'])
-
-    url = bucket.object(key).presigned_url(:get, expires_in: 86400) 
-
-    render_json_response({ url: url }, status: :ok)
+    cache_key = "image_presigned_url:#{key}"
+    url = Rails.cache.read(cache_key)
+    if url
+      render_json_response({ url: url }, status: :ok)
+    else
+      ImageProcessingJob.perform_later(key)
+      render_json_response({ status: "pending" }, status: :accepted)
+    end
   end
 end

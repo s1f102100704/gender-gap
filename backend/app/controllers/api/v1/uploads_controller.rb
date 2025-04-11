@@ -14,7 +14,7 @@ class Api::V1::UploadsController < ApplicationController
     ext = Rack::Mime::MIME_TYPES.invert[content_type] || ".jpg"
     key = "uploads/#{SecureRandom.uuid}#{ext}"
 
-    # Presigned URL 発行（PUTメソッドで5分間有効）
+    # Presigned URL 発行
     url = bucket.object(key).presigned_url(:put, {
       content_type: content_type,
       acl: 'private', 
