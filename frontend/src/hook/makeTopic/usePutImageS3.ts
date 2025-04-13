@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PRESIGNED_URL_API_URL } from "../../config";
+import { GET_PRESIGNED_API_URL, PRESIGNED_URL_API_URL } from "../../config";
 import imageCompression from "browser-image-compression";
 const usePutImageS3 = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -23,6 +23,7 @@ const usePutImageS3 = () => {
         },
         body: compressedFile,
       });
+      await fetch(`${GET_PRESIGNED_API_URL}?key=${encodeURIComponent(key)}`);
       return key;
     }
     return null;

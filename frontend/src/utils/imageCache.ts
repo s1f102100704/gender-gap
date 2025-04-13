@@ -17,7 +17,7 @@ const loadCache = (): Record<string, ImageCacheData> => {
       }
     }
 
-    // 掃除後に保存し直す（消しとく）
+    // 掃除後に保存し直す
     saveCache(filtered);
 
     return filtered;

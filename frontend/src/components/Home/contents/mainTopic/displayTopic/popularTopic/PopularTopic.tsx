@@ -23,7 +23,8 @@ const PopularTopic = () => {
             Accept: "application/json",
           },
         });
-        console.log("recentTopic:", response.data.data);
+
+        console.log("popularTopic:", response.data.data);
         setPopularThreads(response.data.data);
       } catch (err) {
         console.log(err);
