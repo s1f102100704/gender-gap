@@ -17,7 +17,8 @@ class DiscussionThreadQuery
   
     def popular
       DiscussionThread
-      .joins(posts: :votes)
+      .joins(:posts)
+      .left_outer_joins(posts: :votes)
       .where('posts.created_at >= ?', 1.day.ago)
       .group('discussion_threads.id')
       .select(
@@ -36,7 +37,8 @@ class DiscussionThreadQuery
 
     def weekPopular
       DiscussionThread
-      .joins(posts: :votes)
+      .joins(:posts)
+      .left_outer_joins(posts: :votes)
       .where('posts.created_at >= ?', 1.week.ago)
       .group('discussion_threads.id')
       .select(
