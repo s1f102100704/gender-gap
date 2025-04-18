@@ -15,6 +15,7 @@ const RecommendTopic = () => {
   };
   useEffect(() => {
     const fetchThreadsTitle = async () => {
+      console.log("url", DISCUSSION_RECOMMEND_API_URL);
       try {
         const response = await axios.get(DISCUSSION_RECOMMEND_API_URL, {
           headers: {
